@@ -1,0 +1,1872 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Administration - Restaurant Le Kabouyah</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&family=Open+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --kabouyah-gold: #D4AF37;
+            --kabouyah-dark-gold: #B8941F;
+            --kabouyah-green: #228B22;
+            --kabouyah-dark: #083A4B;
+            --kabouyah-light: #F8F9FA;
+            --kabouyah-brown: #8B4513;
+            --kabouyah-cream: #FFF8DC;
+            --sidebar-width: 280px;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Open Sans', sans-serif;
+            background-color: #f5f7fa;
+            color: var(--kabouyah-dark);
+            line-height: 1.6;
+        }
+        
+        h1, h2, h3, h4, h5 {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+        }
+        
+        .admin-container {
+            display: flex;
+            min-height: 100vh;
+        }
+        
+        /* Sidebar */
+        .sidebar {
+            width: var(--sidebar-width);
+            background: linear-gradient(180deg, var(--kabouyah-dark) 0%, #0a4552 100%);
+            color: white;
+            position: fixed;
+            height: 100vh;
+            overflow-y: auto;
+            transition: all 0.3s ease;
+            z-index: 1000;
+        }
+        
+        .sidebar-header {
+            padding: 25px 20px;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            background: rgba(0,0,0,0.1);
+        }
+        
+        .admin-logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .admin-logo .logo-icon {
+            width: 45px;
+            height: 45px;
+            background: var(--kabouyah-gold);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .admin-logo .logo-text {
+            font-size: 18px;
+            font-weight: 800;
+            line-height: 1.2;
+        }
+        
+        .admin-logo .logo-text span {
+            color: var(--kabouyah-gold);
+        }
+        
+        .nav-menu {
+            padding: 20px 0;
+        }
+        
+        .nav-item {
+            margin-bottom: 8px;
+        }
+        
+        .nav-link {
+            display: flex;
+            align-items: center;
+            padding: 15px 20px;
+            color: rgba(255,255,255,0.8);
+            text-decoration: none;
+            transition: all 0.3s ease;
+            font-weight: 500;
+            border-left: 4px solid transparent;
+        }
+        
+        .nav-link:hover,
+        .nav-link.active {
+            color: white;
+            background: rgba(212,175,55,0.15);
+            border-left-color: var(--kabouyah-gold);
+        }
+        
+        .nav-link i {
+            width: 20px;
+            margin-right: 15px;
+            font-size: 16px;
+        }
+        
+        /* Main Content */
+        .main-content {
+            margin-left: var(--sidebar-width);
+            flex: 1;
+            padding: 0;
+            background-color: #f5f7fa;
+        }
+        
+        /* Header */
+        .admin-header {
+            background: white;
+            padding: 20px 30px;
+            border-bottom: 1px solid #e3e7ed;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .page-title {
+            font-size: 24px;
+            color: var(--kabouyah-dark);
+            margin: 0;
+        }
+        
+        .admin-user {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .user-info {
+            text-align: right;
+        }
+        
+        .user-name {
+            font-weight: 600;
+            color: var(--kabouyah-dark);
+            font-size: 14px;
+        }
+        
+        .user-role {
+            font-size: 12px;
+            color: #666;
+        }
+        
+        .user-avatar {
+            width: 45px;
+            height: 45px;
+            background: var(--kabouyah-gold);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 18px;
+        }
+        
+        /* Content Area */
+        .content-area {
+            padding: 30px;
+        }
+        
+        .content-section {
+            display: none;
+        }
+        
+        .content-section.active {
+            display: block;
+        }
+        
+        /* Dashboard Cards */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+        
+        .stat-card {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+            transition: all 0.3s ease;
+            border-left: 5px solid var(--kabouyah-gold);
+        }
+        
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.12);
+        }
+        
+        .stat-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 20px;
+        }
+        
+        .stat-info h3 {
+            font-size: 2.2rem;
+            color: var(--kabouyah-dark);
+            margin-bottom: 5px;
+        }
+        
+        .stat-info p {
+            color: #666;
+            font-size: 14px;
+            font-weight: 500;
+        }
+        
+        .stat-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, var(--kabouyah-gold), var(--kabouyah-dark-gold));
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 24px;
+        }
+        
+        .stat-trend {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 14px;
+        }
+        
+        .trend-positive {
+            color: var(--kabouyah-green);
+        }
+        
+        .trend-negative {
+            color: #dc3545;
+        }
+        
+        /* Tables */
+        .table-container {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+            margin-bottom: 30px;
+        }
+        
+        .table-header {
+            padding: 25px 30px;
+            background: var(--kabouyah-dark);
+            color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .table-header h3 {
+            margin: 0;
+            font-size: 18px;
+        }
+        
+        .btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 14px;
+        }
+        
+        .btn-primary {
+            background: var(--kabouyah-gold);
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background: var(--kabouyah-dark-gold);
+            transform: translateY(-2px);
+        }
+        
+        .btn-success {
+            background: var(--kabouyah-green);
+            color: white;
+        }
+        
+        .btn-danger {
+            background: #dc3545;
+            color: white;
+        }
+        
+        .btn-warning {
+            background: #ffc107;
+            color: #212529;
+        }
+        
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        
+        .data-table th,
+        .data-table td {
+            padding: 15px 20px;
+            text-align: left;
+            border-bottom: 1px solid #e3e7ed;
+        }
+        
+        .data-table th {
+            background: #f8f9fa;
+            font-weight: 600;
+            color: var(--kabouyah-dark);
+            font-size: 14px;
+        }
+        
+        .data-table tbody tr:hover {
+            background: #f8f9fa;
+        }
+        
+        /* Status Badges */
+        .status-badge {
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+        
+        .status-confirmed {
+            background: #d4edda;
+            color: #155724;
+        }
+        
+        .status-pending {
+            background: #fff3cd;
+            color: #856404;
+        }
+        
+        .status-cancelled {
+            background: #f8d7da;
+            color: #721c24;
+        }
+        
+        .status-available {
+            background: #d4edda;
+            color: #155724;
+        }
+        
+        .status-unavailable {
+            background: #f8d7da;
+            color: #721c24;
+        }
+        
+        /* Forms */
+        .form-container {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+        }
+        
+        .form-group {
+            margin-bottom: 25px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: var(--kabouyah-dark);
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: 12px 16px;
+            border: 2px solid #e3e7ed;
+            border-radius: 8px;
+            font-size: 14px;
+            transition: all 0.3s ease;
+        }
+        
+        .form-control:focus {
+            outline: none;
+            border-color: var(--kabouyah-gold);
+            box-shadow: 0 0 0 3px rgba(212,175,55,0.1);
+        }
+        
+        .form-row {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+        
+        /* Charts Container */
+        .charts-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+        
+        .chart-container {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+        }
+        
+        .chart-title {
+            font-size: 18px;
+            margin-bottom: 20px;
+            color: var(--kabouyah-dark);
+        }
+        
+        .chart-placeholder {
+            height: 300px;
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #6c757d;
+            font-size: 16px;
+        }
+        
+        /* Mobile Responsiveness */
+        @media (max-width: 1024px) {
+            .sidebar {
+                transform: translateX(-100%);
+            }
+            
+            .sidebar.active {
+                transform: translateX(0);
+            }
+            
+            .main-content {
+                margin-left: 0;
+            }
+            
+            .mobile-toggle {
+                display: block !important;
+            }
+        }
+        
+        .mobile-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--kabouyah-dark);
+            font-size: 20px;
+            cursor: pointer;
+            padding: 10px;
+        }
+        
+        @media (max-width: 768px) {
+            .content-area {
+                padding: 20px;
+            }
+            
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .charts-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .admin-header {
+                padding: 15px 20px;
+            }
+            
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="admin-container">
+        <!-- Sidebar -->
+        <nav class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <div class="admin-logo">
+                    <div class="logo-icon">
+                        <i class="fas fa-utensils"></i>
+                    </div>
+                    <div class="logo-text">
+                        RESTAURANT<br><span>KABOUYAH</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="nav-menu">
+                <div class="nav-item">
+                    <a href="#" class="nav-link active" data-section="dashboard">
+                        <i class="fas fa-tachometer-alt"></i>
+                        Tableau de Bord
+                    </a>
+                </div>
+                <div class="nav-item">
+                    <a href="#" class="nav-link" data-section="reservations">
+                        <i class="fas fa-calendar-check"></i>
+                        Réservations
+                    </a>
+                </div>
+                <div class="nav-item">
+                    <a href="#" class="nav-link" data-section="menu">
+                        <i class="fas fa-utensils"></i>
+                        Gestion Menu
+                    </a>
+                </div>
+                <div class="nav-item">
+                    <a href="#" class="nav-link" data-section="orders">
+                        <i class="fas fa-shopping-cart"></i>
+                        Commandes
+                    </a>
+                </div>
+                <div class="nav-item">
+                    <a href="#" class="nav-link" data-section="customers">
+                        <i class="fas fa-users"></i>
+                        Clients
+                    </a>
+                </div>
+                <div class="nav-item">
+                    <a href="#" class="nav-link" data-section="staff">
+                        <i class="fas fa-user-tie"></i>
+                        Personnel
+                    </a>
+                </div>
+                <div class="nav-item">
+                    <a href="#" class="nav-link" data-section="inventory">
+                        <i class="fas fa-boxes"></i>
+                        Inventaire
+                    </a>
+                </div>
+                <div class="nav-item">
+                    <a href="#" class="nav-link" data-section="finances">
+                        <i class="fas fa-chart-line"></i>
+                        Finances
+                    </a>
+                </div>
+                <div class="nav-item">
+                    <a href="#" class="nav-link" data-section="analytics">
+                        <i class="fas fa-chart-bar"></i>
+                        Analyses
+                    </a>
+                </div>
+                <div class="nav-item">
+                    <a href="#" class="nav-link" data-section="settings">
+                        <i class="fas fa-cog"></i>
+                        Paramètres
+                    </a>
+                </div>
+            </div>
+        </nav>
+        
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Header -->
+            <header class="admin-header">
+                <div class="header-content">
+                    <div style="display: flex; align-items: center; gap: 15px;">
+                        <button class="mobile-toggle" id="mobileToggle">
+                            <i class="fas fa-bars"></i>
+                        </button>
+                        <h1 class="page-title" id="pageTitle">Tableau de Bord</h1>
+                    </div>
+                    
+                    <div class="admin-user">
+                        <div class="user-info">
+                            <div class="user-name">Admin Kabouyah</div>
+                            <div class="user-role">Administrateur</div>
+                        </div>
+                        <div class="user-avatar">
+                            <i class="fas fa-user"></i>
+                        </div>
+                    </div>
+                </div>
+            </header>
+            
+            <!-- Content Area -->
+            <div class="content-area">
+                <!-- Dashboard Section -->
+                <div class="content-section active" id="dashboard">
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <div class="stat-header">
+                                <div class="stat-info">
+                                    <h3>127</h3>
+                                    <p>Réservations ce mois</p>
+                                </div>
+                                <div class="stat-icon">
+                                    <i class="fas fa-calendar-check"></i>
+                                </div>
+                            </div>
+                            <div class="stat-trend trend-positive">
+                                <i class="fas fa-arrow-up"></i>
+                                +12% vs mois dernier
+                            </div>
+                        </div>
+                        
+                        <div class="stat-card">
+                            <div class="stat-header">
+                                <div class="stat-info">
+                                    <h3>18,500,000</h3>
+                                    <p>Chiffre d'affaires (FG)</p>
+                                </div>
+                                <div class="stat-icon">
+                                    <i class="fas fa-money-bill-wave"></i>
+                                </div>
+                            </div>
+                            <div class="stat-trend trend-positive">
+                                <i class="fas fa-arrow-up"></i>
+                                +8% vs mois dernier
+                            </div>
+                        </div>
+                        
+                        <div class="stat-card">
+                            <div class="stat-header">
+                                <div class="stat-info">
+                                    <h3>342</h3>
+                                    <p>Plats servis aujourd'hui</p>
+                                </div>
+                                <div class="stat-icon">
+                                    <i class="fas fa-utensils"></i>
+                                </div>
+                            </div>
+                            <div class="stat-trend trend-positive">
+                                <i class="fas fa-arrow-up"></i>
+                                +5% vs hier
+                            </div>
+                        </div>
+                        
+                        <div class="stat-card">
+                            <div class="stat-header">
+                                <div class="stat-info">
+                                    <h3>4.8</h3>
+                                    <p>Note moyenne clients</p>
+                                </div>
+                                <div class="stat-icon">
+                                    <i class="fas fa-star"></i>
+                                </div>
+                            </div>
+                            <div class="stat-trend trend-positive">
+                                <i class="fas fa-arrow-up"></i>
+                                Excellent service
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="charts-grid">
+                        <div class="chart-container">
+                            <h3 class="chart-title">Évolution des Ventes</h3>
+                            <div class="chart-placeholder">
+                                <i class="fas fa-chart-line" style="margin-right: 10px;"></i>
+                                Graphique des ventes mensuelles
+                            </div>
+                        </div>
+                        
+                        <div class="chart-container">
+                            <h3 class="chart-title">Plats les Plus Populaires</h3>
+                            <div class="chart-placeholder">
+                                <i class="fas fa-chart-pie" style="margin-right: 10px;"></i>
+                                Graphique des plats favoris
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="table-container">
+                        <div class="table-header">
+                            <h3>Réservations Récentes</h3>
+                            <a href="#" class="btn btn-primary">
+                                <i class="fas fa-plus"></i>
+                                Nouvelle Réservation
+                            </a>
+                        </div>
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Client</th>
+                                    <th>Date</th>
+                                    <th>Heure</th>
+                                    <th>Personnes</th>
+                                    <th>Statut</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Mamadou Diallo</td>
+                                    <td>20/08/2024</td>
+                                    <td>19:30</td>
+                                    <td>4</td>
+                                    <td><span class="status-badge status-confirmed">Confirmée</span></td>
+                                    <td>
+                                        <button class="btn btn-primary" style="padding: 5px 10px; font-size: 12px;">
+                                            <i class="fas fa-edit"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Aissatou Bah</td>
+                                    <td>20/08/2024</td>
+                                    <td>20:00</td>
+                                    <td>2</td>
+                                    <td><span class="status-badge status-pending">En attente</span></td>
+                                    <td>
+                                        <button class="btn btn-primary" style="padding: 5px 10px; font-size: 12px;">
+                                            <i class="fas fa-edit"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Ibrahim Condé</td>
+                                    <td>21/08/2024</td>
+                                    <td>18:45</td>
+                                    <td>6</td>
+                                    <td><span class="status-badge status-confirmed">Confirmée</span></td>
+                                    <td>
+                                        <button class="btn btn-primary" style="padding: 5px 10px; font-size: 12px;">
+                                            <i class="fas fa-edit"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                
+                <!-- Reservations Section -->
+                <div class="content-section" id="reservations">
+                    <div class="table-container">
+                        <div class="table-header">
+                            <h3>Toutes les Réservations</h3>
+                            <a href="#" class="btn btn-primary">
+                                <i class="fas fa-plus"></i>
+                                Ajouter Réservation
+                            </a>
+                        </div>
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Client</th>
+                                    <th>Téléphone</th>
+                                    <th>Date</th>
+                                    <th>Heure</th>
+                                    <th>Personnes</th>
+                                    <th>Statut</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>#001</td>
+                                    <td>Mamadou Diallo</td>
+                                    <td>+224 610 31 91 91</td>
+                                    <td>20/08/2024</td>
+                                    <td>19:30</td>
+                                    <td>4</td>
+                                    <td><span class="status-badge status-confirmed">Confirmée</span></td>
+                                    <td>
+                                        <button class="btn btn-success" style="padding: 5px 10px; font-size: 12px;">
+                                            <i class="fas fa-check"></i>
+                                        </button>
+                                        <button class="btn btn-danger" style="padding: 5px 10px; font-size: 12px;">
+                                            <i class="fas fa-times"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>#002</td>
+                                    <td>Aissatou Bah</td>
+                                    <td>+224 622 45 67 89</td>
+                                    <td>20/08/2024</td>
+                                    <td>20:00</td>
+                                    <td>2</td>
+                                    <td><span class="status-badge status-pending">En attente</span></td>
+                                    <td>
+                                        <button class="btn btn-success" style="padding: 5px 10px; font-size: 12px;">
+                                            <i class="fas fa-check"></i>
+                                        </button>
+                                        <button class="btn btn-danger" style="padding: 5px 10px; font-size: 12px;">
+                                            <i class="fas fa-times"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                
+                <!-- Menu Management Section -->
+                <div class="content-section" id="menu">
+                    <div class="form-container" style="margin-bottom: 30px;">
+                        <h3 style="margin-bottom: 25px;">Ajouter un Nouveau Plat</h3>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="dishName">Nom du Plat</label>
+                                <input type="text" id="dishName" class="form-control" placeholder="Ex: Riz au Gras">
+                            </div>
+                            <div class="form-group">
+                                <label for="dishPrice">Prix (FG)</label>
+                                <input type="number" id="dishPrice" class="form-control" placeholder="Ex: 20000">
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="dishCategory">Catégorie</label>
+                                <select id="dishCategory" class="form-control">
+                                    <option>Entrées</option>
+                                    <option>Plats Principaux</option>
+                                    <option>Desserts</option>
+                                    <option>Boissons</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="dishStatus">Statut</label>
+                                <select id="dishStatus" class="form-control">
+                                    <option>Disponible</option>
+                                    <option>Indisponible</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="dishDescription">Description</label>
+                            <textarea id="dishDescription" class="form-control" rows="3" placeholder="Description du plat..."></textarea>
+                        </div>
+                        <button class="btn btn-primary">
+                            <i class="fas fa-plus"></i>
+                            Ajouter le Plat
+                        </button>
+                    </div>
+                    
+                    <div class="table-container">
+                        <div class="table-header">
+                            <h3>Menu Actuel</h3>
+                        </div>
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Plat</th>
+                                    <th>Catégorie</th>
+                                    <th>Prix (FG)</th>
+                                    <th>Statut</th>
+                                    <th>Popularité</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Riz au Gras</td>
+                                    <td>Plats Principaux</td>
+                                    <td>20,000</td>
+                                    <td><span class="status-badge status-available">Disponible</span></td>
+                                    <td>⭐⭐⭐⭐⭐</td>
+                                    <td>
+                                        <button class="btn btn-primary" style="padding: 5px 10px; font-size: 12px;">
+                                            <i class="fas fa-edit"></i>
+                                        </button>
+                                        <button class="btn btn-danger" style="padding: 5px 10px; font-size: 12px;">
+                                            <i class="fas fa-trash"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Poisson Braisé</td>
+                                    <td>Plats Principaux</td>
+                                    <td>25,000</td>
+                                    <td><span class="status-badge status-available">Disponible</span></td>
+                                    <td>⭐⭐⭐⭐</td>
+                                    <td>
+                                        <button class="btn btn-primary" style="padding: 5px 10px; font-size: 12px;">
+                                            <i class="fas fa-edit"></i>
+                                        </button>
+                                        <button class="btn btn-danger" style="padding: 5px 10px; font-size: 12px;">
+                                            <i class="fas fa-trash"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Jus de Bissap</td>
+                                    <td>Boissons</td>
+                                    <td>2,500</td>
+                                    <td><span class="status-badge status-unavailable">Indisponible</span></td>
+                                    <td>⭐⭐⭐⭐⭐</td>
+                                    <td>
+                                        <button class="btn btn-primary" style="padding: 5px 10px; font-size: 12px;">
+                                            <i class="fas fa-edit"></i>
+                                        </button>
+                                        <button class="btn btn-danger" style="padding: 5px 10px; font-size: 12px;">
+                                            <i class="fas fa-trash"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                
+                <!-- Orders Section -->
+                <div class="content-section" id="orders">
+                    <div class="table-container">
+                        <div class="table-header">
+                            <h3>Commandes du Jour</h3>
+                            <div style="display: flex; gap: 10px;">
+                                <button class="btn btn-success">
+                                    <i class="fas fa-check-circle"></i>
+                                    Toutes Servies (12)
+                                </button>
+                                <button class="btn btn-warning">
+                                    <i class="fas fa-clock"></i>
+                                    En Préparation (5)
+                                </button>
+                            </div>
+                        </div>
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>N° Commande</th>
+                                    <th>Table</th>
+                                    <th>Plats</th>
+                                    <th>Total (FG)</th>
+                                    <th>Heure</th>
+                                    <th>Statut</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>#CMD001</td>
+                                    <td>Table 5</td>
+                                    <td>Riz au Gras x2, Bissap x2</td>
+                                    <td>45,000</td>
+                                    <td>19:30</td>
+                                    <td><span class="status-badge status-pending">En préparation</span></td>
+                                    <td>
+                                        <button class="btn btn-success" style="padding: 5px 10px; font-size: 12px;">
+                                            <i class="fas fa-check"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>#CMD002</td>
+                                    <td>Table 3</td>
+                                    <td>Poisson Braisé x1, Café x1</td>
+                                    <td>27,000</td>
+                                    <td>19:45</td>
+                                    <td><span class="status-badge status-confirmed">Servie</span></td>
+                                    <td>
+                                        <button class="btn btn-primary" style="padding: 5px 10px; font-size: 12px;">
+                                            <i class="fas fa-receipt"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>#CMD003</td>
+                                    <td>Livraison</td>
+                                    <td>Poulet Yassa x3, Jus Baobab x3</td>
+                                    <td>63,000</td>
+                                    <td>20:15</td>
+                                    <td><span class="status-badge status-pending">En route</span></td>
+                                    <td>
+                                        <button class="btn btn-warning" style="padding: 5px 10px; font-size: 12px;">
+                                            <i class="fas fa-truck"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                
+                <!-- Customers Section -->
+                <div class="content-section" id="customers">
+                    <div class="stats-grid" style="grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); margin-bottom: 30px;">
+                        <div class="stat-card">
+                            <div class="stat-info">
+                                <h3>1,247</h3>
+                                <p>Clients Total</p>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-info">
+                                <h3>89</h3>
+                                <p>Nouveaux ce mois</p>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-info">
+                                <h3>156</h3>
+                                <p>Clients fidèles</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="table-container">
+                        <div class="table-header">
+                            <h3>Base de Données Clients</h3>
+                            <button class="btn btn-primary">
+                                <i class="fas fa-download"></i>
+                                Exporter
+                            </button>
+                        </div>
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Nom</th>
+                                    <th>Téléphone</th>
+                                    <th>Email</th>
+                                    <th>Dernière Visite</th>
+                                    <th>Total Dépensé (FG)</th>
+                                    <th>Visites</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Mamadou Diallo</td>
+                                    <td>+224 610 31 91 91</td>
+                                    <td>mamadou@email.com</td>
+                                    <td>19/08/2024</td>
+                                    <td>245,000</td>
+                                    <td>12</td>
+                                </tr>
+                                <tr>
+                                    <td>Aissatou Bah</td>
+                                    <td>+224 622 45 67 89</td>
+                                    <td>aissatou@email.com</td>
+                                    <td>18/08/2024</td>
+                                    <td>156,000</td>
+                                    <td>8</td>
+                                </tr>
+                                <tr>
+                                    <td>Ibrahim Condé</td>
+                                    <td>+224 666 78 90 12</td>
+                                    <td>ibrahim@email.com</td>
+                                    <td>17/08/2024</td>
+                                    <td>89,000</td>
+                                    <td>4</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                
+                <!-- Staff Section -->
+                <div class="content-section" id="staff">
+                    <div class="form-container" style="margin-bottom: 30px;">
+                        <h3 style="margin-bottom: 25px;">Ajouter un Employé</h3>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="staffName">Nom Complet</label>
+                                <input type="text" id="staffName" class="form-control" placeholder="Ex: Boubacar Camara">
+                            </div>
+                            <div class="form-group">
+                                <label for="staffPosition">Poste</label>
+                                <select id="staffPosition" class="form-control">
+                                    <option>Serveur</option>
+                                    <option>Cuisinier</option>
+                                    <option>Chef</option>
+                                    <option>Réceptionniste</option>
+                                    <option>Manager</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="staffPhone">Téléphone</label>
+                                <input type="tel" id="staffPhone" class="form-control" placeholder="+224 xxx xx xx xx">
+                            </div>
+                            <div class="form-group">
+                                <label for="staffSalary">Salaire (FG)</label>
+                                <input type="number" id="staffSalary" class="form-control" placeholder="Ex: 800000">
+                            </div>
+                        </div>
+                        <button class="btn btn-primary">
+                            <i class="fas fa-user-plus"></i>
+                            Ajouter l'Employé
+                        </button>
+                    </div>
+                    
+                    <div class="table-container">
+                        <div class="table-header">
+                            <h3>Personnel</h3>
+                            <div style="display: flex; gap: 10px;">
+                                <span style="color: white; font-size: 14px;">
+                                    <i class="fas fa-users"></i>
+                                    15 employés actifs
+                                </span>
+                            </div>
+                        </div>
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Nom</th>
+                                    <th>Poste</th>
+                                    <th>Téléphone</th>
+                                    <th>Salaire (FG)</th>
+                                    <th>Date d'embauche</th>
+                                    <th>Statut</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Amadou Diop</td>
+                                    <td>Chef Cuisinier</td>
+                                    <td>+224 611 22 33 44</td>
+                                    <td>1,200,000</td>
+                                    <td>15/03/2023</td>
+                                    <td><span class="status-badge status-available">Actif</span></td>
+                                    <td>
+                                        <button class="btn btn-primary" style="padding: 5px 10px; font-size: 12px;">
+                                            <i class="fas fa-edit"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Fatou Touré</td>
+                                    <td>Serveuse</td>
+                                    <td>+224 622 55 66 77</td>
+                                    <td>600,000</td>
+                                    <td>10/06/2023</td>
+                                    <td><span class="status-badge status-available">Actif</span></td>
+                                    <td>
+                                        <button class="btn btn-primary" style="padding: 5px 10px; font-size: 12px;">
+                                            <i class="fas fa-edit"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Sekou Keita</td>
+                                    <td>Cuisinier</td>
+                                    <td>+224 666 88 99 00</td>
+                                    <td>800,000</td>
+                                    <td>20/01/2024</td>
+                                    <td><span class="status-badge status-available">Actif</span></td>
+                                    <td>
+                                        <button class="btn btn-primary" style="padding: 5px 10px; font-size: 12px;">
+                                            <i class="fas fa-edit"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                
+                <!-- Inventory Section -->
+                <div class="content-section" id="inventory">
+                    <div class="stats-grid" style="grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); margin-bottom: 30px;">
+                        <div class="stat-card">
+                            <div class="stat-info">
+                                <h3>156</h3>
+                                <p>Articles en Stock</p>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-info">
+                                <h3>23</h3>
+                                <p>Stock Faible</p>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-info">
+                                <h3>5</h3>
+                                <p>En Rupture</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="table-container">
+                        <div class="table-header">
+                            <h3>Inventaire</h3>
+                            <button class="btn btn-primary">
+                                <i class="fas fa-plus"></i>
+                                Ajouter Article
+                            </button>
+                        </div>
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Article</th>
+                                    <th>Catégorie</th>
+                                    <th>Quantité</th>
+                                    <th>Unité</th>
+                                    <th>Prix Unitaire (FG)</th>
+                                    <th>Statut</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Riz</td>
+                                    <td>Céréales</td>
+                                    <td>50</td>
+                                    <td>Kg</td>
+                                    <td>12,000</td>
+                                    <td><span class="status-badge status-available">Suffisant</span></td>
+                                    <td>
+                                        <button class="btn btn-primary" style="padding: 5px 10px; font-size: 12px;">
+                                            <i class="fas fa-edit"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Huile de Palme</td>
+                                    <td>Huiles</td>
+                                    <td>5</td>
+                                    <td>Litres</td>
+                                    <td>15,000</td>
+                                    <td><span class="status-badge status-pending">Stock Faible</span></td>
+                                    <td>
+                                        <button class="btn btn-warning" style="padding: 5px 10px; font-size: 12px;">
+                                            <i class="fas fa-shopping-cart"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Poisson Capitaine</td>
+                                    <td>Poissons</td>
+                                    <td>0</td>
+                                    <td>Kg</td>
+                                    <td>25,000</td>
+                                    <td><span class="status-badge status-cancelled">Rupture</span></td>
+                                    <td>
+                                        <button class="btn btn-danger" style="padding: 5px 10px; font-size: 12px;">
+                                            <i class="fas fa-exclamation-triangle"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                
+                <!-- Finances Section -->
+                <div class="content-section" id="finances">
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <div class="stat-header">
+                                <div class="stat-info">
+                                    <h3>18,500,000</h3>
+                                    <p>Chiffre d'Affaires Mensuel</p>
+                                </div>
+                                <div class="stat-icon">
+                                    <i class="fas fa-chart-line"></i>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="stat-card">
+                            <div class="stat-header">
+                                <div class="stat-info">
+                                    <h3>12,300,000</h3>
+                                    <p>Charges Mensuelles</p>
+                                </div>
+                                <div class="stat-icon">
+                                    <i class="fas fa-money-bill"></i>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="stat-card">
+                            <div class="stat-header">
+                                <div class="stat-info">
+                                    <h3>6,200,000</h3>
+                                    <p>Bénéfice Net</p>
+                                </div>
+                                <div class="stat-icon">
+                                    <i class="fas fa-piggy-bank"></i>
+                                </div>
+                            </div>
+                            <div class="stat-trend trend-positive">
+                                <i class="fas fa-arrow-up"></i>
+                                Marge de 33.5%
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="charts-grid">
+                        <div class="chart-container">
+                            <h3 class="chart-title">Évolution Financière (6 mois)</h3>
+                            <div class="chart-placeholder">
+                                <i class="fas fa-chart-area" style="margin-right: 10px;"></i>
+                                Graphique des revenus et dépenses
+                            </div>
+                        </div>
+                        
+                        <div class="chart-container">
+                            <h3 class="chart-title">Répartition des Dépenses</h3>
+                            <div class="chart-placeholder">
+                                <i class="fas fa-chart-pie" style="margin-right: 10px;"></i>
+                                Personnel, Ingrédients, Charges...
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Analytics Section -->
+                <div class="content-section" id="analytics">
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <div class="stat-info">
+                                <h3>4.8/5</h3>
+                                <p>Satisfaction Client</p>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-info">
+                                <h3>89%</h3>
+                                <p>Taux d'Occupation</p>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-info">
+                                <h3>23 min</h3>
+                                <p>Temps Moyen Service</p>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-info">
+                                <h3>67%</h3>
+                                <p>Clients Fidèles</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="charts-grid">
+                        <div class="chart-container">
+                            <h3 class="chart-title">Affluence par Heure</h3>
+                            <div class="chart-placeholder">
+                                <i class="fas fa-chart-bar" style="margin-right: 10px;"></i>
+                                Graphique des heures de pointe
+                            </div>
+                        </div>
+                        
+                        <div class="chart-container">
+                            <h3 class="chart-title">Performance par Jour</h3>
+                            <div class="chart-placeholder">
+                                <i class="fas fa-chart-line" style="margin-right: 10px;"></i>
+                                Ventes quotidiennes de la semaine
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="table-container">
+                        <div class="table-header">
+                            <h3>Top 10 des Plats les Plus Vendus</h3>
+                        </div>
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Rang</th>
+                                    <th>Plat</th>
+                                    <th>Ventes (Mois)</th>
+                                    <th>Chiffre d'Affaires</th>
+                                    <th>Évolution</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>1</td>
+                                    <td>Riz au Gras</td>
+                                    <td>89</td>
+                                    <td>1,780,000 FG</td>
+                                    <td><span class="trend-positive">+12%</span></td>
+                                </tr>
+                                <tr>
+                                    <td>2</td>
+                                    <td>Poisson Braisé</td>
+                                    <td>67</td>
+                                    <td>1,675,000 FG</td>
+                                    <td><span class="trend-positive">+8%</span></td>
+                                </tr>
+                                <tr>
+                                    <td>3</td>
+                                    <td>Poulet Yassa</td>
+                                    <td>54</td>
+                                    <td>972,000 FG</td>
+                                    <td><span class="trend-positive">+5%</span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                
+                <!-- Settings Section -->
+                <div class="content-section" id="settings">
+                    <div class="form-container">
+                        <h3 style="margin-bottom: 25px;">Paramètres du Restaurant</h3>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="restaurantName">Nom du Restaurant</label>
+                                <input type="text" id="restaurantName" class="form-control" value="Restaurant Le Kabouyah">
+                            </div>
+                            <div class="form-group">
+                                <label for="restaurantPhone">Téléphone</label>
+                                <input type="tel" id="restaurantPhone" class="form-control" value="+224 610 31 91 91">
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="restaurantAddress">Adresse</label>
+                            <textarea id="restaurantAddress" class="form-control" rows="2">Hôtel le Kabouyah, Kagbelen, Commune de Dubréka, Guinée</textarea>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="openingTime">Heure d'Ouverture</label>
+                                <input type="time" id="openingTime" class="form-control" value="06:00">
+                            </div>
+                            <div class="form-group">
+                                <label for="closingTime">Heure de Fermeture</label>
+                                <input type="time" id="closingTime" class="form-control" value="23:00">
+                            </div>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="maxTables">Nombre de Tables</label>
+                                <input type="number" id="maxTables" class="form-control" value="20">
+                            </div>
+                            <div class="form-group">
+                                <label for="maxCapacity">Capacité Maximale</label>
+                                <input type="number" id="maxCapacity" class="form-control" value="80">
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="closedDays">Jours de Fermeture</label>
+                            <select id="closedDays" class="form-control">
+                                <option>Dimanche</option>
+                                <option>Lundi</option>
+                                <option>Aucun</option>
+                            </select>
+                        </div>
+                        
+                        <button class="btn btn-primary">
+                            <i class="fas fa-save"></i>
+                            Sauvegarder les Paramètres
+                        </button>
+                    </div>
+                    
+                    <div class="form-container" style="margin-top: 30px;">
+                        <h3 style="margin-bottom: 25px;">Paramètres de Notification</h3>
+                        
+                        <div class="form-group">
+                            <label>
+                                <input type="checkbox" checked style="margin-right: 10px;">
+                                Notifications de nouvelles réservations
+                            </label>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>
+                                <input type="checkbox" checked style="margin-right: 10px;">
+                                Alertes stock faible
+                            </label>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>
+                                <input type="checkbox" style="margin-right: 10px;">
+                                Rapport quotidien par email
+                            </label>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>
+                                <input type="checkbox" checked style="margin-right: 10px;">
+                                Notifications de commandes
+                            </label>
+                        </div>
+                        
+                        <button class="btn btn-primary">
+                            <i class="fas fa-bell"></i>
+                            Mettre à Jour les Notifications
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        // Navigation entre sections
+        document.addEventListener('DOMContentLoaded', function() {
+            const navLinks = document.querySelectorAll('.nav-link');
+            const contentSections = document.querySelectorAll('.content-section');
+            const pageTitle = document.getElementById('pageTitle');
+            const mobileToggle = document.getElementById('mobileToggle');
+            const sidebar = document.getElementById('sidebar');
+            
+            // Gestion des titres de page
+            const pageTitles = {
+                'dashboard': 'Tableau de Bord',
+                'reservations': 'Gestion des Réservations',
+                'menu': 'Gestion du Menu',
+                'orders': 'Suivi des Commandes',
+                'customers': 'Base de Données Clients',
+                'staff': 'Gestion du Personnel',
+                'inventory': 'Inventaire',
+                'finances': 'Finances',
+                'analytics': 'Analyses et Statistiques',
+                'settings': 'Paramètres'
+            };
+            
+            navLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    // Retirer la classe active de tous les liens
+                    navLinks.forEach(l => l.classList.remove('active'));
+                    // Ajouter la classe active au lien cliqué
+                    this.classList.add('active');
+                    
+                    // Cacher toutes les sections
+                    contentSections.forEach(section => section.classList.remove('active'));
+                    // Afficher la section correspondante
+                    const targetSection = this.getAttribute('data-section');
+                    document.getElementById(targetSection).classList.add('active');
+                    
+                    // Mettre à jour le titre de la page
+                    pageTitle.textContent = pageTitles[targetSection];
+                    
+                    // Fermer le sidebar sur mobile
+                    if (window.innerWidth <= 1024) {
+                        sidebar.classList.remove('active');
+                    }
+                });
+            });
+            
+            // Toggle mobile sidebar
+            mobileToggle.addEventListener('click', function() {
+                sidebar.classList.toggle('active');
+            });
+            
+            // Fermer le sidebar en cliquant à l'extérieur sur mobile
+            document.addEventListener('click', function(e) {
+                if (window.innerWidth <= 1024) {
+                    if (!sidebar.contains(e.target) && !mobileToggle.contains(e.target)) {
+                        sidebar.classList.remove('active');
+                    }
+                }
+            });
+            
+            // Simulation de données en temps réel
+            function updateRealTimeData() {
+                // Mise à jour aléatoire des statistiques
+                const stats = document.querySelectorAll('.stat-card h3');
+                stats.forEach(stat => {
+                    if (stat.textContent.includes(',')) {
+                        const currentValue = parseInt(stat.textContent.replace(/,/g, ''));
+                        const variation = Math.floor(Math.random() * 10) - 5;
+                        const newValue = Math.max(0, currentValue + variation);
+                        stat.textContent = newValue.toLocaleString();
+                    }
+                });
+            }
+            
+            // Mettre à jour les données toutes les 30 secondes
+            setInterval(updateRealTimeData, 30000);
+            
+            // Fonction pour simuler l'ajout d'un nouveau plat au menu
+            window.addNewDish = function() {
+                const dishName = document.getElementById('dishName').value;
+                const dishPrice = document.getElementById('dishPrice').value;
+                const dishCategory = document.getElementById('dishCategory').value;
+                const dishStatus = document.getElementById('dishStatus').value;
+                const dishDescription = document.getElementById('dishDescription').value;
+                
+                if (dishName && dishPrice) {
+                    // Simulation d'ajout (dans un vrai système, ceci enverrait les données au serveur)
+                    alert('Plat ajouté avec succès au menu !');
+                    
+                    // Réinitialiser le formulaire
+                    document.getElementById('dishName').value = '';
+                    document.getElementById('dishPrice').value = '';
+                    document.getElementById('dishDescription').value = '';
+                } else {
+                    alert('Veuillez remplir tous les champs obligatoires.');
+                }
+            };
+            
+            // Fonction pour simuler l'ajout d'un employé
+            window.addNewEmployee = function() {
+                const staffName = document.getElementById('staffName').value;
+                const staffPosition = document.getElementById('staffPosition').value;
+                const staffPhone = document.getElementById('staffPhone').value;
+                const staffSalary = document.getElementById('staffSalary').value;
+                
+                if (staffName && staffPhone && staffSalary) {
+                    alert('Employé ajouté avec succès !');
+                    
+                    // Réinitialiser le formulaire
+                    document.getElementById('staffName').value = '';
+                    document.getElementById('staffPhone').value = '';
+                    document.getElementById('staffSalary').value = '';
+                } else {
+                    alert('Veuillez remplir tous les champs obligatoires.');
+                }
+            };
+            
+            // Fonction pour mettre à jour les paramètres
+            window.saveSettings = function() {
+                alert('Paramètres sauvegardés avec succès !');
+            };
+            
+            // Fonction pour mettre à jour les notifications
+            window.updateNotifications = function() {
+                alert('Paramètres de notification mis à jour !');
+            };
+            
+            // Gestion des boutons d'action dans les tableaux
+            document.addEventListener('click', function(e) {
+                if (e.target.closest('.btn-success')) {
+                    const action = e.target.closest('.btn-success');
+                    if (action.querySelector('.fa-check')) {
+                        alert('Réservation confirmée !');
+                    }
+                }
+                
+                if (e.target.closest('.btn-danger')) {
+                    const action = e.target.closest('.btn-danger');
+                    if (action.querySelector('.fa-times')) {
+                        if (confirm('Êtes-vous sûr de vouloir annuler cette réservation ?')) {
+                            alert('Réservation annulée.');
+                        }
+                    } else if (action.querySelector('.fa-trash')) {
+                        if (confirm('Êtes-vous sûr de vouloir supprimer cet élément ?')) {
+                            alert('Élément supprimé.');
+                        }
+                    }
+                }
+                
+                if (e.target.closest('.btn-warning')) {
+                    const action = e.target.closest('.btn-warning');
+                    if (action.querySelector('.fa-shopping-cart')) {
+                        alert('Commande de réapprovisionnement envoyée !');
+                    } else if (action.querySelector('.fa-truck')) {
+                        alert('Statut de livraison mis à jour !');
+                    }
+                }
+                
+                if (e.target.closest('.btn-primary')) {
+                    const action = e.target.closest('.btn-primary');
+                    if (action.querySelector('.fa-edit')) {
+                        alert('Mode édition activé.');
+                    } else if (action.querySelector('.fa-receipt')) {
+                        alert('Facture générée.');
+                    } else if (action.querySelector('.fa-download')) {
+                        alert('Export en cours...');
+                        setTimeout(() => {
+                            alert('Fichier téléchargé avec succès !');
+                        }, 2000);
+                    }
+                }
+            });
+            
+            // Ajouter des écouteurs d'événements aux boutons de formulaire
+            const addDishBtn = document.querySelector('#menu .btn-primary');
+            if (addDishBtn && addDishBtn.textContent.includes('Ajouter le Plat')) {
+                addDishBtn.addEventListener('click', addNewDish);
+            }
+            
+            const addEmployeeBtn = document.querySelector('#staff .btn-primary');
+            if (addEmployeeBtn && addEmployeeBtn.textContent.includes('Ajouter l\'Employé')) {
+                addEmployeeBtn.addEventListener('click', addNewEmployee);
+            }
+            
+            const saveSettingsBtn = document.querySelector('#settings .btn-primary');
+            if (saveSettingsBtn && saveSettingsBtn.textContent.includes('Sauvegarder')) {
+                saveSettingsBtn.addEventListener('click', saveSettings);
+            }
+            
+            const updateNotifBtn = document.querySelectorAll('#settings .btn-primary')[1];
+            if (updateNotifBtn) {
+                updateNotifBtn.addEventListener('click', updateNotifications);
+            }
+            
+            // Animation des cartes statistiques au survol
+            const statCards = document.querySelectorAll('.stat-card');
+            statCards.forEach(card => {
+                card.addEventListener('mouseenter', function() {
+                    this.style.transform = 'translateY(-8px) scale(1.02)';
+                });
+                
+                card.addEventListener('mouseleave', function() {
+                    this.style.transform = 'translateY(-5px) scale(1)';
+                });
+            });
+            
+            // Simulation des notifications en temps réel
+            function showNotification(message, type = 'info') {
+                // Créer une notification toast
+                const notification = document.createElement('div');
+                notification.style.cssText = `
+                    position: fixed;
+                    top: 20px;
+                    right: 20px;
+                    background: ${type === 'success' ? '#28a745' : type === 'warning' ? '#ffc107' : '#17a2b8'};
+                    color: white;
+                    padding: 15px 20px;
+                    border-radius: 5px;
+                    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+                    z-index: 10000;
+                    font-weight: 600;
+                    max-width: 300px;
+                `;
+                notification.innerHTML = `<i class="fas fa-bell"></i> ${message}`;
+                
+                document.body.appendChild(notification);
+                
+                // Supprimer la notification après 4 secondes
+                setTimeout(() => {
+                    notification.remove();
+                }, 4000);
+            }
+            
+            // Simuler des notifications périodiques
+            const notifications = [
+                { message: "Nouvelle réservation reçue", type: "success" },
+                { message: "Stock faible: Huile de palme", type: "warning" },
+                { message: "Commande #CMD004 prête", type: "info" },
+                { message: "Nouveau client inscrit", type: "success" }
+            ];
+            
+            let notifIndex = 0;
+            setInterval(() => {
+                if (Math.random() > 0.7) { // 30% de chance de notification
+                    showNotification(notifications[notifIndex].message, notifications[notifIndex].type);
+                    notifIndex = (notifIndex + 1) % notifications.length;
+                }
+            }, 15000);
+            
+            // Fonction de recherche dans les tableaux
+            function addSearchToTable(tableContainer) {
+                const searchInput = document.createElement('input');
+                searchInput.type = 'text';
+                searchInput.placeholder = 'Rechercher...';
+                searchInput.className = 'form-control';
+                searchInput.style.cssText = 'margin-bottom: 15px; max-width: 300px;';
+                
+                const table = tableContainer.querySelector('.data-table');
+                const tbody = table.querySelector('tbody');
+                const rows = tbody.querySelectorAll('tr');
+                
+                tableContainer.insertBefore(searchInput, table);
+                
+                searchInput.addEventListener('input', function() {
+                    const searchTerm = this.value.toLowerCase();
+                    
+                    rows.forEach(row => {
+                        const text = row.textContent.toLowerCase();
+                        if (text.includes(searchTerm)) {
+                            row.style.display = '';
+                        } else {
+                            row.style.display = 'none';
+                        }
+                    });
+                });
+            }
+            
+            // Ajouter la recherche à tous les tableaux
+            document.querySelectorAll('.table-container').forEach(addSearchToTable);
+            
+            // Message de bienvenue
+            setTimeout(() => {
+                showNotification("Bienvenue dans l'administration du Restaurant Le Kabouyah!", "success");
+            }, 2000);
+        });
+        
+        // Fonction utilitaire pour formater les nombres
+        function formatNumber(num) {
+            return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+        }
+        
+        // Fonction utilitaire pour formater les devises
+        function formatCurrency(amount, currency = 'FG') {
+            return formatNumber(amount) + ' ' + currency;
+        }
+        
+        // Gestion responsive
+        window.addEventListener('resize', function() {
+            const sidebar = document.getElementById('sidebar');
+            if (window.innerWidth > 1024) {
+                sidebar.classList.remove('active');
+            }
+        });
+        
+        // Fonction pour exporter des données (simulation)
+        function exportData(format = 'csv') {
+            showNotification(`Export ${format.toUpperCase()} en cours...`, 'info');
+            setTimeout(() => {
+                showNotification(`Données exportées avec succès en ${format.toUpperCase()}!`, 'success');
+            }, 3000);
+        }
+        
+        // Fonction pour sauvegarder automatiquement les modifications
+        function autoSave() {
+            const inputs = document.querySelectorAll('input, select, textarea');
+            inputs.forEach(input => {
+                input.addEventListener('change', function() {
+                    // Simulation de sauvegarde automatique
+                    console.log('Sauvegarde automatique:', this.name || this.id, this.value);
+                });
+            });
+        }
+        
+        // Initialiser la sauvegarde automatique
+        autoSave();
+        
+        // Fonction pour valider les formulaires
+        function validateForm(formId) {
+            const form = document.getElementById(formId);
+            const requiredFields = form.querySelectorAll('[required]');
+            let isValid = true;
+            
+            requiredFields.forEach(field => {
+                if (!field.value.trim()) {
+                    field.style.borderColor = '#dc3545';
+                    isValid = false;
+                } else {
+                    field.style.borderColor = '#e3e7ed';
+                }
+            });
+            
+            return isValid;
+        }
+        
+        // Fonction pour générer des rapports
+        function generateReport(type) {
+            showNotification(`Génération du rapport ${type}...`, 'info');
+            setTimeout(() => {
+                showNotification(`Rapport ${type} généré avec succès!`, 'success');
+            }, 2500);
+        }
+    </script>
+</body>
+</html>

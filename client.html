@@ -1,0 +1,2353 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mon Espace Client - Restaurant Le Kabouyah</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&family=Open+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --kabouyah-gold: #D4AF37;
+            --kabouyah-dark-gold: #B8941F;
+            --kabouyah-green: #228B22;
+            --kabouyah-dark: #083A4B;
+            --kabouyah-light: #F8F9FA;
+            --kabouyah-brown: #8B4513;
+            --kabouyah-cream: #FFF8DC;
+            --sidebar-width: 280px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Open Sans', sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            color: var(--kabouyah-dark);
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        h1, h2, h3, h4, h5 {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+        }
+
+        .client-container {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            width: var(--sidebar-width);
+            background: linear-gradient(180deg, var(--kabouyah-dark) 0%, #0a4552 100%);
+            color: white;
+            position: fixed;
+            height: 100vh;
+            overflow-y: auto;
+            transition: all 0.3s ease;
+            z-index: 1000;
+        }
+
+        .sidebar-header {
+            padding: 25px 20px;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            background: rgba(0,0,0,0.1);
+        }
+
+        .client-logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .client-logo .logo-icon {
+            width: 45px;
+            height: 45px;
+            background: var(--kabouyah-gold);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .client-logo .logo-text {
+            font-size: 16px;
+            font-weight: 800;
+            line-height: 1.2;
+        }
+
+        .client-logo .logo-text span {
+            color: var(--kabouyah-gold);
+        }
+
+        .client-info {
+            padding: 20px;
+            background: rgba(212,175,55,0.1);
+            margin: 20px;
+            border-radius: 15px;
+            text-align: center;
+        }
+
+        .client-avatar {
+            width: 80px;
+            height: 80px;
+            background: var(--kabouyah-gold);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 32px;
+            margin: 0 auto 15px;
+        }
+
+        .client-name {
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+
+        .client-status {
+            font-size: 14px;
+            color: var(--kabouyah-gold);
+            font-weight: 600;
+        }
+
+        .nav-menu {
+            padding: 20px 0;
+        }
+
+        .nav-item {
+            margin-bottom: 8px;
+        }
+
+        .nav-link {
+            display: flex;
+            align-items: center;
+            padding: 15px 20px;
+            color: rgba(255,255,255,0.8);
+            text-decoration: none;
+            transition: all 0.3s ease;
+            font-weight: 500;
+            border-left: 4px solid transparent;
+        }
+
+        .nav-link:hover,
+        .nav-link.active {
+            color: white;
+            background: rgba(212,175,55,0.15);
+            border-left-color: var(--kabouyah-gold);
+        }
+
+        .nav-link i {
+            width: 20px;
+            margin-right: 15px;
+            font-size: 16px;
+        }
+
+        /* Main Content */
+        .main-content {
+            margin-left: var(--sidebar-width);
+            flex: 1;
+            padding: 0;
+            background: transparent;
+        }
+
+        /* Header */
+        .client-header {
+            background: white;
+            padding: 20px 30px;
+            border-bottom: 1px solid #e3e7ed;
+            box-shadow: 0 2px 20px rgba(0,0,0,0.08);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+        }
+
+        .page-title {
+            font-size: 24px;
+            color: var(--kabouyah-dark);
+            margin: 0;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .loyalty-points {
+            background: linear-gradient(135deg, var(--kabouyah-gold), var(--kabouyah-dark-gold));
+            color: white;
+            padding: 12px 20px;
+            border-radius: 25px;
+            font-weight: 700;
+            font-size: 14px;
+        }
+
+        .logout-btn {
+            background: #dc3545;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .logout-btn:hover {
+            background: #c82333;
+        }
+
+        /* Mobile Toggle */
+        .mobile-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--kabouyah-dark);
+            font-size: 20px;
+            cursor: pointer;
+            padding: 10px;
+            margin-right: 15px;
+        }
+
+        /* Content Area */
+        .content-area {
+            padding: 30px;
+        }
+
+        .content-section {
+            display: none;
+        }
+
+        .content-section.active {
+            display: block;
+            animation: fadeInUp 0.5s ease;
+        }
+
+        /* Profile Cards */
+        .profile-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+
+        .profile-card {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .profile-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(90deg, var(--kabouyah-gold), var(--kabouyah-green));
+        }
+
+        .profile-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+        }
+
+        .profile-card h3 {
+            color: var(--kabouyah-dark);
+            margin-bottom: 20px;
+            font-size: 18px;
+        }
+
+        /* Stats Cards */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+
+        .stat-card {
+            background: white;
+            border-radius: 20px;
+            padding: 25px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, var(--kabouyah-gold), var(--kabouyah-green));
+        }
+
+        .stat-card:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 25px 50px rgba(0,0,0,0.15);
+        }
+
+        .stat-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 15px;
+        }
+
+        .stat-info h3 {
+            font-size: 2rem;
+            color: var(--kabouyah-dark);
+            margin-bottom: 5px;
+        }
+
+        .stat-info p {
+            color: #666;
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        .stat-icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, var(--kabouyah-gold), var(--kabouyah-dark-gold));
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 20px;
+        }
+
+        /* Tables */
+        .table-container {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            margin-bottom: 30px;
+        }
+
+        .table-header {
+            padding: 25px 30px;
+            background: linear-gradient(135deg, var(--kabouyah-dark), #0a4552);
+            color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .table-header h3 {
+            margin: 0;
+            font-size: 18px;
+        }
+
+        .btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 10px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 14px;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--kabouyah-gold), var(--kabouyah-dark-gold));
+            color: white;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(212,175,55,0.4);
+        }
+
+        .btn-success {
+            background: linear-gradient(135deg, var(--kabouyah-green), #1e7e1e);
+            color: white;
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: var(--kabouyah-gold);
+            border: 2px solid var(--kabouyah-gold);
+        }
+
+        .btn-outline:hover {
+            background: var(--kabouyah-gold);
+            color: white;
+        }
+
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .data-table th,
+        .data-table td {
+            padding: 18px 20px;
+            text-align: left;
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+        .data-table th {
+            background: #f8f9fa;
+            font-weight: 600;
+            color: var(--kabouyah-dark);
+            font-size: 14px;
+        }
+
+        .data-table tbody tr {
+            transition: all 0.2s ease;
+        }
+
+        .data-table tbody tr:hover {
+            background: linear-gradient(90deg, rgba(212,175,55,0.05), rgba(255,255,255,1));
+        }
+
+        /* Status Badges */
+        .status-badge {
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .status-confirmed {
+            background: linear-gradient(135deg, #d4edda, #c3e6cb);
+            color: #155724;
+        }
+
+        .status-pending {
+            background: linear-gradient(135deg, #fff3cd, #ffeeba);
+            color: #856404;
+        }
+
+        .status-cancelled {
+            background: linear-gradient(135deg, #f8d7da, #f5c6cb);
+            color: #721c24;
+        }
+
+        .status-delivered {
+            background: linear-gradient(135deg, #d1ecf1, #bee5eb);
+            color: #0c5460;
+        }
+
+        /* Forms */
+        .form-container {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .form-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(90deg, var(--kabouyah-gold), var(--kabouyah-green));
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: var(--kabouyah-dark);
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 15px 18px;
+            border: 2px solid #e3e7ed;
+            border-radius: 12px;
+            font-size: 14px;
+            transition: all 0.3s ease;
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--kabouyah-gold);
+            box-shadow: 0 0 0 3px rgba(212,175,55,0.1);
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        /* Favorites Grid */
+        .favorites-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 25px;
+            margin-bottom: 30px;
+        }
+
+        .favorite-dish {
+            background: white;
+            border-radius: 20px;
+            padding: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .favorite-dish::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, var(--kabouyah-gold), var(--kabouyah-green));
+        }
+
+        .favorite-dish:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+        }
+
+        .dish-name {
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--kabouyah-dark);
+            margin-bottom: 10px;
+        }
+
+        .dish-price {
+            color: var(--kabouyah-gold);
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        .dish-orders {
+            color: #666;
+            font-size: 14px;
+        }
+
+        /* Rating Stars */
+        .rating {
+            color: var(--kabouyah-gold);
+            font-size: 16px;
+        }
+
+        /* Notification Dot */
+        .notification-dot {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            width: 12px;
+            height: 12px;
+            background: #dc3545;
+            border-radius: 50%;
+            border: 2px solid white;
+        }
+
+        /* Reservation Section */
+        .reservation-form {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            margin-bottom: 30px;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 25px;
+            margin-bottom: 25px;
+        }
+
+        .menu-section {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            margin-bottom: 30px;
+        }
+
+        .menu-section h3 {
+            margin-bottom: 20px;
+            font-size: 18px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .menu-categories {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 25px;
+            flex-wrap: wrap;
+        }
+
+        .menu-category-btn {
+            padding: 10px 20px;
+            border: 2px solid var(--kabouyah-gold);
+            background: transparent;
+            color: var(--kabouyah-gold);
+            border-radius: 25px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .menu-category-btn.active {
+            background: var(--kabouyah-gold);
+            color: white;
+        }
+
+        .menu-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .menu-item {
+            background: #f8f9fa;
+            border-radius: 15px;
+            padding: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .menu-item:hover {
+            background: linear-gradient(90deg, rgba(212,175,55,0.1), rgba(255,255,255,1));
+        }
+
+        .menu-item-info h4 {
+            font-size: 16px;
+            margin-bottom: 5px;
+        }
+
+        .menu-item-price {
+            color: var(--kabouyah-gold);
+            font-weight: 700;
+        }
+
+        .selected-dishes {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            margin-bottom: 30px;
+        }
+
+        .selected-dishes h3 {
+            margin-bottom: 20px;
+            font-size: 18px;
+        }
+
+        .dish-list {
+            display: grid;
+            gap: 15px;
+        }
+
+        .dish-list-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 10px;
+        }
+
+        .dish-quantity {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .quantity-btn {
+            width: 30px;
+            height: 30px;
+            border: none;
+            background: #e3e7ed;
+            border-radius: 5px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .reservation-summary {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .summary-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 25px;
+            margin-bottom: 25px;
+        }
+
+        .summary-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+        .summary-total {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--kabouyah-dark);
+            text-align: right;
+            margin-top: 15px;
+        }
+
+        /* Mobile Responsiveness */
+        @media (max-width: 1024px) {
+            .sidebar {
+                transform: translateX(-100%);
+            }
+
+            .sidebar.active {
+                transform: translateX(0);
+            }
+
+            .main-content {
+                margin-left: 0;
+            }
+
+            .mobile-toggle {
+                display: block !important;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .content-area {
+                padding: 20px;
+            }
+
+            .profile-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .favorites-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .client-header {
+                padding: 15px 20px;
+            }
+
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+
+            .header-actions {
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .menu-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .summary-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .content-section.active {
+            animation: fadeInUp 0.5s ease;
+        }
+    </style>
+</head>
+<body>
+    <div class="client-container">
+        <!-- Sidebar -->
+        <nav class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <div class="client-logo">
+                    <div class="logo-icon">
+                        <i class="fas fa-utensils"></i>
+                    </div>
+                    <div class="logo-text">
+                        RESTAURANT<br><span>KABOUYAH</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="client-info">
+                <div class="client-avatar">
+                    <i class="fas fa-user"></i>
+                </div>
+                <div class="client-name">Mamadou Diallo</div>
+                <div class="client-status">Client Fidèle ⭐</div>
+            </div>
+
+            <div class="nav-menu">
+                <div class="nav-item">
+                    <a href="#" class="nav-link" data-section="dashboard">
+                        <i class="fas fa-tachometer-alt"></i>
+                        Mon Tableau de Bord
+                    </a>
+                </div>
+                <div class="nav-item">
+                    <a href="#" class="nav-link" data-section="profile">
+                        <i class="fas fa-user-circle"></i>
+                        Mes Informations
+                    </a>
+                </div>
+                <div class="nav-item">
+                    <a href="#" class="nav-link active" data-section="reservations">
+                        <i class="fas fa-calendar-check"></i>
+                        Mes Réservations
+                        <span class="notification-dot"></span>
+                    </a>
+                </div>
+                <div class="nav-item">
+                    <a href="#" class="nav-link" data-section="orders">
+                        <i class="fas fa-shopping-cart"></i>
+                        Mes Commandes
+                    </a>
+                </div>
+                <div class="nav-item">
+                    <a href="#" class="nav-link" data-section="favorites">
+                        <i class="fas fa-heart"></i>
+                        Plats Favoris
+                    </a>
+                </div>
+                <div class="nav-item">
+                    <a href="#" class="nav-link" data-section="loyalty">
+                        <i class="fas fa-star"></i>
+                        Programme Fidélité
+                    </a>
+                </div>
+                <div class="nav-item">
+                    <a href="#" class="nav-link" data-section="reviews">
+                        <i class="fas fa-comment-dots"></i>
+                        Mes Avis
+                    </a>
+                </div>
+                <div class="nav-item">
+                    <a href="#" class="nav-link" data-section="settings">
+                        <i class="fas fa-cog"></i>
+                        Paramètres
+                    </a>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Header -->
+            <header class="client-header">
+                <div class="header-content">
+                    <div style="display: flex; align-items: center; gap: 15px;">
+                        <button class="mobile-toggle" id="mobileToggle">
+                            <i class="fas fa-bars"></i>
+                        </button>
+                        <h1 class="page-title" id="pageTitle">
+                            <i class="fas fa-calendar-check"></i>
+                            Mes Réservations
+                        </h1>
+                    </div>
+
+                    <div class="header-actions">
+                        <div class="loyalty-points">
+                            <i class="fas fa-star"></i>
+                            1,247 Points Fidélité
+                        </div>
+                        <button class="logout-btn">
+                            <i class="fas fa-sign-out-alt"></i>
+                        </button>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Content Area -->
+            <div class="content-area">
+                <!-- Dashboard Section -->
+                <div class="content-section" id="dashboard">
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <div class="stat-header">
+                                <div class="stat-info">
+                                    <h3>24</h3>
+                                    <p>Réservations Totales</p>
+                                </div>
+                                <div class="stat-icon">
+                                    <i class="fas fa-calendar-check"></i>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="stat-card">
+                            <div class="stat-header">
+                                <div class="stat-info">
+                                    <h3>156</h3>
+                                    <p>Plats Commandés</p>
+                                </div>
+                                <div class="stat-icon">
+                                    <i class="fas fa-utensils"></i>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="stat-card">
+                            <div class="stat-header">
+                                <div class="stat-info">
+                                    <h3>485,000</h3>
+                                    <p>Total Dépensé (FG)</p>
+                                </div>
+                                <div class="stat-icon">
+                                    <i class="fas fa-money-bill-wave"></i>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="stat-card">
+                            <div class="stat-header">
+                                <div class="stat-info">
+                                    <h3>4.9</h3>
+                                    <p>Note Moyenne Donnée</p>
+                                </div>
+                                <div class="stat-icon">
+                                    <i class="fas fa-star"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="table-container">
+                        <div class="table-header">
+                            <h3>Mes Dernières Activités</h3>
+                            <button class="btn btn-primary" id="newReservationBtn">
+                                <i class="fas fa-plus"></i>
+                                Nouvelle Réservation
+                            </button>
+                        </div>
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Type</th>
+                                    <th>Description</th>
+                                    <th>Date</th>
+                                    <th>Montant</th>
+                                    <th>Statut</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><i class="fas fa-calendar-check" style="color: var(--kabouyah-gold); margin-right: 8px;"></i>Réservation</td>
+                                    <td>Table pour 4 personnes</td>
+                                    <td>20/08/2025 - 19:30</td>
+                                    <td>-</td>
+                                    <td><span class="status-badge status-confirmed">Confirmée</span></td>
+                                </tr>
+                                <tr>
+                                    <td><i class="fas fa-shopping-cart" style="color: var(--kabouyah-green); margin-right: 8px;"></i>Commande</td>
+                                    <td>Riz au Gras x2, Bissap x2</td>
+                                    <td>18/08/2025 - 20:15</td>
+                                    <td>45,000 FG</td>
+                                    <td><span class="status-badge status-delivered">Livrée</span></td>
+                                </tr>
+                                <tr>
+                                    <td><i class="fas fa-star" style="color: var(--kabouyah-gold); margin-right: 8px;"></i>Avis</td>
+                                    <td>Poisson Braisé - 5 étoiles</td>
+                                    <td>15/08/2025</td>
+                                    <td>+50 Points</td>
+                                    <td><span class="status-badge status-confirmed">Publié</span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Profile Section -->
+                <div class="content-section" id="profile">
+                    <div class="profile-grid">
+                        <div class="form-container">
+                            <h3>Informations Personnelles</h3>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="firstName">Prénom</label>
+                                    <input type="text" id="firstName" class="form-control" value="Mamadou">
+                                </div>
+                                <div class="form-group">
+                                    <label for="lastName">Nom</label>
+                                    <input type="text" id="lastName" class="form-control" value="Diallo">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="email">Email</label>
+                                <input type="email" id="email" class="form-control" value="mamadou.diallo@email.com">
+                            </div>
+                            <div class="form-group">
+                                <label for="phone">Téléphone</label>
+                                <input type="tel" id="phone" class="form-control" value="+224 610 31 91 91">
+                            </div>
+                            <div class="form-group">
+                                <label for="birthdate">Date de Naissance</label>
+                                <input type="date" id="birthdate" class="form-control" value="1985-03-15">
+                            </div>
+                            <button class="btn btn-primary">
+                                <i class="fas fa-save"></i>
+                                Sauvegarder
+                            </button>
+                        </div>
+
+                        <div class="profile-card">
+                            <h3>Préférences Alimentaires</h3>
+                            <div class="form-group">
+                                <label>
+                                    <input type="checkbox" checked style="margin-right: 10px;">
+                                    Cuisine Locale Guinéenne
+                                </label>
+                            </div>
+                            <div class="form-group">
+                                <label>
+                                    <input type="checkbox" style="margin-right: 10px;">
+                                    Végétarien
+                                </label>
+                            </div>
+                            <div class="form-group">
+                                <label>
+                                    <input type="checkbox" checked style="margin-right: 10px;">
+                                    Épicé
+                                </label>
+                            </div>
+                            <div class="form-group">
+                                <label>
+                                    <input type="checkbox" style="margin-right: 10px;">
+                                    Sans Gluten
+                                </label>
+                            </div>
+                            <div class="form-group">
+                                <label for="allergies">Allergies</label>
+                                <textarea id="allergies" class="form-control" rows="3" placeholder="Mentionnez vos allergies alimentaires..."></textarea>
+                            </div>
+                            <button class="btn btn-outline">
+                                <i class="fas fa-edit"></i>
+                                Modifier Préférences
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Reservations Section -->
+                <div class="content-section active" id="reservations">
+                    <div class="table-container" id="reservationsList">
+                        <div class="table-header">
+                            <h3>Mes Réservations</h3>
+                            <button class="btn btn-primary" id="openReservationForm">
+                                <i class="fas fa-plus"></i>
+                                Nouvelle Réservation
+                            </button>
+                        </div>
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Date</th>
+                                    <th>Heure</th>
+                                    <th>Personnes</th>
+                                    <th>Table</th>
+                                    <th>Statut</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="reservationTableBody">
+                                <tr>
+                                    <td>25/08/2025</td>
+                                    <td>19:30</td>
+                                    <td>4</td>
+                                    <td>Table 12</td>
+                                    <td><span class="status-badge status-confirmed">Confirmée</span></td>
+                                    <td>
+                                        <button class="btn btn-outline" style="padding: 5px 10px; font-size: 12px;">
+                                            <i class="fas fa-edit"></i>
+                                        </button>
+                                        <button class="btn" style="padding: 5px 10px; font-size: 12px; background: #dc3545; color: white;">
+                                            <i class="fas fa-times"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>20/08/2025</td>
+                                    <td>20:00</td>
+                                    <td>2</td>
+                                    <td>Table 8</td>
+                                    <td><span class="status-badge status-delivered">Terminée</span></td>
+                                    <td>
+                                        <button class="btn btn-primary" style="padding: 5px 10px; font-size: 12px;">
+                                            <i class="fas fa-star"></i> Avis
+                                        </button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>18/08/2025</td>
+                                    <td>18:45</td>
+                                    <td>6</td>
+                                    <td>Table 15</td>
+                                    <td><span class="status-badge status-delivered">Terminée</span></td>
+                                    <td>
+                                        <button class="btn btn-success" style="padding: 5px 10px; font-size: 12px;">
+                                            <i class="fas fa-check"></i> Avis donné
+                                        </button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>15/08/2025</td>
+                                    <td>19:15</td>
+                                    <td>3</td>
+                                    <td>Table 5</td>
+                                    <td><span class="status-badge status-cancelled">Annulée</span></td>
+                                    <td>
+                                        <button class="btn btn-outline" style="padding: 5px 10px; font-size: 12px;">
+                                            <i class="fas fa-redo"></i> Reprendre
+                                        </button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <!-- Reservation Form (hidden by default) -->
+                    <div id="reservationFormContainer" style="display:none;">
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px;">
+                            <h2 style="font-size: 24px; color: var(--kabouyah-dark);">
+                                <i class="fas fa-calendar-plus" style="margin-right: 10px;"></i>
+                                Nouvelle Réservation
+                            </h2>
+                            <button class="btn btn-outline" id="closeReservationForm">
+                                <i class="fas fa-arrow-left"></i>
+                                Retour aux réservations
+                            </button>
+                        </div>
+                        <div class="reservation-form">
+                            <h3>Informations de Réservation</h3>
+                            <div class="form-grid">
+                                <div class="form-group">
+                                    <label for="reservationDate2">Date *</label>
+                                    <input type="date" id="reservationDate2" class="form-control" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="reservationTime2">Heure *</label>
+                                    <input type="time" id="reservationTime2" class="form-control" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="guests2">Nombre de personnes *</label>
+                                    <select id="guests2" class="form-control" required>
+                                        <option value="">Sélectionnez...</option>
+                                        <option value="1">1 personne</option>
+                                        <option value="2">2 personnes</option>
+                                        <option value="3">3 personnes</option>
+                                        <option value="4">4 personnes</option>
+                                        <option value="5">5 personnes</option>
+                                        <option value="6">6 personnes</option>
+                                        <option value="7">7 personnes</option>
+                                        <option value="8">8 personnes ou plus</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="occasion2">Occasion</label>
+                                    <select id="occasion2" class="form-control">
+                                        <option value="">Aucune</option>
+                                        <option value="anniversaire">Anniversaire</option>
+                                        <option value="business">Repas d'affaires</option>
+                                        <option value="romantic">Dîner romantique</option>
+                                        <option value="family">Repas en famille</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="specialRequests2">Demandes Spéciales</label>
+                                <textarea id="specialRequests2" class="form-control" rows="3" placeholder="Allergies, préférences, ou toute autre demande..."></textarea>
+                            </div>
+                        </div>
+                        <div class="menu-section">
+                            <h3>
+                                <i class="fas fa-utensils"></i>
+                                Sélectionnez vos Plats
+                            </h3>
+                            <div class="menu-categories">
+                                <button class="menu-category-btn active" data-category="entrees2">Entrées</button>
+                                <button class="menu-category-btn" data-category="plats2">Plats Principaux</button>
+                                <button class="menu-category-btn" data-category="desserts2">Desserts</button>
+                                <button class="menu-category-btn" data-category="boissons2">Boissons</button>
+                            </div>
+                            <div class="menu-grid" id="entrees2">
+                                <div class="menu-item" data-name="Salade de Mangue Verte" data-price="8000">
+                                    <div class="menu-item-info">
+                                        <h4>Salade de Mangue Verte</h4>
+                                        <p>Mangue verte râpée, tomates, oignons, piment</p>
+                                    </div>
+                                    <div class="menu-item-price">8,000 FG</div>
+                                </div>
+                                <div class="menu-item" data-name="Beignets de Crevettes" data-price="12000">
+                                    <div class="menu-item-info">
+                                        <h4>Beignets de Crevettes</h4>
+                                        <p>Crevettes fraîches enrobées de pâte épicée</p>
+                                    </div>
+                                    <div class="menu-item-price">12,000 FG</div>
+                                </div>
+                                <div class="menu-item" data-name="Soupe d'Arachide" data-price="6000">
+                                    <div class="menu-item-info">
+                                        <h4>Soupe d'Arachide</h4>
+                                        <p>Soupe traditionnelle à base d'arachides</p>
+                                    </div>
+                                    <div class="menu-item-price">6,000 FG</div>
+                                </div>
+                                <div class="menu-item" data-name="Avocat aux Crevettes" data-price="10000">
+                                    <div class="menu-item-info">
+                                        <h4>Avocat aux Crevettes</h4>
+                                        <p>Avocat frais garni de crevettes sautées</p>
+                                    </div>
+                                    <div class="menu-item-price">10,000 FG</div>
+                                </div>
+                            </div>
+                            <div class="menu-grid" id="plats2" style="display: none;">
+                                <div class="menu-item" data-name="Riz au Gras" data-price="20000">
+                                    <div class="menu-item-info">
+                                        <h4>Riz au Gras</h4>
+                                        <p>Riz cuit dans l'huile de palme avec viande et légumes</p>
+                                    </div>
+                                    <div class="menu-item-price">20,000 FG</div>
+                                </div>
+                                <div class="menu-item" data-name="Poisson Braisé" data-price="25000">
+                                    <div class="menu-item-info">
+                                        <h4>Poisson Braisé</h4>
+                                        <p>Poisson frais grillé aux épices locales</p>
+                                    </div>
+                                    <div class="menu-item-price">25,000 FG</div>
+                                </div>
+                                <div class="menu-item" data-name="Poulet Yassa" data-price="18000">
+                                    <div class="menu-item-info">
+                                        <h4>Poulet Yassa</h4>
+                                        <p>Poulet mariné aux oignons et citron</p>
+                                    </div>
+                                    <div class="menu-item-price">18,000 FG</div>
+                                </div>
+                                <div class="menu-item" data-name="Fouti" data-price="15000">
+                                    <div class="menu-item-info">
+                                        <h4>Fouti</h4>
+                                        <p>Plat traditionnel à base de fonio et légumes</p>
+                                    </div>
+                                    <div class="menu-item-price">15,000 FG</div>
+                                </div>
+                            </div>
+                            <div class="menu-grid" id="desserts2" style="display: none;">
+                                <div class="menu-item" data-name="Salade de Fruits Tropicaux" data-price="5000">
+                                    <div class="menu-item-info">
+                                        <h4>Salade de Fruits Tropicaux</h4>
+                                        <p>Ananas, mangue, papaye et banane</p>
+                                    </div>
+                                    <div class="menu-item-price">5,000 FG</div>
+                                </div>
+                                <div class="menu-item" data-name="Crème de Coco" data-price="4000">
+                                    <div class="menu-item-info">
+                                        <h4>Crème de Coco</h4>
+                                        <p>Dessert crémeux à base de lait de coco</p>
+                                    </div>
+                                    <div class="menu-item-price">4,000 FG</div>
+                                </div>
+                            </div>
+                            <div class="menu-grid" id="boissons2" style="display: none;">
+                                <div class="menu-item" data-name="Jus de Bissap" data-price="2500">
+                                    <div class="menu-item-info">
+                                        <h4>Jus de Bissap</h4>
+                                        <p>Boisson rafraîchissante à base d'hibiscus</p>
+                                    </div>
+                                    <div class="menu-item-price">2,500 FG</div>
+                                </div>
+                                <div class="menu-item" data-name="Jus de Baobab" data-price="3000">
+                                    <div class="menu-item-info">
+                                        <h4>Jus de Baobab</h4>
+                                        <p>Jus naturel riche en vitamine C</p>
+                                    </div>
+                                    <div class="menu-item-price">3,000 FG</div>
+                                </div>
+                                <div class="menu-item" data-name="Thé Ataya" data-price="1500">
+                                    <div class="menu-item-info">
+                                        <h4>Thé Ataya</h4>
+                                        <p>Thé traditionnel guinéen</p>
+                                    </div>
+                                    <div class="menu-item-price">1,500 FG</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="selected-dishes">
+                            <h3>Vos Plats Sélectionnés</h3>
+                            <div class="dish-list" id="selectedDishes2">
+                                <!-- Les plats sélectionnés s'affichent ici -->
+                            </div>
+                        </div>
+                        <div class="reservation-summary">
+                            <h3>Récapitulatif de la Réservation</h3>
+                            <div class="summary-grid">
+                                <div class="summary-item">
+                                    <span>Date et Heure</span>
+                                    <span id="summaryDateTime2">-</span>
+                                </div>
+                                <div class="summary-item">
+                                    <span>Nombre de personnes</span>
+                                    <span id="summaryGuests2">-</span>
+                                </div>
+                                <div class="summary-item">
+                                    <span>Occasion</span>
+                                    <span id="summaryOccasion2">Aucune</span>
+                                </div>
+                                <div class="summary-item">
+                                    <span>Sous-total (Plats)</span>
+                                    <span id="summarySubtotal2">0 FG</span>
+                                </div>
+                                <div class="summary-item">
+                                    <span>Frais de service (10%)</span>
+                                    <span id="summaryService2">0 FG</span>
+                                </div>
+                            </div>
+                            <div class="summary-total">
+                                Total: <span id="summaryTotal2">0 FG</span>
+                            </div>
+                            <div style="text-align: right; margin-top: 20px;">
+                                <button class="btn btn-primary" id="confirmReservation2">
+                                    <i class="fas fa-calendar-check"></i>
+                                    Confirmer la Réservation
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- End Reservation Form -->
+                </div>
+                <!-- Orders Section -->
+                <div class="content-section" id="orders">
+                    <div class="table-container">
+                        <div class="table-header">
+                            <h3>Historique de mes Commandes</h3>
+                            <div style="display: flex; gap: 10px;">
+                                <select class="form-control" style="max-width: 150px;">
+                                    <option>Tous les statuts</option>
+                                    <option>Livrées</option>
+                                    <option>En cours</option>
+                                    <option>Annulées</option>
+                                </select>
+                                <button class="btn btn-outline">
+                                    <i class="fas fa-download"></i>
+                                    Exporter
+                                </button>
+                            </div>
+                        </div>
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>N° Commande</th>
+                                    <th>Date</th>
+                                    <th>Plats</th>
+                                    <th>Total</th>
+                                    <th>Mode</th>
+                                    <th>Statut</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>#CMD125</td>
+                                    <td>20/08/2025</td>
+                                    <td>Riz au Gras x2, Bissap x2</td>
+                                    <td>45,000 FG</td>
+                                    <td>Livraison</td>
+                                    <td><span class="status-badge status-delivered">Livrée</span></td>
+                                    <td>
+                                        <button class="btn btn-primary" style="padding: 5px 10px; font-size: 12px;">
+                                            <i class="fas fa-star"></i>
+                                        </button>
+                                        <button class="btn btn-outline" style="padding: 5px 10px; font-size: 12px;">
+                                            <i class="fas fa-redo"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>#CMD118</td>
+                                    <td>18/08/2025</td>
+                                    <td>Poisson Braisé x1, Café x1</td>
+                                    <td>27,000 FG</td>
+                                    <td>Sur place</td>
+                                    <td><span class="status-badge status-delivered">Servie</span></td>
+                                    <td>
+                                        <button class="btn btn-success" style="padding: 5px 10px; font-size: 12px;">
+                                            <i class="fas fa-check"></i>
+                                        </button>
+                                        <button class="btn btn-outline" style="padding: 5px 10px; font-size: 12px;">
+                                            <i class="fas fa-redo"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>#CMD112</td>
+                                    <td>15/08/2025</td>
+                                    <td>Poulet Yassa x2, Jus Baobab x2</td>
+                                    <td>42,000 FG</td>
+                                    <td>À emporter</td>
+                                    <td><span class="status-badge status-delivered">Récupérée</span></td>
+                                    <td>
+                                        <button class="btn btn-success" style="padding: 5px 10px; font-size: 12px;">
+                                            <i class="fas fa-check"></i>
+                                        </button>
+                                        <button class="btn btn-outline" style="padding: 5px 10px; font-size: 12px;">
+                                            <i class="fas fa-redo"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>#CMD089</td>
+                                    <td>10/08/2025</td>
+                                    <td>Fonio aux Légumes x1</td>
+                                    <td>18,000 FG</td>
+                                    <td>Sur place</td>
+                                    <td><span class="status-badge status-cancelled">Annulée</span></td>
+                                    <td>
+                                        <button class="btn btn-outline" style="padding: 5px 10px; font-size: 12px;">
+                                            <i class="fas fa-info-circle"></i>
+                                        </button>
+                                        <button class="btn btn-outline" style="padding: 5px 10px; font-size: 12px;">
+                                            <i class="fas fa-redo"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Favorites Section -->
+                <div class="content-section" id="favorites">
+                    <div class="favorites-grid">
+                        <div class="favorite-dish">
+                            <div class="dish-name">Riz au Gras</div>
+                            <div class="dish-price">20,000 FG</div>
+                            <div class="dish-orders">Commandé 8 fois</div>
+                            <div class="rating" style="margin: 10px 0;">
+                                ⭐⭐⭐⭐⭐
+                            </div>
+                            <button class="btn btn-primary" style="width: 100%; margin-top: 10px;">
+                                <i class="fas fa-shopping-cart"></i>
+                                Commander
+                            </button>
+                        </div>
+
+                        <div class="favorite-dish">
+                            <div class="dish-name">Poisson Braisé</div>
+                            <div class="dish-price">25,000 FG</div>
+                            <div class="dish-orders">Commandé 6 fois</div>
+                            <div class="rating" style="margin: 10px 0;">
+                                ⭐⭐⭐⭐⭐
+                            </div>
+                            <button class="btn btn-primary" style="width: 100%; margin-top: 10px;">
+                                <i class="fas fa-shopping-cart"></i>
+                                Commander
+                            </button>
+                        </div>
+
+                        <div class="favorite-dish">
+                            <div class="dish-name">Poulet Yassa</div>
+                            <div class="dish-price">21,000 FG</div>
+                            <div class="dish-orders">Commandé 4 fois</div>
+                            <div class="rating" style="margin: 10px 0;">
+                                ⭐⭐⭐⭐
+                            </div>
+                            <button class="btn btn-primary" style="width: 100%; margin-top: 10px;">
+                                <i class="fas fa-shopping-cart"></i>
+                                Commander
+                            </button>
+                        </div>
+
+                        <div class="favorite-dish">
+                            <div class="dish-name">Jus de Bissap</div>
+                            <div class="dish-price">2,500 FG</div>
+                            <div class="dish-orders">Commandé 12 fois</div>
+                            <div class="rating" style="margin: 10px 0;">
+                                ⭐⭐⭐⭐⭐
+                            </div>
+                            <button class="btn btn-primary" style="width: 100%; margin-top: 10px;">
+                                <i class="fas fa-shopping-cart"></i>
+                                Commander
+                            </button>
+                        </div>
+
+                        <div class="favorite-dish">
+                            <div class="dish-name">Fonio aux Légumes</div>
+                            <div class="dish-price">18,000 FG</div>
+                            <div class="dish-orders">Commandé 3 fois</div>
+                            <div class="rating" style="margin: 10px 0;">
+                                ⭐⭐⭐⭐
+                            </div>
+                            <button class="btn btn-primary" style="width: 100%; margin-top: 10px;">
+                                <i class="fas fa-shopping-cart"></i>
+                                Commander
+                            </button>
+                        </div>
+
+                        <div class="favorite-dish">
+                            <div class="dish-name">Jus de Baobab</div>
+                            <div class="dish-price">3,000 FG</div>
+                            <div class="dish-orders">Commandé 7 fois</div>
+                            <div class="rating" style="margin: 10px 0;">
+                                ⭐⭐⭐⭐⭐
+                            </div>
+                            <button class="btn btn-primary" style="width: 100%; margin-top: 10px;">
+                                <i class="fas fa-shopping-cart"></i>
+                                Commander
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Loyalty Section -->
+                <div class="content-section" id="loyalty">
+                    <div class="profile-grid">
+                        <div class="profile-card">
+                            <h3>Mon Programme Fidélité</h3>
+                            <div style="text-align: center; margin: 30px 0;">
+                                <div style="font-size: 48px; color: var(--kabouyah-gold); margin-bottom: 15px;">
+                                    <i class="fas fa-star"></i>
+                                </div>
+                                <div style="font-size: 32px; font-weight: 700; color: var(--kabouyah-dark); margin-bottom: 10px;">
+                                    1,247 Points
+                                </div>
+                                <div style="color: #666; margin-bottom: 20px;">
+                                    Niveau: Client Fidèle
+                                </div>
+                                <div style="background: #f0f0f0; height: 10px; border-radius: 5px; overflow: hidden;">
+                                    <div style="background: linear-gradient(90deg, var(--kabouyah-gold), var(--kabouyah-green)); width: 75%; height: 100%;"></div>
+                                </div>
+                                <div style="font-size: 14px; color: #666; margin-top: 10px;">
+                                    253 points pour atteindre le niveau "Client VIP"
+                                </div>
+                            </div>
+                            <button class="btn btn-primary" style="width: 100%;">
+                                <i class="fas fa-gift"></i>
+                                Voir mes Récompenses
+                            </button>
+                        </div>
+
+                        <div class="profile-card">
+                            <h3>Historique des Points</h3>
+                            <div style="margin: 20px 0;">
+                                <div style="display: flex; justify-content: space-between; align-items: center; padding: 10px 0; border-bottom: 1px solid #f0f0f0;">
+                                    <div>
+                                        <strong>Commande #CMD125</strong><br>
+                                        <small style="color: #666;">20/08/2025</small>
+                                    </div>
+                                    <div style="color: var(--kabouyah-green); font-weight: 600;">
+                                        +45 pts
+                                    </div>
+                                </div>
+                                <div style="display: flex; justify-content: space-between; align-items: center; padding: 10px 0; border-bottom: 1px solid #f0f0f0;">
+                                    <div>
+                                        <strong>Avis 5 étoiles</strong><br>
+                                        <small style="color: #666;">18/08/2025</small>
+                                    </div>
+                                    <div style="color: var(--kabouyah-green); font-weight: 600;">
+                                        +50 pts
+                                    </div>
+                                </div>
+                                <div style="display: flex; justify-content: space-between; align-items: center; padding: 10px 0; border-bottom: 1px solid #f0f0f0;">
+                                    <div>
+                                        <strong>Commande #CMD118</strong><br>
+                                        <small style="color: #666;">15/08/2025</small>
+                                    </div>
+                                    <div style="color: var(--kabouyah-green); font-weight: 600;">
+                                        +27 pts
+                                    </div>
+                                </div>
+                                <div style="display: flex; justify-content: space-between; align-items: center; padding: 10px 0;">
+                                    <div>
+                                        <strong>Récompense utilisée</strong><br>
+                                        <small style="color: #666;">10/08/2025</small>
+                                    </div>
+                                    <div style="color: #dc3545; font-weight: 600;">
+                                        -100 pts
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="table-container">
+                        <div class="table-header">
+                            <h3>Récompenses Disponibles</h3>
+                        </div>
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Récompense</th>
+                                    <th>Description</th>
+                                    <th>Points Requis</th>
+                                    <th>Validité</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Plat Offert</td>
+                                    <td>Un plat principal au choix</td>
+                                    <td>500 points</td>
+                                    <td>30 jours</td>
+                                    <td>
+                                        <button class="btn btn-success" style="padding: 5px 15px; font-size: 12px;">
+                                            Échanger
+                                        </button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Réduction 20%</td>
+                                    <td>Sur votre prochaine commande</td>
+                                    <td>300 points</td>
+                                    <td>15 jours</td>
+                                    <td>
+                                        <button class="btn btn-success" style="padding: 5px 15px; font-size: 12px;">
+                                            Échanger
+                                        </button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Boisson Gratuite</td>
+                                    <td>Jus de bissap ou baobab</td>
+                                    <td>150 points</td>
+                                    <td>7 jours</td>
+                                    <td>
+                                        <button class="btn btn-success" style="padding: 5px 15px; font-size: 12px;">
+                                            Échanger
+                                        </button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Menu VIP</td>
+                                    <td>Accès au menu exclusif</td>
+                                    <td>1000 points</td>
+                                    <td>60 jours</td>
+                                    <td>
+                                        <button class="btn btn-primary" style="padding: 5px 15px; font-size: 12px;" disabled>
+                                            Bientôt
+                                        </button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Reviews Section -->
+                <div class="content-section" id="reviews">
+                    <div class="table-container">
+                        <div class="table-header">
+                            <h3>Mes Avis et Évaluations</h3>
+                            <button class="btn btn-primary">
+                                <i class="fas fa-star"></i>
+                                Nouvel Avis
+                            </button>
+                        </div>
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Plat/Service</th>
+                                    <th>Note</th>
+                                    <th>Commentaire</th>
+                                    <th>Date</th>
+                                    <th>Statut</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Poisson Braisé</td>
+                                    <td>
+                                        <div class="rating">⭐⭐⭐⭐⭐</div>
+                                    </td>
+                                    <td>Excellent plat, très bien préparé et savoureux!</td>
+                                    <td>18/08/2025</td>
+                                    <td><span class="status-badge status-confirmed">Publié</span></td>
+                                    <td>
+                                        <button class="btn btn-outline" style="padding: 5px 10px; font-size: 12px;">
+                                            <i class="fas fa-edit"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Service Restaurant</td>
+                                    <td>
+                                        <div class="rating">⭐⭐⭐⭐⭐</div>
+                                    </td>
+                                    <td>Service impeccable, personnel très accueillant.</td>
+                                    <td>15/08/2025</td>
+                                    <td><span class="status-badge status-confirmed">Publié</span></td>
+                                    <td>
+                                        <button class="btn btn-outline" style="padding: 5px 10px; font-size: 12px;">
+                                            <i class="fas fa-edit"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Riz au Gras</td>
+                                    <td>
+                                        <div class="rating">⭐⭐⭐⭐</div>
+                                    </td>
+                                    <td>Très bon, pourrait être un peu plus épicé à mon goût.</td>
+                                    <td>12/08/2025</td>
+                                    <td><span class="status-badge status-confirmed">Publié</span></td>
+                                    <td>
+                                        <button class="btn btn-outline" style="padding: 5px 10px; font-size: 12px;">
+                                            <i class="fas fa-edit"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Livraison</td>
+                                    <td>
+                                        <div class="rating">⭐⭐⭐⭐⭐</div>
+                                    </td>
+                                    <td>En attente de modération...</td>
+                                    <td>20/08/2025</td>
+                                    <td><span class="status-badge status-pending">En attente</span></td>
+                                    <td>
+                                        <button class="btn btn-outline" style="padding: 5px 10px; font-size: 12px;">
+                                            <i class="fas fa-edit"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Settings Section -->
+                <div class="content-section" id="settings">
+                    <div class="profile-grid">
+                        <div class="form-container">
+                            <h3>Paramètres de Notifications</h3>
+                            <div class="form-group">
+                                <label>
+                                    <input type="checkbox" checked style="margin-right: 10px;">
+                                    Confirmations de réservations
+                                </label>
+                            </div>
+                            <div class="form-group">
+                                <label>
+                                    <input type="checkbox" checked style="margin-right: 10px;">
+                                    Rappels de réservations
+                                </label>
+                            </div>
+                            <div class="form-group">
+                                <label>
+                                    <input type="checkbox" style="margin-right: 10px;">
+                                    Offres spéciales et promotions
+                                </label>
+                            </div>
+                            <div class="form-group">
+                                <label>
+                                    <input type="checkbox" checked style="margin-right: 10px;">
+                                    Nouveaux plats au menu
+                                </label>
+                            </div>
+                            <div class="form-group">
+                                <label>
+                                    <input type="checkbox" checked style="margin-right: 10px;">
+                                    Points de fidélité et récompenses
+                                </label>
+                            </div>
+                            <button class="btn btn-primary">
+                                <i class="fas fa-bell"></i>
+                                Sauvegarder Notifications
+                            </button>
+                        </div>
+
+                        <div class="form-container">
+                            <h3>Sécurité du Compte</h3>
+                            <div class="form-group">
+                                <label for="currentPassword">Mot de passe actuel</label>
+                                <input type="password" id="currentPassword" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label for="newPassword">Nouveau mot de passe</label>
+                                <input type="password" id="newPassword" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label for="confirmPassword">Confirmer le mot de passe</label>
+                                <input type="password" id="confirmPassword" class="form-control">
+                            </div>
+                            <button class="btn btn-primary">
+                                <i class="fas fa-lock"></i>
+                                Changer le Mot de Passe
+                            </button>
+
+                            <hr style="margin: 30px 0;">
+
+                            <div style="text-align: center;">
+                                <h4 style="color: #dc3545; margin-bottom: 15px;">Zone Dangereuse</h4>
+                                <p style="color: #666; font-size: 14px; margin-bottom: 20px;">
+                                    Cette action supprimera définitivement votre compte et toutes vos données.
+                                </p>
+                                <button class="btn" style="background: #dc3545; color: white;">
+                                    <i class="fas fa-trash"></i>
+                                    Supprimer mon Compte
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        // Navigation entre sections
+        document.addEventListener('DOMContentLoaded', function() {
+            const navLinks = document.querySelectorAll('.nav-link');
+            const contentSections = document.querySelectorAll('.content-section');
+            const pageTitle = document.getElementById('pageTitle');
+            const mobileToggle = document.getElementById('mobileToggle');
+            const sidebar = document.getElementById('sidebar');
+            const newReservationBtn = document.getElementById('newReservationBtn');
+            const backToReservations = document.getElementById('backToReservations');
+
+            // Gestion des titres de page avec icônes
+            const pageTitles = {
+                'dashboard': { title: 'Mon Tableau de Bord', icon: 'fas fa-tachometer-alt' },
+                'profile': { title: 'Mes Informations', icon: 'fas fa-user-circle' },
+                'reservations': { title: 'Mes Réservations', icon: 'fas fa-calendar-check' },
+                'new-reservation': { title: 'Nouvelle Réservation', icon: 'fas fa-calendar-plus' },
+                'orders': { title: 'Mes Commandes', icon: 'fas fa-shopping-cart' },
+                'favorites': { title: 'Mes Plats Favoris', icon: 'fas fa-heart' },
+                'loyalty': { title: 'Programme Fidélité', icon: 'fas fa-star' },
+                'reviews': { title: 'Mes Avis', icon: 'fas fa-comment-dots' },
+                'settings': { title: 'Paramètres', icon: 'fas fa-cog' }
+            };
+
+            // Navigation entre sections
+            navLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    navLinks.forEach(l => l.classList.remove('active'));
+                    this.classList.add('active');
+                    contentSections.forEach(section => section.classList.remove('active'));
+                    const targetSection = this.getAttribute('data-section');
+                    document.getElementById(targetSection).classList.add('active');
+                    const pageInfo = pageTitles[targetSection];
+                    pageTitle.innerHTML = `<i class="${pageInfo.icon}"></i> ${pageInfo.title}`;
+                    if (window.innerWidth <= 1024) {
+                        sidebar.classList.remove('active');
+                    }
+                });
+            });
+
+            // Bouton "Nouvelle Réservation"
+            newReservationBtn.addEventListener('click', function() {
+                navLinks.forEach(l => l.classList.remove('active'));
+                document.querySelector('.nav-link[data-section="reservations"]').classList.add('active');
+                contentSections.forEach(section => section.classList.remove('active'));
+                document.getElementById('new-reservation').classList.add('active');
+                pageTitle.innerHTML = `<i class="fas fa-calendar-plus"></i> Nouvelle Réservation`;
+                if (window.innerWidth <= 1024) {
+                    sidebar.classList.remove('active');
+                }
+            });
+
+            // Bouton "Retour aux réservations"
+            backToReservations.addEventListener('click', function() {
+                navLinks.forEach(l => l.classList.remove('active'));
+                document.querySelector('.nav-link[data-section="reservations"]').classList.add('active');
+                contentSections.forEach(section => section.classList.remove('active'));
+                document.getElementById('reservations').classList.add('active');
+                pageTitle.innerHTML = `<i class="fas fa-calendar-check"></i> Mes Réservations`;
+                if (window.innerWidth <= 1024) {
+                    sidebar.classList.remove('active');
+                }
+            });
+
+            // Toggle mobile sidebar
+            mobileToggle.addEventListener('click', function() {
+                sidebar.classList.toggle('active');
+            });
+
+            // Fermer le sidebar en cliquant à l'extérieur sur mobile
+            document.addEventListener('click', function(e) {
+                if (window.innerWidth <= 1024 &&
+                    !sidebar.contains(e.target) &&
+                    !mobileToggle.contains(e.target)) {
+                    sidebar.classList.remove('active');
+                }
+            });
+
+            // Gestion du bouton de déconnexion
+            const logoutBtn = document.querySelector('.logout-btn');
+            logoutBtn.addEventListener('click', function() {
+                if (confirm('Êtes-vous sûr de vouloir vous déconnecter ?')) {
+                    alert('Vous avez été déconnecté.');
+                }
+            });
+
+            // Animation des cartes au chargement
+            const animateCards = () => {
+                const cards = document.querySelectorAll('.stat-card, .profile-card, .favorite-dish');
+                cards.forEach((card, index) => {
+                    card.style.opacity = '0';
+                    card.style.transform = 'translateY(20px)';
+                    setTimeout(() => {
+                        card.style.transition = 'all 0.5s ease';
+                        card.style.opacity = '1';
+                        card.style.transform = 'translateY(0)';
+                    }, index * 100);
+                });
+            };
+            animateCards();
+
+            // Gestion des boutons "Commander" dans les plats favoris
+            const orderButtons = document.querySelectorAll('.favorite-dish .btn-primary');
+            orderButtons.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const dishName = this.closest('.favorite-dish').querySelector('.dish-name').textContent;
+                    alert(`Vous avez commandé : ${dishName}`);
+                });
+            });
+
+            // Gestion des boutons "Échanger" dans la section fidélité
+            const exchangeButtons = document.querySelectorAll('#loyalty .btn-success:not([disabled])');
+            exchangeButtons.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const rewardRow = this.closest('tr');
+                    const rewardName = rewardRow.querySelector('td:first-child').textContent;
+                    alert(`Vous avez échangé vos points contre : ${rewardName}`);
+                });
+            });
+
+            // Gestion des boutons "Avis" dans la section réservations
+            const reviewButtons = document.querySelectorAll('#reservations .btn-primary');
+            reviewButtons.forEach(btn => {
+                if (btn.querySelector('i.fa-star')) {
+                    btn.addEventListener('click', function() {
+                        alert('Redirection vers le formulaire d\'avis...');
+                    });
+                }
+            });
+
+            // Gestion des boutons "Modifier" et "Supprimer" dans les réservations
+            const editButtons = document.querySelectorAll('#reservations .btn-outline i.fa-edit');
+            editButtons.forEach(btn => {
+                btn.closest('button').addEventListener('click', function() {
+                    alert('Modifier la réservation...');
+                });
+            });
+
+            const cancelButtons = document.querySelectorAll('#reservations .btn[style*="background: #dc3545"]');
+            cancelButtons.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    if (confirm('Êtes-vous sûr de vouloir annuler cette réservation ?')) {
+                        alert('Réservation annulée.');
+                    }
+                });
+            });
+
+            // Gestion du formulaire de profil (sauvegarde)
+            const saveProfileBtn = document.querySelector('#profile .btn-primary');
+            if (saveProfileBtn) {
+                saveProfileBtn.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    alert('Vos informations ont été sauvegardées.');
+                });
+            }
+
+            // Gestion du changement de mot de passe
+            const changePasswordBtn = document.querySelector('#settings .btn-primary:last-of-type');
+            if (changePasswordBtn && changePasswordBtn.querySelector('i.fa-lock')) {
+                changePasswordBtn.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const newPassword = document.getElementById('newPassword').value;
+                    const confirmPassword = document.getElementById('confirmPassword').value;
+                    if (newPassword && newPassword === confirmPassword) {
+                        alert('Votre mot de passe a été changé avec succès.');
+                    } else {
+                        alert('Les mots de passe ne correspondent pas ou sont vides.');
+                    }
+                });
+            }
+
+            // Gestion de la suppression de compte
+            const deleteAccountBtn = document.querySelector('#settings .btn[style*="background: #dc3545"]');
+            if (deleteAccountBtn) {
+                deleteAccountBtn.addEventListener('click', function() {
+                    if (confirm('ATTENTION : Cette action est irréversible. Êtes-vous sûr de vouloir supprimer votre compte ?')) {
+                        alert('Votre compte a été supprimé.');
+                    }
+                });
+            }
+
+            // Gestion des catégories de menu dans la nouvelle réservation
+            document.querySelectorAll('.menu-category-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    document.querySelectorAll('.menu-category-btn').forEach(b => b.classList.remove('active'));
+                    this.classList.add('active');
+                    document.querySelectorAll('.menu-grid').forEach(grid => grid.style.display = 'none');
+                    document.getElementById(this.dataset.category).style.display = 'grid';
+                });
+            });
+
+            // Sélection des plats dans la nouvelle réservation
+            document.querySelectorAll('.menu-item').forEach(item => {
+                item.addEventListener('click', function() {
+                    const name = this.dataset.name;
+                    const price = parseInt(this.dataset.price);
+                    addDishToSelection(name, price);
+                });
+            });
+
+            // Ajouter un plat à la sélection
+            function addDishToSelection(name, price) {
+                const dishList = document.getElementById('selectedDishes');
+                const existingItem = Array.from(dishList.children).find(item => item.dataset.name === name);
+
+                if (existingItem) {
+                    const quantityElement = existingItem.querySelector('.quantity');
+                    let quantity = parseInt(quantityElement.textContent);
+                    quantity++;
+                    quantityElement.textContent = quantity;
+                    updateDishTotal(existingItem, price, quantity);
+                } else {
+                    const newItem = document.createElement('div');
+                    newItem.className = 'dish-list-item';
+                    newItem.dataset.name = name;
+                    newItem.dataset.price = price;
+                    newItem.innerHTML = `
+                        <div>
+                            <h4>${name}</h4>
+                            <p>${price.toLocaleString()} FG</p>
+                        </div>
+                        <div class="dish-quantity">
+                            <button class="quantity-btn decrease" data-name="${name}">-</button>
+                            <span class="quantity">1</span>
+                            <button class="quantity-btn increase" data-name="${name}">+</button>
+                            <span class="dish-total">${price.toLocaleString()} FG</span>
+                            <button class="remove-dish" data-name="${name}"><i class="fas fa-times"></i></button>
+                        </div>
+                    `;
+                    dishList.appendChild(newItem);
+
+                    // Gestion des boutons +/-
+                    newItem.querySelector('.increase').addEventListener('click', function() {
+                        const quantityElement = this.parentElement.querySelector('.quantity');
+                        let quantity = parseInt(quantityElement.textContent);
+                        quantity++;
+                        quantityElement.textContent = quantity;
+                        updateDishTotal(this.closest('.dish-list-item'), price, quantity);
+                    });
+
+                    newItem.querySelector('.decrease').addEventListener('click', function() {
+                        const quantityElement = this.parentElement.querySelector('.quantity');
+                        let quantity = parseInt(quantityElement.textContent);
+                        if (quantity > 1) {
+                            quantity--;
+                            quantityElement.textContent = quantity;
+                            updateDishTotal(this.closest('.dish-list-item'), price, quantity);
+                        }
+                    });
+
+                    // Suppression du plat
+                    newItem.querySelector('.remove-dish').addEventListener('click', function() {
+                        this.closest('.dish-list-item').remove();
+                        updateSummary();
+                    });
+                }
+
+                updateSummary();
+            }
+
+            // Mettre à jour le total d'un plat
+            function updateDishTotal(item, unitPrice, quantity) {
+                const totalElement = item.querySelector('.dish-total');
+                const total = unitPrice * quantity;
+                totalElement.textContent = `${total.toLocaleString()} FG`;
+                updateSummary();
+            }
+
+            // Mettre à jour le récapitulatif
+            function updateSummary() {
+                const dishes = document.querySelectorAll('.dish-list-item');
+                let subtotal = 0;
+
+                dishes.forEach(dish => {
+                    const quantity = parseInt(dish.querySelector('.quantity').textContent);
+                    const price = parseInt(dish.dataset.price);
+                    subtotal += price * quantity;
+                });
+
+                const service = Math.round(subtotal * 0.1);
+                const total = subtotal + service;
+
+                document.getElementById('summarySubtotal').textContent = `${subtotal.toLocaleString()} FG`;
+                document.getElementById('summaryService').textContent = `${service.toLocaleString()} FG`;
+                document.getElementById('summaryTotal').textContent = `${total.toLocaleString()} FG`;
+            }
+
+            // Mettre à jour le récapitulatif en temps réel
+            document.getElementById('reservationDate').addEventListener('change', function() {
+                document.getElementById('summaryDateTime').textContent = `${this.value} à ${document.getElementById('reservationTime').value}`;
+            });
+
+            document.getElementById('reservationTime').addEventListener('change', function() {
+                document.getElementById('summaryDateTime').textContent = `${document.getElementById('reservationDate').value} à ${this.value}`;
+            });
+
+            document.getElementById('guests').addEventListener('change', function() {
+                document.getElementById('summaryGuests').textContent = this.value;
+            });
+
+            document.getElementById('occasion').addEventListener('change', function() {
+                document.getElementById('summaryOccasion').textContent = this.value || 'Aucune';
+            });
+
+            // Confirmation de la réservation
+            document.getElementById('confirmReservation').addEventListener('click', function() {
+                const date = document.getElementById('reservationDate').value;
+                const time = document.getElementById('reservationTime').value;
+                const guests = document.getElementById('guests').value;
+
+                if (!date || !time || !guests) {
+                    alert('Veuillez remplir tous les champs obligatoires.');
+                    return;
+                }
+
+                if (confirm('Voulez-vous confirmer cette réservation ?')) {
+                    alert('Réservation confirmée avec succès ! Vous recevrez un email de confirmation.');
+                    // Retour à la liste des réservations
+                    document.querySelector('.nav-link[data-section="reservations"]').click();
+                }
+            });
+
+            // Date minimale = aujourd'hui
+            document.getElementById('reservationDate').min = new Date().toISOString().split('T')[0];
+
+            // Gestion du formulaire de réservation avancé
+            const openReservationForm = document.getElementById('openReservationForm');
+            const closeReservationForm = document.getElementById('closeReservationForm');
+            const reservationFormContainer = document.getElementById('reservationFormContainer');
+
+            openReservationForm.addEventListener('click', function() {
+                reservationFormContainer.style.display = 'block';
+                document.getElementById('reservationsList').style.display = 'none';
+            });
+
+            closeReservationForm.addEventListener('click', function() {
+                reservationFormContainer.style.display = 'none';
+                document.getElementById('reservationsList').style.display = 'block';
+            });
+
+            // Gestion des catégories de menu dans le formulaire de réservation
+            document.querySelectorAll('.menu-category-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    document.querySelectorAll('.menu-category-btn').forEach(b => b.classList.remove('active'));
+                    this.classList.add('active');
+                    document.querySelectorAll('.menu-grid').forEach(grid => grid.style.display = 'none');
+                    document.getElementById(this.dataset.category).style.display = 'grid';
+                });
+            });
+
+            // Sélection des plats dans le formulaire de réservation
+            document.querySelectorAll('.menu-item').forEach(item => {
+                item.addEventListener('click', function() {
+                    const name = this.dataset.name;
+                    const price = parseInt(this.dataset.price);
+                    addDishToSelection(name, price);
+                });
+            });
+
+            // Ajouter un plat à la sélection dans le formulaire de réservation
+            function addDishToSelection(name, price) {
+                const dishList = document.getElementById('selectedDishes2');
+                const existingItem = Array.from(dishList.children).find(item => item.dataset.name === name);
+
+                if (existingItem) {
+                    const quantityElement = existingItem.querySelector('.quantity');
+                    let quantity = parseInt(quantityElement.textContent);
+                    quantity++;
+                    quantityElement.textContent = quantity;
+                    updateDishTotal(existingItem, price, quantity);
+                } else {
+                    const newItem = document.createElement('div');
+                    newItem.className = 'dish-list-item';
+                    newItem.dataset.name = name;
+                    newItem.dataset.price = price;
+                    newItem.innerHTML = `
+                        <div>
+                            <h4>${name}</h4>
+                            <p>${price.toLocaleString()} FG</p>
+                        </div>
+                        <div class="dish-quantity">
+                            <button class="quantity-btn decrease" data-name="${name}">-</button>
+                            <span class="quantity">1</span>
+                            <button class="quantity-btn increase" data-name="${name}">+</button>
+                            <span class="dish-total">${price.toLocaleString()} FG</span>
+                            <button class="remove-dish" data-name="${name}"><i class="fas fa-times"></i></button>
+                        </div>
+                    `;
+                    dishList.appendChild(newItem);
+
+                    // Gestion des boutons +/-
+                    newItem.querySelector('.increase').addEventListener('click', function() {
+                        const quantityElement = this.parentElement.querySelector('.quantity');
+                        let quantity = parseInt(quantityElement.textContent);
+                        quantity++;
+                        quantityElement.textContent = quantity;
+                        updateDishTotal(this.closest('.dish-list-item'), price, quantity);
+                    });
+
+                    newItem.querySelector('.decrease').addEventListener('click', function() {
+                        const quantityElement = this.parentElement.querySelector('.quantity');
+                        let quantity = parseInt(quantityElement.textContent);
+                        if (quantity > 1) {
+                            quantity--;
+                            quantityElement.textContent = quantity;
+                            updateDishTotal(this.closest('.dish-list-item'), price, quantity);
+                        }
+                    });
+
+                    // Suppression du plat
+                    newItem.querySelector('.remove-dish').addEventListener('click', function() {
+                        this.closest('.dish-list-item').remove();
+                        updateSummary();
+                    });
+                }
+
+                updateSummary();
+            }
+
+            // Mettre à jour le total d'un plat
+            function updateDishTotal(item, unitPrice, quantity) {
+                const totalElement = item.querySelector('.dish-total');
+                const total = unitPrice * quantity;
+                totalElement.textContent = `${total.toLocaleString()} FG`;
+                updateSummary();
+            }
+
+            // Mettre à jour le récapitulatif
+            function updateSummary() {
+                const dishes = document.querySelectorAll('.dish-list-item');
+                let subtotal = 0;
+
+                dishes.forEach(dish => {
+                    const quantity = parseInt(dish.querySelector('.quantity').textContent);
+                    const price = parseInt(dish.dataset.price);
+                    subtotal += price * quantity;
+                });
+
+                const service = Math.round(subtotal * 0.1);
+                const total = subtotal + service;
+
+                document.getElementById('summarySubtotal2').textContent = `${subtotal.toLocaleString()} FG`;
+                document.getElementById('summaryService2').textContent = `${service.toLocaleString()} FG`;
+                document.getElementById('summaryTotal2').textContent = `${total.toLocaleString()} FG`;
+            }
+
+            // Mettre à jour le récapitulatif en temps réel
+            document.getElementById('reservationDate2').addEventListener('change', function() {
+                document.getElementById('summaryDateTime2').textContent = `${this.value} à ${document.getElementById('reservationTime2').value}`;
+            });
+
+            document.getElementById('reservationTime2').addEventListener('change', function() {
+                document.getElementById('summaryDateTime2').textContent = `${document.getElementById('reservationDate2').value} à ${this.value}`;
+            });
+
+            document.getElementById('guests2').addEventListener('change', function() {
+                document.getElementById('summaryGuests2').textContent = this.value;
+            });
+
+            document.getElementById('occasion2').addEventListener('change', function() {
+                document.getElementById('summaryOccasion2').textContent = this.value || 'Aucune';
+            });
+
+            // Confirmation de la réservation dans le formulaire avancé
+            document.getElementById('confirmReservation2').addEventListener('click', function() {
+                const date = document.getElementById('reservationDate2').value;
+                const time = document.getElementById('reservationTime2').value;
+                const guests = document.getElementById('guests2').value;
+
+                if (!date || !time || !guests) {
+                    alert('Veuillez remplir tous les champs obligatoires.');
+                    return;
+                }
+
+                if (confirm('Voulez-vous confirmer cette réservation ?')) {
+                    alert('Réservation confirmée avec succès ! Vous recevrez un email de confirmation.');
+                    // Retour à la liste des réservations
+                    document.querySelector('.nav-link[data-section="reservations"]').click();
+                }
+            });
+
+            // Date minimale = aujourd'hui pour le formulaire avancé
+            document.getElementById('reservationDate2').min = new Date().toISOString().split('T')[0];
+        });
+    </script>
+</body>
+</html>

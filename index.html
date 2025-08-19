@@ -1,0 +1,1503 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Restaurant Le Kabouyah | Hôtel de Kagbelen</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&family=Open+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --kabouyah-gold: #D4AF37;
+            --kabouyah-dark-gold: #B8941F;
+            --kabouyah-green: #228B22;
+            --kabouyah-dark: #083A4B;
+            --kabouyah-light: #F8F9FA;
+            --kabouyah-brown: #8B4513;
+            --kabouyah-cream: #FFF8DC;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Open Sans', sans-serif;
+            background-color: var(--kabouyah-light);
+            color: var(--kabouyah-dark);
+            line-height: 1.6;
+        }
+        
+        h1, h2, h3, h4, h5 {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+        }
+        
+        /* Header & Navigation */
+        header {
+            position: fixed;
+            width: 100%;
+            z-index: 1000;
+            background: rgba(255, 255, 255, 0.95);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+        
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+        
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo-icon {
+            width: 50px;
+            height: 50px;
+            background: var(--kabouyah-gold);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .logo-icon i {
+            color: white;
+            font-size: 24px;
+        }
+        
+        .logo-text {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 800;
+            font-size: 24px;
+            margin-left: 12px;
+            color: var(--kabouyah-dark);
+        }
+        
+        .logo-text span {
+            color: var(--kabouyah-gold);
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+        
+        .nav-links li {
+            margin-left: 30px;
+        }
+        
+        .nav-links a {
+            text-decoration: none;
+            color: var(--kabouyah-dark);
+            font-weight: 600;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        
+        .nav-links a:hover {
+            color: var(--kabouyah-gold);
+        }
+        
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -5px;
+            left: 0;
+            background-color: var(--kabouyah-gold);
+            transition: width 0.3s ease;
+        }
+        
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+        
+        .cta-button {
+            background: var(--kabouyah-gold);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 30px;
+            font-weight: 600;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3);
+        }
+        
+        .cta-button:hover {
+            background: var(--kabouyah-dark-gold);
+            transform: translateY(-3px);
+        }
+        
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 24px;
+            color: var(--kabouyah-dark);
+            cursor: pointer;
+        }
+        
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('https://images.unsplash.com/photo-1559339352-11d035aa65de?ixlib=rb-4.0.3&auto=format&fit=crop&w=1740&q=80') no-repeat center center/cover;
+            display: flex;
+            align-items: center;
+            padding-top: 80px;
+        }
+        
+        .hero-content {
+            max-width: 700px;
+            color: white;
+            animation: fadeInUp 1s ease-out;
+        }
+        
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            line-height: 1.2;
+        }
+        
+        .hero h1 span {
+            color: var(--kabouyah-gold);
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+            max-width: 600px;
+        }
+        
+        .hero-buttons {
+            display: flex;
+            gap: 20px;
+        }
+        
+        .btn-primary {
+            background: var(--kabouyah-gold);
+            color: white;
+            padding: 15px 35px;
+            border-radius: 30px;
+            font-weight: 600;
+            font-size: 16px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            display: inline-block;
+            box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3);
+        }
+        
+        .btn-primary:hover {
+            background: var(--kabouyah-dark-gold);
+            transform: translateY(-3px);
+        }
+        
+        .btn-secondary {
+            background: transparent;
+            color: white;
+            padding: 15px 35px;
+            border-radius: 30px;
+            border: 2px solid white;
+            font-weight: 600;
+            font-size: 16px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            display: inline-block;
+        }
+        
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.1);
+            transform: translateY(-3px);
+        }
+        
+        /* Section Styling */
+        section {
+            padding: 100px 0;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+        
+        .section-title h2 {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+        }
+        
+        .section-title h2 span {
+            color: var(--kabouyah-gold);
+        }
+        
+        .section-title .divider {
+            width: 80px;
+            height: 4px;
+            background: var(--kabouyah-gold);
+            margin: 0 auto;
+            border-radius: 2px;
+        }
+        
+        .section-title p {
+            max-width: 700px;
+            margin: 20px auto 0;
+            font-size: 1.1rem;
+            color: #666;
+        }
+        
+        /* About Section */
+        .about-content {
+            display: flex;
+            align-items: center;
+            gap: 50px;
+        }
+        
+        .about-image {
+            flex: 1;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        .about-image img {
+            width: 100%;
+            height: auto;
+            display: block;
+            transition: transform 0.5s ease;
+        }
+        
+        .about-image:hover img {
+            transform: scale(1.05);
+        }
+        
+        .about-text {
+            flex: 1;
+        }
+        
+        .about-text h3 {
+            font-size: 2rem;
+            margin-bottom: 20px;
+            color: var(--kabouyah-gold);
+        }
+        
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 30px;
+            margin-top: 40px;
+        }
+        
+        .stat-item {
+            display: flex;
+            align-items: center;
+        }
+        
+        .stat-icon {
+            width: 60px;
+            height: 60px;
+            background: rgba(212, 175, 55, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 20px;
+        }
+        
+        .stat-icon i {
+            color: var(--kabouyah-gold);
+            font-size: 24px;
+        }
+        
+        .stat-text h4 {
+            font-size: 1.8rem;
+            margin-bottom: 5px;
+        }
+        
+        /* Services Section */
+        .services {
+            background-color: #fff;
+        }
+        
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        
+        .service-card {
+            background: #b6a4a40a;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+        }
+        
+        .service-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        .service-icon {
+            height: 200px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(to right, var(--kabouyah-gold), var(--kabouyah-dark-gold));
+        }
+        
+        .service-icon i {
+            font-size: 60px;
+            color: white;
+        }
+        
+        .service-content {
+            padding: 30px;
+        }
+        
+        .service-content h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+        }
+        
+        .service-content a {
+            color: var(--kabouyah-gold);
+            text-decoration: none;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            margin-top: 15px;
+        }
+        
+        .service-content a i {
+            margin-left: 8px;
+            transition: transform 0.3s ease;
+        }
+        
+        .service-content a:hover i {
+            transform: translateX(5px);
+        }
+        
+        /* Menu Section */
+        .menu {
+            background-color: var(--kabouyah-cream);
+        }
+        
+        .menu-categories {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 50px;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+        
+        .menu-category-btn {
+            background: white;
+            border: 2px solid var(--kabouyah-gold);
+            color: var(--kabouyah-gold);
+            padding: 12px 25px;
+            border-radius: 30px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .menu-category-btn.active,
+        .menu-category-btn:hover {
+            background: var(--kabouyah-gold);
+            color: white;
+        }
+        
+        .menu-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+        }
+        
+        .menu-item {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+        }
+        
+        .menu-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        .menu-item-image {
+            height: 200px;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .menu-item-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+        
+        .menu-item:hover .menu-item-image img {
+            transform: scale(1.05);
+        }
+        
+        .menu-item-content {
+            padding: 25px;
+        }
+        
+        .menu-item-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 10px;
+        }
+        
+        .menu-item h4 {
+            font-size: 1.3rem;
+            color: var(--kabouyah-dark);
+            flex: 1;
+        }
+        
+        .menu-item-price {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--kabouyah-gold);
+            margin-left: 15px;
+        }
+        
+        .menu-item p {
+            color: #666;
+            font-size: 0.95rem;
+        }
+        
+        /* Contact Section */
+        .contact-info {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+        
+        .contact-item {
+            display: flex;
+            align-items: flex-start;
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+        }
+        
+        .contact-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        .contact-icon {
+            width: 60px;
+            height: 60px;
+            background: rgba(212, 175, 55, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 20px;
+            flex-shrink: 0;
+        }
+        
+        .contact-icon i {
+            color: var(--kabouyah-gold);
+            font-size: 24px;
+        }
+        
+        .contact-details h4 {
+            font-size: 1.3rem;
+            margin-bottom: 10px;
+            color: var(--kabouyah-dark);
+        }
+        
+        .contact-details p {
+            color: #666;
+            line-height: 1.6;
+        }
+        
+        /* Contact Section améliorée */
+        .contact-section-flex {
+            display: flex;
+            gap: 40px;
+            align-items: stretch;
+            flex-wrap: wrap;
+        }
+        .newsletter-box {
+            flex: 1.2;
+            min-width: 320px;
+            background: linear-gradient(135deg, var(--kabouyah-gold) 60%, var(--kabouyah-dark-gold) 100%);
+            color: white;
+            border-radius: 25px;
+            box-shadow: 0 8px 32px rgba(212,175,55,0.18);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 48px 36px 40px 36px;
+            margin-bottom: 20px;
+            position: relative;
+            overflow: hidden;
+        }
+        .newsletter-box h3 {
+            font-size: 2.1rem;
+            margin-bottom: 12px;
+            color: #fff;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 800;
+            letter-spacing: 1px;
+        }
+        .newsletter-box .newsletter-icon {
+            font-size: 3.5rem;
+            margin-bottom: 18px;
+            color: #fff;
+            opacity: 0.85;
+        }
+        .newsletter-box p {
+            font-size: 1.15rem;
+            margin-bottom: 28px;
+            color: rgba(255,255,255,0.97);
+        }
+        .newsletter-box form {
+            width: 100%;
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin-bottom: 10px;
+        }
+        .newsletter-box input[type="email"] {
+            flex: 1;
+            min-width: 180px;
+            padding: 15px;
+            border: none;
+            border-radius: 25px;
+            outline: none;
+            font-size: 1.1rem;
+        }
+        .newsletter-box button {
+            background: var(--kabouyah-dark);
+            color: white;
+            border: none;
+            border-radius: 25px;
+            padding: 15px 32px;
+            font-weight: 700;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        .newsletter-box button:hover {
+            background: var(--kabouyah-green);
+        }
+        .newsletter-box #newsletterMsg {
+            margin-top: 14px;
+            display: none;
+            color: #fff;
+            font-weight: 700;
+            font-size: 1.1rem;
+        }
+        .contact-infos-list {
+            flex: 1;
+            min-width: 280px;
+            display: flex;
+            flex-direction: column;
+            gap: 28px;
+            justify-content: center;
+        }
+        .contact-infos-list .contact-item {
+            background: #fff;
+            border-radius: 18px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.06);
+            padding: 32px 28px;
+            display: flex;
+            align-items: flex-start;
+            gap: 18px;
+            transition: box-shadow 0.2s, transform 0.2s;
+        }
+        .contact-infos-list .contact-item:hover {
+            box-shadow: 0 15px 30px rgba(0,0,0,0.13);
+            transform: translateY(-4px);
+        }
+        @media (max-width: 900px) {
+            .contact-section-flex {
+                flex-direction: column;
+            }
+            .newsletter-box, .contact-infos-list {
+                min-width: 0;
+                width: 100%;
+            }
+        }
+        
+        /* Footer */
+        footer {
+            background: var(--kabouyah-dark);
+            color: white;
+            padding: 80px 0 40px;
+        }
+        
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 60px;
+        }
+        
+        .footer-col h3 {
+            font-size: 1.5rem;
+            margin-bottom: 25px;
+            position: relative;
+        }
+        
+        .footer-col h3::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: -10px;
+            width: 50px;
+            height: 3px;
+            background: var(--kabouyah-gold);
+        }
+        
+        .footer-about p {
+            margin-bottom: 25px;
+            color: #aaa;
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            color: white;
+            transition: all 0.3s ease;
+        }
+        
+        .social-links a:hover {
+            background: var(--kabouyah-gold);
+            transform: translateY(-5px);
+        }
+        
+        .footer-links {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 15px;
+        }
+        
+        .footer-links a {
+            color: #aaa;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+        }
+        
+        .footer-links a i {
+            margin-right: 10px;
+            color: var(--kabouyah-gold);
+            font-size: 12px;
+        }
+        
+        .footer-links a:hover {
+            color: var(--kabouyah-gold);
+            padding-left: 5px;
+        }
+        
+        .hours-list {
+            list-style: none;
+        }
+        
+        .hours-list li {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .hours-list li:last-child {
+            border-bottom: none;
+        }
+        
+        .footer-bottom {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: #aaa;
+            font-size: 14px;
+        }
+        
+        /* Mobile Responsiveness */
+        @media (max-width: 992px) {
+            .hero h1 {
+                font-size: 2.8rem;
+            }
+            
+            .about-content {
+                flex-direction: column;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .nav-links, .cta-button {
+                display: none;
+            }
+            
+            .mobile-menu-btn {
+                display: block;
+            }
+            
+            .hero h1 {
+                font-size: 2.3rem;
+            }
+            
+            .hero p {
+                font-size: 1rem;
+            }
+            
+            .hero-buttons {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            .btn-primary, .btn-secondary {
+                width: 100%;
+                text-align: center;
+            }
+            
+            section {
+                padding: 70px 0;
+            }
+            
+            .section-title h2 {
+                font-size: 2rem;
+            }
+            
+            .menu-categories {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+        
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .animate {
+            animation: fadeInUp 0.8s ease-out forwards;
+        }
+        
+        .delay-1 {
+            animation-delay: 0.2s;
+        }
+        
+        .delay-2 {
+            animation-delay: 0.4s;
+        }
+        
+        .delay-3 {
+            animation-delay: 0.6s;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header id="header">
+        <div class="container">
+            <div class="nav-container">
+                <div class="logo">
+                    <div class="logo-icon">
+                        <i class="fas fa-utensils"></i>
+                    </div>
+                    <div class="logo-text">RESTAURANT <span>KABOUYAH</span></div>
+                </div>
+                
+                <ul class="nav-links">
+                    <li><a href="#home">Accueil</a></li>
+                    <li><a href="#about">À Propos</a></li>
+                    <li><a href="#services">Services</a></li>
+                    <li><a href="#menu">Menu</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+                
+                <button class="cta-button">Réservation</button>
+                
+                <button class="mobile-menu-btn" id="mobileMenuBtn">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="container">
+            <div class="hero-content">
+                <h1>RESTAURANT <span>LE KABOUYAH</span></h1>
+                <p>Découvrez l'art culinaire guinéen dans notre restaurant de l'Hôtel le Kabouyah à Kagbelen. Une expérience gastronomique authentique vous attend dans un cadre élégant et moderne.</p>
+                <div class="hero-buttons">
+                    <a href="#menu" class="btn-primary">DÉCOUVRIR LE MENU</a>
+                    <a href="#contact" class="btn-secondary">NOUS CONTACTER</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about">
+        <div class="container">
+            <div class="section-title">
+                <h2>À PROPOS DU <span>RESTAURANT</span></h2>
+                <div class="divider"></div>
+                <p>Un voyage culinaire au cœur de la tradition guinéenne</p>
+            </div>
+            
+            <div class="about-content">
+                <div class="about-image animate">
+                    <img src="https://images.unsplash.com/photo-1586190848861-99aa4a171e90?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Restaurant Le Kabouyah">
+                </div>
+                
+                <div class="about-text animate delay-1">
+                    <h3>NOTRE HISTOIRE</h3>
+                    <p>Le Restaurant Le Kabouyah est situé au sein de l'Hôtel le Kabouyah à Kagbelen, dans la commune de Dubréka. Nous proposons une cuisine authentique guinéenne dans un cadre moderne et raffiné.</p>
+                    <p>Notre chef et son équipe mettent en avant les saveurs locales avec des ingrédients frais et de qualité, offrant une expérience gastronomique unique à nos clients.</p>
+                    
+                    <div class="stats">
+                        <div class="stat-item">
+                            <div class="stat-icon">
+                                <i class="fas fa-chair"></i>
+                            </div>
+                            <div class="stat-text">
+                                <h4>80</h4>
+                                <p>Places Assises</p>
+                            </div>
+                        </div>
+                        
+                        <div class="stat-item">
+                            <div class="stat-icon">
+                                <i class="fas fa-utensils"></i>
+                            </div>
+                            <div class="stat-text">
+                                <h4>50+</h4>
+                                <p>Plats au Menu</p>
+                            </div>
+                        </div>
+                        
+                        <div class="stat-item">
+                            <div class="stat-icon">
+                                <i class="fas fa-users"></i>
+                            </div>
+                            <div class="stat-text">
+                                <h4>15</h4>
+                                <p>Personnel</p>
+                            </div>
+                        </div>
+                        
+                        <div class="stat-item">
+                            <div class="stat-icon">
+                                <i class="fas fa-clock"></i>
+                            </div>
+                            <div class="stat-text">
+                                <h4>6/7</h4>
+                                <p>Jours d'Ouverture</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section class="services" id="services">
+        <div class="container">
+            <div class="section-title">
+                <h2>NOS <span>SERVICES</span></h2>
+                <div class="divider"></div>
+                <p>Une gamme complète de services pour une expérience culinaire exceptionnelle</p>
+            </div>
+            
+            <div class="services-grid">
+                <div class="service-card animate">
+                    <div class="service-icon">
+                        <i class="fas fa-concierge-bell"></i>
+                    </div>
+                    <div class="service-content">
+                        <h3>Service à Table</h3>
+                        <p>Service professionnel dans notre salle de restaurant avec un personnel attentif et formé.</p>
+                        <a href="#contact">Réserver <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+                
+                <div class="service-card animate delay-1">
+                    <div class="service-icon">
+                        <i class="fas fa-calendar-alt"></i>
+                    </div>
+                    <div class="service-content">
+                        <h3>Réservations</h3>
+                        <p>Système de réservation pour garantir votre table à l'heure souhaitée.</p>
+                        <a href="#contact">Réserver <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+                
+                <div class="service-card animate delay-2">
+                    <div class="service-icon">
+                        <i class="fas fa-birthday-cake"></i>
+                    </div>
+                    <div class="service-content">
+                        <h3>Événements Privés</h3>
+                        <p>Organisation de repas pour événements spéciaux, anniversaires et célébrations.</p>
+                        <a href="#contact">Réserver <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+                
+                <div class="service-card animate">
+                    <div class="service-icon">
+                        <i class="fas fa-truck"></i>
+                    </div>
+                    <div class="service-content">
+                        <h3>Livraison</h3>
+                        <p>Service de livraison pour les clients de l'hôtel et les environs.</p>
+                        <a href="#contact">Commander <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+                
+                <div class="service-card animate delay-1">
+                    <div class="service-icon">
+                        <i class="fas fa-coffee"></i>
+                    </div>
+                    <div class="service-content">
+                        <h3>Service Petit-Déjeuner</h3>
+                        <p>Petit-déjeuner quotidien varié avec spécialités locales et internationales.</p>
+                        <a href="#menu">Voir le menu <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+                
+                <div class="service-card animate delay-2">
+                    <div class="service-icon">
+                        <i class="fas fa-wine-glass"></i>
+                    </div>
+                    <div class="service-content">
+                        <h3>Bar & Boissons</h3>
+                        <p>Large sélection de boissons, jus locaux et cocktails rafraîchissants.</p>
+                        <a href="#menu">Voir les boissons <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Menu Section -->
+    <section class="menu" id="menu">
+        <div class="container">
+            <div class="section-title">
+                <h2>NOTRE <span>MENU</span></h2>
+                <div class="divider"></div>
+                <p>Découvrez nos spécialités culinaires guinéennes et internationales</p>
+            </div>
+            
+            <div class="menu-categories">
+                <button class="menu-category-btn active" onclick="showCategory('entrees')">Entrées</button>
+                <button class="menu-category-btn" onclick="showCategory('plats')">Plats Principaux</button>
+                <button class="menu-category-btn" onclick="showCategory('desserts')">Desserts</button>
+                <button class="menu-category-btn" onclick="showCategory('boissons')">Boissons</button>
+            </div>
+            
+            <div class="menu-grid" id="entrees">
+                <div class="menu-item animate">
+                    <div class="menu-item-image">
+                        <img src="https://images.unsplash.com/photo-1546833999-b9f581a1996d?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Salade de Mangue Verte">
+                    </div>
+                    <div class="menu-item-content">
+                        <div class="menu-item-header">
+                            <h4>Salade de Mangue Verte</h4>
+                            <div class="menu-item-price">8,000 FG</div>
+                        </div>
+                        <p>Mangue verte râpée, tomates, oignons, piment et vinaigrette maison</p>
+                    </div>
+                </div>
+                
+                <div class="menu-item animate delay-1">
+                    <div class="menu-item-image">
+                        <img src="https://images.unsplash.com/photo-1565299624946-b28f40a0ca4b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Beignets de Crevettes">
+                    </div>
+                    <div class="menu-item-content">
+                        <div class="menu-item-header">
+                            <h4>Beignets de Crevettes</h4>
+                            <div class="menu-item-price">12,000 FG</div>
+                        </div>
+                        <p>Crevettes fraîches enrobées de pâte épicée, servies avec sauce piquante</p>
+                    </div>
+                </div>
+                
+                <div class="menu-item animate delay-2">
+                    <div class="menu-item-image">
+                        <img src="https://images.unsplash.com/photo-1547592166-23ac45744acd?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Soupe d'Arachide">
+                    </div>
+                    <div class="menu-item-content">
+                        <div class="menu-item-header">
+                            <h4>Soupe d'Arachide</h4>
+                            <div class="menu-item-price">6,000 FG</div>
+                        </div>
+                        <p>Soupe traditionnelle à base d'arachides et légumes locaux</p>
+                    </div>
+                </div>
+                
+                <div class="menu-item animate">
+                    <div class="menu-item-image">
+                        <img src="https://images.unsplash.com/photo-1623428187969-5da2dcea5ebf?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Avocat aux Crevettes">
+                    </div>
+                    <div class="menu-item-content">
+                        <div class="menu-item-header">
+                            <h4>Avocat aux Crevettes</h4>
+                            <div class="menu-item-price">10,000 FG</div>
+                        </div>
+                        <p>Avocat frais garni de crevettes sautées et vinaigrette citron</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="menu-grid" id="plats" style="display: none;">
+                <div class="menu-item animate">
+                    <div class="menu-item-image">
+                        <img src="https://images.unsplash.com/photo-1586190848861-99aa4a171e90?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Riz au Gras">
+                    </div>
+                    <div class="menu-item-content">
+                        <div class="menu-item-header">
+                            <h4>Riz au Gras</h4>
+                            <div class="menu-item-price">20,000 FG</div>
+                        </div>
+                        <p>Riz cuit dans l'huile de palme avec viande, poisson fumé et légumes</p>
+                    </div>
+                </div>
+                
+                <div class="menu-item animate delay-1">
+                    <div class="menu-item-image">
+                        <img src="https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Poisson Braisé">
+                    </div>
+                    <div class="menu-item-content">
+                        <div class="menu-item-header">
+                            <h4>Poisson Braisé</h4>
+                            <div class="menu-item-price">25,000 FG</div>
+                        </div>
+                        <p>Poisson frais grillé aux épices locales, accompagné de riz blanc</p>
+                    </div>
+                </div>
+                
+                <div class="menu-item animate delay-2">
+                    <div class="menu-item-image">
+                        <img src="https://images.unsplash.com/photo-1598103442097-8b74394b95c6?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Poulet Yassa">
+                    </div>
+                    <div class="menu-item-content">
+                        <div class="menu-item-header">
+                            <h4>Poulet Yassa</h4>
+                            <div class="menu-item-price">18,000 FG</div>
+                        </div>
+                        <p>Poulet mariné aux oignons et citron, servi avec riz parfumé</p>
+                    </div>
+                </div>
+                
+                <div class="menu-item animate">
+                    <div class="menu-item-image">
+                        <img src="https://images.unsplash.com/photo-1546833999-b9f581a1996d?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Fouti">
+                    </div>
+                    <div class="menu-item-content">
+                        <div class="menu-item-header">
+                            <h4>Fouti</h4>
+                            <div class="menu-item-price">15,000 FG</div>
+                        </div>
+                        <p>Plat traditionnel à base de fonio, légumes et viande</p>
+                    </div>
+                </div>
+                
+                <div class="menu-item animate delay-1">
+                    <div class="menu-item-image">
+                        <img src="https://images.unsplash.com/photo-1544025162-d76694265947?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Capitaine à la Sauce Tomate">
+                    </div>
+                    <div class="menu-item-content">
+                        <div class="menu-item-header">
+                            <h4>Capitaine à la Sauce Tomate</h4>
+                            <div class="menu-item-price">30,000 FG</div>
+                        </div>
+                        <p>Filet de capitaine en sauce tomate épicée, riz ou attieké</p>
+                    </div>
+                </div>
+                
+                <div class="menu-item animate delay-2">
+                    <div class="menu-item-image">
+                        <img src="https://images.unsplash.com/photo-1588168333986-5078d3ae3976?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Bœuf aux Légumes">
+                    </div>
+                    <div class="menu-item-content">
+                        <div class="menu-item-header">
+                            <h4>Bœuf aux Légumes</h4>
+                            <div class="menu-item-price">22,000 FG</div>
+                        </div>
+                        <p>Morceaux de bœuf tendres mijotés avec légumes de saison</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="menu-grid" id="desserts" style="display: none;">
+                <div class="menu-item animate">
+                    <div class="menu-item-image">
+                        <img src="https://images.unsplash.com/photo-1546173159-315724a31696?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Salade de Fruits Tropicaux">
+                    </div>
+                    <div class="menu-item-content">
+                        <div class="menu-item-header">
+                            <h4>Salade de Fruits Tropicaux</h4>
+                            <div class="menu-item-price">5,000 FG</div>
+                        </div>
+                        <p>Ananas, mangue, papaye et banane, coulis de fruits de la passion</p>
+                    </div>
+                </div>
+                
+                <div class="menu-item animate delay-1">
+                    <div class="menu-item-image">
+                        <img src="https://images.unsplash.com/photo-1488477304112-4944851de03d?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Crème de Coco">
+                    </div>
+                    <div class="menu-item-content">
+                        <div class="menu-item-header">
+                            <h4>Crème de Coco</h4>
+                            <div class="menu-item-price">4,000 FG</div>
+                        </div>
+                        <p>Dessert crémeux à base de lait de coco et vanille</p>
+                    </div>
+                </div>
+                
+                <div class="menu-item animate delay-2">
+                    <div class="menu-item-image">
+                        <img src="https://images.unsplash.com/photo-1586985289688-ca3cf47d3e6e?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Gâteau à la Banane">
+                    </div>
+                    <div class="menu-item-content">
+                        <div class="menu-item-header">
+                            <h4>Gâteau à la Banane</h4>
+                            <div class="menu-item-price">6,000 FG</div>
+                        </div>
+                        <p>Gâteau moelleux aux bananes avec glaçage au miel</p>
+                    </div>
+                </div>
+                
+                <div class="menu-item animate">
+                    <div class="menu-item-image">
+                        <img src="https://images.unsplash.com/photo-1563805042-7684c019e1cb?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Glace Artisanale">
+                    </div>
+                    <div class="menu-item-content">
+                        <div class="menu-item-header">
+                            <h4>Glace Artisanale</h4>
+                            <div class="menu-item-price">3,000 FG</div>
+                        </div>
+                        <p>Parfums mangue, coco ou vanille, préparée maison</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="menu-grid" id="boissons" style="display: none;">
+                <div class="menu-item animate">
+                    <div class="menu-item-image">
+                        <img src="https://images.unsplash.com/photo-1594736797933-d0d99b504347?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Jus de Bissap">
+                    </div>
+                    <div class="menu-item-content">
+                        <div class="menu-item-header">
+                            <h4>Jus de Bissap</h4>
+                            <div class="menu-item-price">2,500 FG</div>
+                        </div>
+                        <p>Boisson rafraîchissante à base d'hibiscus, menthe et gingembre</p>
+                    </div>
+                </div>
+                
+                <div class="menu-item animate delay-1">
+                    <div class="menu-item-image">
+                        <img src="https://images.unsplash.com/photo-1570197788417-0e82375c9371?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Jus de Baobab">
+                    </div>
+                    <div class="menu-item-content">
+                        <div class="menu-item-header">
+                            <h4>Jus de Baobab</h4>
+                            <div class="menu-item-price">3,000 FG</div>
+                        </div>
+                        <p>Jus naturel riche en vitamine C, saveur unique</p>
+                    </div>
+                </div>
+                
+                <div class="menu-item animate delay-2">
+                    <div class="menu-item-image">
+                        <img src="https://images.unsplash.com/photo-1571091655789-405eb7a3a3a8?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Cocktail Tropical">
+                    </div>
+                    <div class="menu-item-content">
+                        <div class="menu-item-header">
+                            <h4>Cocktail Tropical</h4>
+                            <div class="menu-item-price">4,000 FG</div>
+                        </div>
+                        <p>Mélange de jus d'ananas, mangue et fruit de la passion</p>
+                    </div>
+                </div>
+                
+                <div class="menu-item animate">
+                    <div class="menu-item-image">
+                        <img src="https://images.unsplash.com/photo-1594631252845-29fc4cc8cde9?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Thé Ataya">
+                    </div>
+                    <div class="menu-item-content">
+                        <div class="menu-item-header">
+                            <h4>Thé Ataya</h4>
+                            <div class="menu-item-price">1,500 FG</div>
+                        </div>
+                        <p>Thé traditionnel guinéen préparé selon la méthode ancestrale</p>
+                    </div>
+                </div>
+                
+                <div class="menu-item animate delay-1">
+                    <div class="menu-item-image">
+                        <img src="https://images.unsplash.com/photo-1497636577773-f1231844b336?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Café Local">
+                    </div>
+                    <div class="menu-item-content">
+                        <div class="menu-item-header">
+                            <h4>Café Local</h4>
+                            <div class="menu-item-price">2,000 FG</div>
+                        </div>
+                        <p>Café robusta guinéen, torréfié et moulu sur place</p>
+                    </div>
+                </div>
+                
+                <div class="menu-item animate delay-2">
+                    <div class="menu-item-image">
+                        <img src="https://images.unsplash.com/photo-1553909489-cd47e0ef937f?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Eau Minérale">
+                    </div>
+                    <div class="menu-item-content">
+                        <div class="menu-item-header">
+                            <h4>Eau Minérale</h4>
+                            <div class="menu-item-price">1,000 FG</div>
+                        </div>
+                        <p>Eau minérale locale en bouteille</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact">
+        <div class="container">
+            <div class="section-title">
+                <h2>NOUS <span>CONTACTER</span></h2>
+                <div class="divider"></div>
+                <p>Pour toute réservation, question ou suggestion, contactez-nous ou abonnez-vous à notre newsletter !</p>
+            </div>
+            <div class="contact-section-flex">
+                <div class="newsletter-box animate">
+                    <div class="newsletter-icon">
+                        <i class="fas fa-envelope-open-text"></i>
+                    </div>
+                    <h3>Inscrivez-vous à notre Newsletter</h3>
+                    <p>Recevez nos actualités, offres spéciales et recettes exclusives directement par email !<br><span style="font-size:0.98em;opacity:0.8;">Soyez les premiers informés des nouveautés du Kabouyah.</span></p>
+                    <form id="newsletterForm">
+                        <input type="email" id="newsletterEmail" placeholder="Votre email" required>
+                        <button type="submit">S'inscrire</button>
+                    </form>
+                    <div id="newsletterMsg"></div>
+                </div>
+                <div class="contact-infos-list">
+                    <div class="contact-item animate" style="flex:1;">
+                        <div class="contact-icon">
+                            <i class="fas fa-map-marker-alt"></i>
+                        </div>
+                        <div class="contact-details">
+                            <h4>Notre Adresse</h4>
+                            <p>Hôtel le Kabouyah<br>Kagbelen, Commune de Dubréka<br>À 100m de la route nationale RN3<br>Guinée</p>
+                        </div>
+                    </div>
+                    <div class="contact-item animate delay-1" style="flex:1;">
+                        <div class="contact-icon">
+                            <i class="fas fa-phone"></i>
+                        </div>
+                        <div class="contact-details">
+                            <h4>Réservations</h4>
+                            <p>+224 610 31 91 91<br>Whatsapp disponible</p>
+                        </div>
+                    </div>
+                    <div class="contact-item animate delay-2" style="flex:1;">
+                        <div class="contact-icon">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                        <div class="contact-details">
+                            <h4>Horaires d'Ouverture</h4>
+                            <p>Lundi - Samedi : 6h00 - 23h00<br>Dimanche : Fermé<br>Petit-déjeuner : 6h00 - 10h00</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <h3>Restaurant Le Kabouyah</h3>
+                    <div class="footer-about">
+                        <p>Découvrez l'authenticité de la cuisine guinéenne dans un cadre moderne et élégant au cœur de l'Hôtel le Kabouyah.</p>
+                        <div class="social-links">
+                            <a href="#"><i class="fab fa-facebook-f"></i></a>
+                            <a href="#"><i class="fab fa-instagram"></i></a>
+                            <a href="#"><i class="fab fa-whatsapp"></i></a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="footer-col">
+                    <h3>Navigation</h3>
+                    <ul class="footer-links">
+                        <li><a href="#home"><i class="fas fa-chevron-right"></i> Accueil</a></li>
+                        <li><a href="#about"><i class="fas fa-chevron-right"></i> À Propos</a></li>
+                        <li><a href="#services"><i class="fas fa-chevron-right"></i> Services</a></li>
+                        <li><a href="#menu"><i class="fas fa-chevron-right"></i> Menu</a></li>
+                        <li><a href="#contact"><i class="fas fa-chevron-right"></i> Contact</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-col">
+                    <h3>Spécialités</h3>
+                    <ul class="footer-links">
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> Riz au Gras</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> Poisson Braisé</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> Poulet Yassa</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> Capitaine Sauce Tomate</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> Jus de Bissap</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> Thé Ataya</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-col">
+                    <h3>Horaires</h3>
+                    <ul class="hours-list">
+                        <li><span>Lundi - Samedi</span> <span>6h00 - 23h00</span></li>
+                        <li><span>Petit-déjeuner</span> <span>6h00 - 10h00</span></li>
+                        <li><span>Déjeuner</span> <span>12h00 - 15h00</span></li>
+                        <li><span>Dîner</span> <span>18h00 - 23h00</span></li>
+                        <li><span>Dimanche</span> <span>Fermé</span></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>© 2023 Restaurant Le Kabouyah - Hôtel le Kabouyah. Tous droits réservés. | Conçu avec <i class="fas fa-heart" style="color: var(--kabouyah-gold);"></i></p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Menu category switching
+        function showCategory(category) {
+            // Hide all menu grids
+            const menuGrids = document.querySelectorAll('.menu-grid');
+            menuGrids.forEach(grid => {
+                grid.style.display = 'none';
+            });
+            
+            // Show selected category
+            document.getElementById(category).style.display = 'grid';
+            
+            // Update active button
+            const buttons = document.querySelectorAll('.menu-category-btn');
+            buttons.forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.target.classList.add('active');
+        }
+        
+        // Header scroll effect
+        window.addEventListener('scroll', () => {
+            const header = document.getElementById('header');
+            if (window.scrollY > 100) {
+                header.style.background = 'white';
+                header.style.boxShadow = '0 5px 20px rgba(0, 0, 0, 0.1)';
+            } else {
+                header.style.background = 'rgba(255, 255, 255, 0.95)';
+                header.style.boxShadow = '0 2px 10px rgba(0, 0, 0, 0.1)';
+            }
+        });
+        
+        // Animation on scroll
+        const animateOnScroll = () => {
+            const elements = document.querySelectorAll('.animate');
+            elements.forEach(element => {
+                const elementPosition = element.getBoundingClientRect().top;
+                const screenPosition = window.innerHeight / 1.3;
+                
+                if (elementPosition < screenPosition) {
+                    element.style.opacity = 1;
+                    element.style.transform = 'translateY(0)';
+                }
+            });
+        };
+        
+        window.addEventListener('scroll', animateOnScroll);
+        window.addEventListener('load', animateOnScroll);
+        
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+        
+        // Newsletter form JS
+        document.addEventListener('DOMContentLoaded', function() {
+            var form = document.getElementById('newsletterForm');
+            if(form) {
+                form.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    var msg = document.getElementById('newsletterMsg');
+                    msg.style.display = 'block';
+                    msg.textContent = 'Merci pour votre inscription !';
+                    form.reset();
+                });
+            }
+        });
+    </script>
+</body>
+</html>
