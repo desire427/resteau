@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inscription - Restaurant Le Kabouyah</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&family=Open+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --kabouyah-gold: #D4AF37;
+            --kabouyah-dark-gold: #B8941F;
+            --kabouyah-green: #228B22;
+            --kabouyah-dark: #083A4B;
+            --kabouyah-light: #F8F9FA;
+            --kabouyah-brown: #8B4513;
+            --kabouyah-cream: #FFF8DC;
+        }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Open Sans', sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            color: var(--kabouyah-dark);
+            line-height: 1.6;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        .signup-container {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+            overflow: hidden;
+            max-width: 900px;
+            width: 100%;
+            display: flex;
+            min-height: 700px;
+        }
+        .signup-banner {
+            background: linear-gradient(180deg, var(--kabouyah-dark), #0a4552);
+            color: white;
+            padding: 60px 40px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+        .signup-banner .logo-icon {
+            width: 80px;
+            height: 80px;
+            background: var(--kabouyah-gold);
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 30px;
+            font-size: 40px;
+        }
+        .signup-banner h1 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 28px;
+            font-weight: 800;
+            margin-bottom: 20px;
+            line-height: 1.2;
+        }
+        .signup-banner p {
+            font-size: 16px;
+            opacity: 0.9;
+            margin-bottom: 40px;
+        }
+        .signup-banner .slogan {
+            font-style: italic;
+            font-size: 18px;
+            color: var(--kabouyah-gold);
+        }
+        .signup-form-section {
+            flex: 1;
+            padding: 40px 50px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        .signup-form-section h2 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--kabouyah-dark);
+            margin-bottom: 10px;
+            text-align: center;
+        }
+        .signup-form-section .welcome-text {
+            color: #666;
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 15px;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: var(--kabouyah-dark);
+            font-size: 14px;
+        }
+        .form-row {
+            display: flex;
+            gap: 15px;
+        }
+        .form-row .form-group {
+            flex: 1;
+        }
+        .form-control {
+            width: 100%;
+            padding: 15px 18px;
+            border: 2px solid #e3e7ed;
+            border-radius: 12px;
+            font-size: 14px;
+            transition: all 0.3s ease;
+            background: #f8f9fa;
+        }
+        .form-control:focus {
+            outline: none;
+            border-color: var(--kabouyah-gold);
+            box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.1);
+            background: white;
+        }
+        .password-container {
+            position: relative;
+        }
+        .password-toggle {
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            cursor: pointer;
+            color: #999;
+        }
+        .btn {
+            padding: 14px 25px;
+            border: none;
+            border-radius: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 15px;
+            margin-top: 20px;
+        }
+        .btn-primary {
+            background: linear-gradient(135deg, var(--kabouyah-gold), var(--kabouyah-dark-gold));
+            color: white;
+            width: 100%;
+            font-size: 16px;
+        }
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(212, 175, 55, 0.4);
+        }
+        .login-link {
+            text-align: center;
+            margin-top: 20px;
+            color: #666;
+            font-size: 14px;
+        }
+        .login-link a {
+            color: var(--kabouyah-gold);
+            text-decoration: none;
+            font-weight: 600;
+        }
+        .login-link a:hover {
+            text-decoration: underline;
+        }
+        @media (max-width: 768px) {
+            .signup-container {
+                flex-direction: column;
+                max-width: 450px;
+            }
+            .signup-banner {
+                padding: 30px 20px;
+            }
+            .signup-form-section {
+                padding: 30px 25px;
+            }
+            .form-row {
+                flex-direction: column;
+                gap: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="signup-container">
+        <div class="signup-banner">
+            <div class="logo-icon">
+                <i class="fas fa-utensils"></i>
+            </div>
+            <h1>RESTAURANT<br><span style="color: var(--kabouyah-gold);">KABOUYAH</span></h1>
+            <p>Rejoignez-nous pour une expérience culinaire inoubliable.</p>
+            <div class="slogan">"Le goût de l'hospitalité guinéenne"</div>
+        </div>
+
+        <div class="signup-form-section">
+            <h2>Créer un Compte</h2>
+            <p class="welcome-text">Inscrivez-vous pour accéder à votre espace client.</p>
+
+            <form id="signupForm">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="firstName">Prénom *</label>
+                        <input type="text" id="firstName" class="form-control" placeholder="Votre prénom" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="lastName">Nom *</label>
+                        <input type="text" id="lastName" class="form-control" placeholder="Votre nom" required>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="username">Nom d'utilisateur *</label>
+                    <input type="text" id="username" class="form-control" placeholder="Choisissez un nom d'utilisateur" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="email">Email *</label>
+                    <input type="email" id="email" class="form-control" placeholder="votre@email.com" required>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="password">Mot de Passe *</label>
+                        <div class="password-container">
+                            <input type="password" id="password" class="form-control" placeholder="••••••••" required>
+                            <i class="fas fa-eye-slash password-toggle" id="togglePassword"></i>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="confirmPassword">Confirmation *</label>
+                        <div class="password-container">
+                            <input type="password" id="confirmPassword" class="form-control" placeholder="••••••••" required>
+                            <i class="fas fa-eye-slash password-toggle" id="toggleConfirmPassword"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="phone">Téléphone</label>
+                    <input type="tel" id="phone" class="form-control" placeholder="+224 610 31 91 91">
+                </div>
+
+                <button type="submit" class="btn btn-primary">
+                    <i class="fas fa-user-plus"></i> S'inscrire
+                </button>
+            </form>
+
+            <div class="login-link">
+                Vous avez déjà un compte ? <a href="login.html">Se connecter</a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Toggle password visibility
+        const togglePassword = document.getElementById('togglePassword');
+        const toggleConfirmPassword = document.getElementById('toggleConfirmPassword');
+        const passwordInput = document.getElementById('password');
+        const confirmPasswordInput = document.getElementById('confirmPassword');
+
+        togglePassword.addEventListener('click', function() {
+            const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+            passwordInput.setAttribute('type', type);
+            this.classList.toggle('fa-eye');
+            this.classList.toggle('fa-eye-slash');
+        });
+
+        toggleConfirmPassword.addEventListener('click', function() {
+            const type = confirmPasswordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+            confirmPasswordInput.setAttribute('type', type);
+            this.classList.toggle('fa-eye');
+            this.classList.toggle('fa-eye-slash');
+        });
+
+        // Handle form submission
+        document.getElementById('signupForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const firstName = document.getElementById('firstName').value;
+            const lastName = document.getElementById('lastName').value;
+            const username = document.getElementById('username').value;
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            const confirmPassword = document.getElementById('confirmPassword').value;
+
+            if (!firstName || !lastName || !username || !email || !password || !confirmPassword) {
+                alert('Veuillez remplir tous les champs obligatoires.');
+                return;
+            }
+
+            if (password !== confirmPassword) {
+                alert('Les mots de passe ne correspondent pas.');
+                return;
+            }
+
+            // Simulate signup (replace with real registration logic)
+            alert(`Compte créé avec succès pour ${username} ! Vous pouvez maintenant vous connecter.`);
+            window.location.href = 'login.html';
+        });
+    </script>
+</body>
+</html>
