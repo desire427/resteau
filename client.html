@@ -709,6 +709,79 @@
         .content-section.active {
             animation: fadeInUp 0.5s ease;
         }
+
+        /* Modal Styles */
+        .modal {
+            display: none; 
+            position: fixed; 
+            z-index: 1001; 
+            left: 0;
+            top: 0;
+            width: 100%; 
+            height: 100%; 
+            overflow: auto; 
+            background-color: rgba(0,0,0,0.6);
+            animation: fadeIn 0.3s ease;
+        }
+
+        .modal-content {
+            background-color: #fefefe;
+            margin: 10% auto;
+            padding: 30px;
+            border: 1px solid #888;
+            width: 90%;
+            max-width: 500px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            position: relative;
+            animation: slideIn 0.4s ease-out;
+        }
+
+        .close-btn {
+            color: #aaa;
+            position: absolute;
+            top: 15px;
+            right: 25px;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .close-btn:hover,
+        .close-btn:focus {
+            color: black;
+            text-decoration: none;
+        }
+
+        .modal-content h3 {
+            margin-bottom: 25px;
+            font-size: 22px;
+            color: var(--kabouyah-dark);
+            text-align: center;
+        }
+
+        /* Star Rating */
+        .star-rating {
+            display: flex;
+            gap: 10px;
+            font-size: 24px;
+            color: var(--kabouyah-gold);
+            cursor: pointer;
+        }
+
+        .star-rating .fas { /* Filled star */
+            font-weight: 900;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideIn {
+            from { transform: translateY(-50px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
     </style>
 </head>
 <body>
@@ -1404,7 +1477,7 @@
                                     253 points pour atteindre le niveau "Client VIP"
                                 </div>
                             </div>
-                            <button class="btn btn-primary" style="width: 100%;">
+                            <button class="btn btn-primary" id="seeRewardsBtn" style="width: 100%;">
                                 <i class="fas fa-gift"></i>
                                 Voir mes Récompenses
                             </button>
@@ -1519,7 +1592,7 @@
                     <div class="table-container">
                         <div class="table-header">
                             <h3>Mes Avis et Évaluations</h3>
-                            <button class="btn btn-primary">
+                            <button class="btn btn-primary" id="newReviewBtn">
                                 <i class="fas fa-star"></i>
                                 Nouvel Avis
                             </button>
@@ -1535,63 +1608,8 @@
                                     <th>Actions</th>
                                 </tr>
                             </thead>
-                            <tbody>
-                                <tr>
-                                    <td>Poisson Braisé</td>
-                                    <td>
-                                        <div class="rating">⭐⭐⭐⭐⭐</div>
-                                    </td>
-                                    <td>Excellent plat, très bien préparé et savoureux!</td>
-                                    <td>18/08/2025</td>
-                                    <td><span class="status-badge status-confirmed">Publié</span></td>
-                                    <td>
-                                        <button class="btn btn-outline" style="padding: 5px 10px; font-size: 12px;">
-                                            <i class="fas fa-edit"></i>
-                                        </button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>Service Restaurant</td>
-                                    <td>
-                                        <div class="rating">⭐⭐⭐⭐⭐</div>
-                                    </td>
-                                    <td>Service impeccable, personnel très accueillant.</td>
-                                    <td>15/08/2025</td>
-                                    <td><span class="status-badge status-confirmed">Publié</span></td>
-                                    <td>
-                                        <button class="btn btn-outline" style="padding: 5px 10px; font-size: 12px;">
-                                            <i class="fas fa-edit"></i>
-                                        </button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>Riz au Gras</td>
-                                    <td>
-                                        <div class="rating">⭐⭐⭐⭐</div>
-                                    </td>
-                                    <td>Très bon, pourrait être un peu plus épicé à mon goût.</td>
-                                    <td>12/08/2025</td>
-                                    <td><span class="status-badge status-confirmed">Publié</span></td>
-                                    <td>
-                                        <button class="btn btn-outline" style="padding: 5px 10px; font-size: 12px;">
-                                            <i class="fas fa-edit"></i>
-                                        </button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>Livraison</td>
-                                    <td>
-                                        <div class="rating">⭐⭐⭐⭐⭐</div>
-                                    </td>
-                                    <td>En attente de modération...</td>
-                                    <td>20/08/2025</td>
-                                    <td><span class="status-badge status-pending">En attente</span></td>
-                                    <td>
-                                        <button class="btn btn-outline" style="padding: 5px 10px; font-size: 12px;">
-                                            <i class="fas fa-edit"></i>
-                                        </button>
-                                    </td>
-                                </tr>
+                            <tbody id="reviewsTableBody">
+                                <!-- Les avis seront chargés ici par JavaScript -->
                             </tbody>
                         </table>
                     </div>
@@ -1631,7 +1649,7 @@
                                     Points de fidélité et récompenses
                                 </label>
                             </div>
-                            <button class="btn btn-primary">
+                            <button class="btn btn-primary" id="saveNotificationsBtn">
                                 <i class="fas fa-bell"></i>
                                 Sauvegarder Notifications
                             </button>
@@ -1671,6 +1689,41 @@
             </div>
         </main>
     </div>
+
+    <!-- Review Modal -->
+    <div id="reviewModal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn">&times;</span>
+            <h3>Laisser un Avis</h3>
+            <form id="reviewForm">
+                <div class="form-group">
+                    <label for="reviewItem">Sur quoi porte votre avis ?</label>
+                    <select id="reviewItem" class="form-control">
+                        <option>Service Général</option>
+                        <option>Poisson Braisé (Commande #CMD118)</option>
+                        <option>Riz au Gras (Commande #CMD125)</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Votre note</label>
+                    <div class="star-rating">
+                        <i class="far fa-star" data-value="1"></i>
+                        <i class="far fa-star" data-value="2"></i>
+                        <i class="far fa-star" data-value="3"></i>
+                        <i class="far fa-star" data-value="4"></i>
+                        <i class="far fa-star" data-value="5"></i>
+                    </div>
+                    <input type="hidden" id="reviewRating" value="0">
+                </div>
+                <div class="form-group">
+                    <label for="reviewComment">Votre commentaire</label>
+                    <textarea id="reviewComment" class="form-control" rows="4" placeholder="Partagez votre expérience..."></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary" style="width: 100%;">Soumettre l'avis</button>
+            </form>
+        </div>
+    </div>
+
     <script>
         // Navigation entre sections
         document.addEventListener('DOMContentLoaded', function() {
@@ -1743,6 +1796,68 @@
                     reservationTableBody.appendChild(row);
                 });
             }
+            
+            // Gérer l'annulation d'une réservation
+            const reservationTableBody = document.getElementById('reservationTableBody');
+            if(reservationTableBody) {
+                reservationTableBody.addEventListener('click', function(e) {
+                    const button = e.target.closest('.btn-cancel-reservation');
+                    if(!button) return;
+
+                    const row = button.closest('tr');
+                    const reservationId = row.dataset.id;
+
+                    if (confirm('Êtes-vous sûr de vouloir annuler cette réservation ?')) {
+                        let allReservations = JSON.parse(localStorage.getItem('kabouyahReservations')) || [];
+                        const resIndex = allReservations.findIndex(r => r.id == reservationId);
+                        if (resIndex > -1) {
+                            allReservations[resIndex].status = 'Annulée';
+                            localStorage.setItem('kabouyahReservations', JSON.stringify(allReservations));
+                            alert('Réservation annulée.');
+                            loadReservations(); // Recharger pour afficher le nouveau statut
+                        }
+                    }
+                });
+            }
+
+            // Fonction pour charger les avis de l'utilisateur
+            function loadReviews() {
+                const reviewsTableBody = document.getElementById('reviewsTableBody');
+                const allReviews = JSON.parse(localStorage.getItem('kabouyahReviews')) || [];
+                const userReviews = allReviews.filter(r => r.userEmail === loggedInUser.email);
+
+                reviewsTableBody.innerHTML = ''; // Vider la table
+
+                if (userReviews.length === 0) {
+                    reviewsTableBody.innerHTML = '<tr><td colspan="6" style="text-align:center;">Vous n\'avez laissé aucun avis.</td></tr>';
+                    return;
+                }
+
+                userReviews.sort((a, b) => new Date(b.date) - new Date(a.date));
+
+                userReviews.forEach(review => {
+                    let statusClass = 'pending';
+                    const lowerStatus = review.status.toLowerCase();
+                    if (lowerStatus === 'publié') statusClass = 'confirmed';
+                    else if (lowerStatus === 'rejeté') statusClass = 'cancelled';
+
+                    const starsHtml = Array(5).fill(0).map((_, i) => 
+                        `<i class="${i < review.rating ? 'fas' : 'far'} fa-star"></i>`
+                    ).join('');
+
+                    const row = document.createElement('tr');
+                    row.dataset.id = review.id;
+                    row.innerHTML = `
+                        <td>${review.item}</td>
+                        <td><div class="rating">${starsHtml}</div></td>
+                        <td>${review.comment}</td>
+                        <td>${new Date(review.date).toLocaleDateString('fr-FR')}</td>
+                        <td><span class="status-badge status-${statusClass}">${review.status}</span></td>
+                        <td><button class="btn btn-outline" style="padding: 5px 10px; font-size: 12px;" title="Modifier"><i class="fas fa-edit"></i></button></td>
+                    `;
+                    reviewsTableBody.appendChild(row);
+                });
+            }
 
             // Gestion des titres de page avec icônes
             const pageTitles = {
@@ -1767,6 +1882,9 @@
                     document.getElementById(targetSection).classList.add('active');
                     const pageInfo = pageTitles[targetSection];
                     pageTitle.innerHTML = `<i class="${pageInfo.icon}"></i> ${pageInfo.title}`;
+                    if (targetSection === 'reviews') {
+                        loadReviews();
+                    }
                     if (window.innerWidth <= 1024) {
                         sidebar.classList.remove('active');
                     }
@@ -1960,10 +2078,174 @@
                         const updatedUsers = allUsers.filter(user => user.email !== loggedInUser.email);
                         localStorage.setItem('kabouyahUsers', JSON.stringify(updatedUsers));
                         localStorage.removeItem('loggedInUser');
-                        
-                        alert('Votre mot de passe a été changé avec succès.');
+
+                        alert('Votre compte a été supprimé.');
                         window.location.href = 'index.html';
                     }
+                });
+            }
+
+            // --- GESTION DES BOUTONS DEMANDÉS ---
+
+            // 1. Section "Mes Commandes" (#orders)
+            const ordersTableBody = document.querySelector('#orders .data-table tbody');
+            if (ordersTableBody) {
+                ordersTableBody.addEventListener('click', function(e) {
+                    const button = e.target.closest('button');
+                    if (!button) return;
+
+                    const orderRow = button.closest('tr');
+                    const orderId = orderRow.querySelector('td:first-child').textContent;
+
+                    if (button.querySelector('.fa-star')) {
+                        alert(`Laisser un avis pour la commande ${orderId}.`);
+                    } else if (button.querySelector('.fa-redo')) {
+                        alert(`La commande ${orderId} a été ajoutée à votre panier pour être commandée à nouveau.`);
+                    } else if (button.querySelector('.fa-info-circle')) {
+                        alert(`Affichage des détails de la commande ${orderId}.`);
+                    }
+                });
+            }
+
+            // 2. Section "Mes favories" (#favorites)
+            const favoritesGrid = document.getElementById('favorites');
+            if (favoritesGrid) {
+                favoritesGrid.addEventListener('click', function(e) {
+                    const button = e.target.closest('.btn-primary');
+                    if (!button) return;
+
+                    const dishName = button.closest('.favorite-dish').querySelector('.dish-name').textContent;
+                    alert(`Le plat "${dishName}" a été ajouté à votre panier.`);
+                });
+            }
+
+            // 3. Section "Programme Fidélité" (#loyalty)
+            const seeRewardsBtn = document.getElementById('seeRewardsBtn');
+            if (seeRewardsBtn) {
+                seeRewardsBtn.addEventListener('click', () => {
+                    alert('Affichage de vos récompenses disponibles.');
+                    // Dans une vraie application, on pourrait faire défiler vers le tableau ou ouvrir une modale.
+                });
+            }
+            const loyaltyTableBody = document.querySelector('#loyalty .data-table tbody');
+            if (loyaltyTableBody) {
+                loyaltyTableBody.addEventListener('click', function(e) {
+                    const button = e.target.closest('button');
+                    if (!button || button.disabled) return;
+
+                    const rewardRow = button.closest('tr');
+                    const rewardName = rewardRow.querySelector('td:first-child').textContent;
+                    const points = rewardRow.querySelector('td:nth-child(3)').textContent;
+                    if (confirm(`Voulez-vous vraiment échanger ${points} pour "${rewardName}" ?`)) {
+                        alert(`Vous avez échangé vos points contre : ${rewardName}.`);
+                    }
+                });
+            }
+
+            // 4. Section "Mes avis" (#reviews)
+            const reviewsTableBody = document.querySelector('#reviews .data-table tbody');
+            if (reviewsTableBody) {
+                reviewsTableBody.addEventListener('click', function(e) {
+                    const button = e.target.closest('button');
+                    if (!button) return;
+
+                    const reviewRow = button.closest('tr');
+                    const dishName = reviewRow.querySelector('td:first-child').textContent;
+                    alert(`Modification de votre avis pour : ${dishName}.`);
+                });
+            }
+
+            // 5. Section "Paramètres" (Sauvegarder Notifications)
+            const saveNotificationsBtn = document.getElementById('saveNotificationsBtn');
+            if (saveNotificationsBtn) {
+                saveNotificationsBtn.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    alert('Vos préférences de notification ont été sauvegardées avec succès.');
+                });
+            }
+
+            // --- Review Modal Logic ---
+            const reviewModal = document.getElementById('reviewModal');
+            const newReviewBtn = document.getElementById('newReviewBtn');
+            const closeReviewBtn = reviewModal.querySelector('.close-btn');
+            const reviewForm = document.getElementById('reviewForm');
+            const stars = reviewModal.querySelectorAll('.star-rating .fa-star');
+            const ratingInput = document.getElementById('reviewRating');
+
+            // Open modal
+            if (newReviewBtn) {
+                newReviewBtn.addEventListener('click', () => {
+                    reviewModal.style.display = 'block';
+                });
+            }
+
+            // Close modal
+            if (closeReviewBtn) {
+                closeReviewBtn.addEventListener('click', () => {
+                    reviewModal.style.display = 'none';
+                });
+            }
+
+            window.addEventListener('click', (event) => {
+                if (event.target == reviewModal) {
+                    reviewModal.style.display = 'none';
+                }
+            });
+
+            // Star rating logic
+            stars.forEach(star => {
+                star.addEventListener('click', () => {
+                    const rating = star.dataset.value;
+                    ratingInput.value = rating;
+                    stars.forEach((s, index) => {
+                        if (index < rating) {
+                            s.classList.remove('far');
+                            s.classList.add('fas');
+                        } else {
+                            s.classList.remove('fas');
+                            s.classList.add('far');
+                        }
+                    });
+                });
+            });
+
+            // Handle form submission
+            if (reviewForm) {
+                reviewForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    const rating = ratingInput.value;
+                    const comment = document.getElementById('reviewComment').value;
+
+                    if (rating === '0') {
+                        alert('Veuillez donner une note en étoiles.');
+                        return;
+                    }
+                    if (!comment.trim()) {
+                        alert('Veuillez écrire un commentaire.');
+                        return;
+                    }
+
+                    const newReview = {
+                        id: Date.now(),
+                        userEmail: loggedInUser.email,
+                        item: document.getElementById('reviewItem').value,
+                        rating: parseInt(rating),
+                        comment: comment,
+                        date: new Date().toISOString(),
+                        status: 'En attente'
+                    };
+
+                    let allReviews = JSON.parse(localStorage.getItem('kabouyahReviews')) || [];
+                    allReviews.push(newReview);
+                    localStorage.setItem('kabouyahReviews', JSON.stringify(allReviews));
+
+                    alert('Merci ! Votre avis a été soumis.');
+                    reviewModal.style.display = 'none';
+                    this.reset();
+                    // Reset stars
+                    stars.forEach(s => { s.classList.remove('fas'); s.classList.add('far'); });
+                    ratingInput.value = '0';
+                    loadReviews(); // Refresh the reviews table
                 });
             }
 
@@ -2120,6 +2402,8 @@
 
             // Charger les réservations au démarrage
             loadReservations();
+            // Charger les avis au démarrage
+            loadReviews();
         });
     </script>
 </body>

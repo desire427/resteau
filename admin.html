@@ -552,6 +552,12 @@
                     </a>
                 </div>
                 <div class="nav-item">
+                    <a href="#" class="nav-link" data-section="reviews">
+                        <i class="fas fa-comment-dots"></i>
+                        Avis Clients
+                    </a>
+                </div>
+                <div class="nav-item">
                     <a href="#" class="nav-link" data-section="staff">
                         <i class="fas fa-user-tie"></i>
                         Personnel
@@ -1013,6 +1019,30 @@
                     </div>
                 </div>
                 
+                <!-- Reviews Section -->
+                <div class="content-section" id="reviews">
+                    <div class="table-container">
+                        <div class="table-header">
+                            <h3>Modération des Avis Clients</h3>
+                        </div>
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Client</th>
+                                    <th>Note</th>
+                                    <th>Commentaire</th>
+                                    <th>Date</th>
+                                    <th>Statut</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="allReviewsTableBody">
+                                <!-- Reviews will be loaded here -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
                 <!-- Staff Section -->
                 <div class="content-section" id="staff">
                     <div class="form-container" style="margin-bottom: 30px;">
@@ -1463,6 +1493,7 @@
             const mobileToggle = document.getElementById('mobileToggle');
             const sidebar = document.getElementById('sidebar');
             const allReservationsTableBody = document.getElementById('allReservationsTableBody');
+            const allReviewsTableBody = document.getElementById('allReviewsTableBody');
             const menuTableBody = document.getElementById('menuTableBody');
             const menuForm = document.getElementById('menuForm');
             const menuFormTitle = document.getElementById('menuFormTitle');
@@ -1483,6 +1514,7 @@
                 'reservations': 'Gestion des Réservations',
                 'menu': 'Gestion du Menu',
                 'orders': 'Suivi des Commandes',
+                'reviews': 'Modération des Avis',
                 'customers': 'Base de Données Clients',
                 'staff': 'Gestion du Personnel',
                 'inventory': 'Inventaire',
@@ -1513,6 +1545,9 @@
                     }
                     if (targetSection === 'menu') {
                         loadMenu();
+                    }
+                    if (targetSection === 'reviews') {
+                        loadAllReviews();
                     }
                     
                     // Fermer le sidebar sur mobile
@@ -1604,6 +1639,66 @@
                     loadAllReservations();
                 }
             });
+
+            // --- REVIEWS MANAGEMENT ---
+
+            function loadAllReviews() {
+                const allReviews = JSON.parse(localStorage.getItem('kabouyahReviews')) || [];
+                const allUsers = JSON.parse(localStorage.getItem('kabouyahUsers')) || [];
+                const userMap = new Map(allUsers.map(user => [user.email, user]));
+
+                allReviewsTableBody.innerHTML = '';
+
+                if (allReviews.length === 0) {
+                    allReviewsTableBody.innerHTML = '<tr><td colspan="6" style="text-align:center;">Aucun avis à modérer.</td></tr>';
+                    return;
+                }
+
+                allReviews.sort((a, b) => new Date(b.date) - new Date(a.date));
+
+                allReviews.forEach(review => {
+                    const user = userMap.get(review.userEmail) || { firstName: 'Utilisateur', lastName: 'Inconnu' };
+                    const clientName = `${user.firstName} ${user.lastName}`;
+                    
+                    let statusClass = 'pending';
+                    if (review.status.toLowerCase() === 'publié') statusClass = 'confirmed';
+                    if (review.status.toLowerCase() === 'rejeté') statusClass = 'cancelled';
+
+                    const starsHtml = Array(5).fill(0).map((_, i) => `<i class="${i < review.rating ? 'fas' : 'far'} fa-star" style="color: var(--kabouyah-gold);"></i>`).join('');
+
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td>${clientName}</td>
+                        <td>${starsHtml}</td>
+                        <td>${review.comment}</td>
+                        <td>${new Date(review.date).toLocaleDateString('fr-FR')}</td>
+                        <td><span class="status-badge status-${statusClass}">${review.status}</span></td>
+                        <td>
+                            <button class="btn btn-success review-action-btn" data-id="${review.id}" data-action="approve" title="Approuver" style="padding: 5px 10px; font-size: 12px;"><i class="fas fa-check"></i></button>
+                            <button class="btn btn-danger review-action-btn" data-id="${review.id}" data-action="reject" title="Rejeter" style="padding: 5px 10px; font-size: 12px;"><i class="fas fa-times"></i></button>
+                        </td>
+                    `;
+                    allReviewsTableBody.appendChild(row);
+                });
+            }
+
+            allReviewsTableBody.addEventListener('click', function(e) {
+                const target = e.target.closest('.review-action-btn');
+                if (!target) return;
+
+                const reviewId = target.dataset.id;
+                const action = target.dataset.action;
+                let allReviews = JSON.parse(localStorage.getItem('kabouyahReviews')) || [];
+                const reviewIndex = allReviews.findIndex(r => r.id == reviewId);
+
+                if (reviewIndex > -1) {
+                    allReviews[reviewIndex].status = (action === 'approve') ? 'Publié' : 'Rejeté';
+                    localStorage.setItem('kabouyahReviews', JSON.stringify(allReviews));
+                    loadAllReviews();
+                }
+            });
+
+            // --- END REVIEWS MANAGEMENT ---
 
             // --- MENU MANAGEMENT ---
 
