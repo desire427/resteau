@@ -910,21 +910,21 @@
                             <h3>Informations Personnelles</h3>
                             <div class="form-row">
                                 <div class="form-group">
-                                    <label for="firstName">Prénom</label>
-                                    <input type="text" id="firstName" class="form-control" value="Mamadou">
+                                    <label for="profileFirstName">Prénom</label>
+                                    <input type="text" id="profileFirstName" class="form-control">
                                 </div>
                                 <div class="form-group">
-                                    <label for="lastName">Nom</label>
-                                    <input type="text" id="lastName" class="form-control" value="Diallo">
+                                    <label for="profileLastName">Nom</label>
+                                    <input type="text" id="profileLastName" class="form-control">
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label for="email">Email</label>
-                                <input type="email" id="email" class="form-control" value="mamadou.diallo@email.com">
+                                <label for="profileEmail">Email</label>
+                                <input type="email" id="profileEmail" class="form-control" readonly>
                             </div>
                             <div class="form-group">
-                                <label for="phone">Téléphone</label>
-                                <input type="tel" id="phone" class="form-control" value="+224 610 31 91 91">
+                                <label for="profilePhone">Téléphone</label>
+                                <input type="tel" id="profilePhone" class="form-control">
                             </div>
                             <div class="form-group">
                                 <label for="birthdate">Date de Naissance</label>
@@ -932,7 +932,7 @@
                             </div>
                             <button class="btn btn-primary">
                                 <i class="fas fa-save"></i>
-                                Sauvegarder
+                                Sauvegarder les modifications
                             </button>
                         </div>
                         <div class="profile-card">
@@ -994,57 +994,7 @@
                                 </tr>
                             </thead>
                             <tbody id="reservationTableBody">
-                                <tr>
-                                    <td>25/08/2025</td>
-                                    <td>19:30</td>
-                                    <td>4</td>
-                                    <td>Table 12</td>
-                                    <td><span class="status-badge status-confirmed">Confirmée</span></td>
-                                    <td>
-                                        <button class="btn btn-outline" style="padding: 5px 10px; font-size: 12px;">
-                                            <i class="fas fa-edit"></i>
-                                        </button>
-                                        <button class="btn" style="padding: 5px 10px; font-size: 12px; background: #dc3545; color: white;">
-                                            <i class="fas fa-times"></i>
-                                        </button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>20/08/2025</td>
-                                    <td>20:00</td>
-                                    <td>2</td>
-                                    <td>Table 8</td>
-                                    <td><span class="status-badge status-delivered">Terminée</span></td>
-                                    <td>
-                                        <button class="btn btn-primary" style="padding: 5px 10px; font-size: 12px;">
-                                            <i class="fas fa-star"></i> Avis
-                                        </button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>18/08/2025</td>
-                                    <td>18:45</td>
-                                    <td>6</td>
-                                    <td>Table 15</td>
-                                    <td><span class="status-badge status-delivered">Terminée</span></td>
-                                    <td>
-                                        <button class="btn btn-success" style="padding: 5px 10px; font-size: 12px;">
-                                            <i class="fas fa-check"></i> Avis donné
-                                        </button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>15/08/2025</td>
-                                    <td>19:15</td>
-                                    <td>3</td>
-                                    <td>Table 5</td>
-                                    <td><span class="status-badge status-cancelled">Annulée</span></td>
-                                    <td>
-                                        <button class="btn btn-outline" style="padding: 5px 10px; font-size: 12px;">
-                                            <i class="fas fa-redo"></i> Reprendre
-                                        </button>
-                                    </td>
-                                </tr>
+                                <!-- Les réservations seront chargées ici par JavaScript -->
                             </tbody>
                         </table>
                     </div>
@@ -1060,7 +1010,7 @@
                                 Retour aux réservations
                             </button>
                         </div>
-                        <div class="reservation-form">
+                        <form class="reservation-form" id="newReservationForm">
                             <h3>Informations de Réservation</h3>
                             <div class="form-grid">
                                 <div class="form-group">
@@ -1100,7 +1050,7 @@
                                 <label for="specialRequests2">Demandes Spéciales</label>
                                 <textarea id="specialRequests2" class="form-control" rows="3" placeholder="Allergies, préférences, ou toute autre demande..."></textarea>
                             </div>
-                        </div>
+                        </form>
                         <div class="menu-section">
                             <h3>
                                 <i class="fas fa-utensils"></i>
@@ -1698,9 +1648,9 @@
                             </div>
                             <div class="form-group">
                                 <label for="confirmPassword">Confirmer le mot de passe</label>
-                                <input type="password" id="confirmPassword" class="form-control">
+                                <input type="password" id="confirmNewPassword" class="form-control">
                             </div>
-                            <button class="btn btn-primary">
+                            <button class="btn btn-primary" id="changePasswordBtn">
                                 <i class="fas fa-lock"></i>
                                 Changer le Mot de Passe
                             </button>
@@ -1710,7 +1660,7 @@
                                 <p style="color: #666; font-size: 14px; margin-bottom: 20px;">
                                     Cette action supprimera définitivement votre compte et toutes vos données.
                                 </p>
-                                <button class="btn" style="background: #dc3545; color: white;">
+                                <button class="btn" id="deleteAccountBtn" style="background: #dc3545; color: white;">
                                     <i class="fas fa-trash"></i>
                                     Supprimer mon Compte
                                 </button>
@@ -1739,13 +1689,15 @@
             const loggedInUser = JSON.parse(localStorage.getItem('loggedInUser'));
             if (loggedInUser) {
                 document.querySelector('.client-name').textContent = `${loggedInUser.firstName} ${loggedInUser.lastName}`;
-                // You can also update email, phone, etc. in the profile section
-                const profileFirstName = document.getElementById('firstName');
-                const profileLastName = document.getElementById('lastName');
-                const profileEmail = document.getElementById('email');
+                // Mettre à jour les champs du profil
+                const profileFirstName = document.getElementById('profileFirstName');
+                const profileLastName = document.getElementById('profileLastName');
+                const profileEmail = document.getElementById('profileEmail');
+                const profilePhone = document.getElementById('profilePhone');
                 if (profileFirstName) profileFirstName.value = loggedInUser.firstName;
                 if (profileLastName) profileLastName.value = loggedInUser.lastName;
                 if (profileEmail) profileEmail.value = loggedInUser.email;
+                if (profilePhone) profilePhone.value = loggedInUser.phone || '';
             } else {
                 // If no user is logged in, redirect to login page
                 alert("Vous n'êtes pas connecté. Redirection vers la page de connexion.");
@@ -1753,6 +1705,44 @@
                 return; // Stop script execution
             }
 
+            // Fonction pour charger les réservations de l'utilisateur
+            function loadReservations() {
+                const reservationTableBody = document.getElementById('reservationTableBody');
+                const allReservations = JSON.parse(localStorage.getItem('kabouyahReservations')) || [];
+                const userReservations = allReservations.filter(r => r.userEmail === loggedInUser.email);
+
+                reservationTableBody.innerHTML = ''; // Vider la table
+
+                if (userReservations.length === 0) {
+                    reservationTableBody.innerHTML = '<tr><td colspan="6" style="text-align:center;">Aucune réservation pour le moment.</td></tr>';
+                    return;
+                }
+
+                userReservations.sort((a, b) => new Date(b.date) - new Date(a.date)); // Trier par date
+
+                userReservations.forEach(res => {
+                    const row = document.createElement('tr');
+                    row.dataset.id = res.id;
+
+                    let statusClass = 'pending';
+                    const lowerStatus = res.status.toLowerCase();
+                    if (lowerStatus === 'confirmée') statusClass = 'confirmed';
+                    else if (lowerStatus === 'annulée') statusClass = 'cancelled';
+                    else if (lowerStatus === 'terminée') statusClass = 'delivered';
+
+                    row.innerHTML = `
+                        <td>${new Date(res.date).toLocaleDateString('fr-FR')}</td>
+                        <td>${res.time}</td>
+                        <td>${res.guests}</td>
+                        <td>Table (auto)</td>
+                        <td><span class="status-badge status-${statusClass}">${res.status}</span></td>
+                        <td>
+                            <button class="btn btn-danger btn-cancel-reservation" style="padding: 5px 10px; font-size: 12px;" title="Annuler"><i class="fas fa-times"></i></button>
+                        </td>
+                    `;
+                    reservationTableBody.appendChild(row);
+                });
+            }
 
             // Gestion des titres de page avec icônes
             const pageTitles = {
@@ -1895,35 +1885,84 @@
             });
 
             // Gestion du formulaire de profil (sauvegarde)
-            const saveProfileBtn = document.querySelector('#profile .btn-primary');
+            const saveProfileBtn = document.querySelector('#profile .btn');
             if (saveProfileBtn) {
                 saveProfileBtn.addEventListener('click', function(e) {
                     e.preventDefault();
-                    alert('Vos informations ont été sauvegardées.');
+                    const newFirstName = document.getElementById('profileFirstName').value;
+                    const newLastName = document.getElementById('profileLastName').value;
+                    const newPhone = document.getElementById('profilePhone').value;
+
+                    // Mettre à jour l'objet loggedInUser
+                    loggedInUser.firstName = newFirstName;
+                    loggedInUser.lastName = newLastName;
+                    loggedInUser.phone = newPhone;
+                    localStorage.setItem('loggedInUser', JSON.stringify(loggedInUser));
+
+                    // Mettre à jour le tableau global des utilisateurs
+                    let allUsers = JSON.parse(localStorage.getItem('kabouyahUsers')) || [];
+                    const userIndex = allUsers.findIndex(user => user.email === loggedInUser.email);
+                    if (userIndex !== -1) {
+                        allUsers[userIndex].firstName = newFirstName;
+                        allUsers[userIndex].lastName = newLastName;
+                        allUsers[userIndex].phone = newPhone;
+                        localStorage.setItem('kabouyahUsers', JSON.stringify(allUsers));
+                    }
+
+                    // Mettre à jour l'affichage
+                    document.querySelector('.client-name').textContent = `${newFirstName} ${newLastName}`;
+                    alert('Vos informations ont été sauvegardées avec succès.');
                 });
             }
 
             // Gestion du changement de mot de passe
-            const changePasswordBtn = document.querySelector('#settings .btn-primary:last-of-type');
-            if (changePasswordBtn && changePasswordBtn.querySelector('i.fa-lock')) {
+            const changePasswordBtn = document.getElementById('changePasswordBtn');
+            if (changePasswordBtn) {
                 changePasswordBtn.addEventListener('click', function(e) {
                     e.preventDefault();
+                    const currentPassword = document.getElementById('currentPassword').value;
                     const newPassword = document.getElementById('newPassword').value;
-                    const confirmPassword = document.getElementById('confirmPassword').value;
-                    if (newPassword && newPassword === confirmPassword) {
-                        alert('Votre mot de passe a été changé avec succès.');
-                    } else {
-                        alert('Les mots de passe ne correspondent pas ou sont vides.');
+                    const confirmNewPassword = document.getElementById('confirmNewPassword').value;
+
+                    if (currentPassword !== loggedInUser.password) {
+                        alert('Le mot de passe actuel est incorrect.');
+                        return;
                     }
+                    if (!newPassword || newPassword !== confirmNewPassword) {
+                        alert('Les nouveaux mots de passe ne correspondent pas ou sont vides.');
+                        return;
+                    }
+
+                    // Mettre à jour le mot de passe
+                    loggedInUser.password = newPassword;
+                    localStorage.setItem('loggedInUser', JSON.stringify(loggedInUser));
+
+                    let allUsers = JSON.parse(localStorage.getItem('kabouyahUsers')) || [];
+                    const userIndex = allUsers.findIndex(user => user.email === loggedInUser.email);
+                    if (userIndex !== -1) {
+                        allUsers[userIndex].password = newPassword;
+                        localStorage.setItem('kabouyahUsers', JSON.stringify(allUsers));
+                    }
+
+                    alert('Votre mot de passe a été changé avec succès.');
+                    document.getElementById('currentPassword').value = '';
+                    document.getElementById('newPassword').value = '';
+                    document.getElementById('confirmNewPassword').value = '';
                 });
             }
 
             // Gestion de la suppression de compte
-            const deleteAccountBtn = document.querySelector('#settings .btn[style*="background: #dc3545"]');
+            const deleteAccountBtn = document.getElementById('deleteAccountBtn');
             if (deleteAccountBtn) {
                 deleteAccountBtn.addEventListener('click', function() {
                     if (confirm('ATTENTION : Cette action est irréversible. Êtes-vous sûr de vouloir supprimer votre compte ?')) {
-                        alert('Votre compte a été supprimé.');
+                        let allUsers = JSON.parse(localStorage.getItem('kabouyahUsers')) || [];
+                        const updatedUsers = allUsers.filter(user => user.email !== loggedInUser.email);
+                        localStorage.setItem('kabouyahUsers', JSON.stringify(updatedUsers));
+                        localStorage.removeItem('loggedInUser');
+                        
+                        alert('Votre mot de passe a été changé avec succès.');
+                        window.location.href = 'index.html';
                     }
                 });
             }
@@ -2050,15 +2089,37 @@
                     return;
                 }
                 if (confirm('Voulez-vous confirmer cette réservation ?')) {
-                    alert('Réservation confirmée avec succès ! Vous recevrez un email de confirmation.');
+                    const newReservation = {
+                        id: Date.now(),
+                        userEmail: loggedInUser.email,
+                        date: date,
+                        time: time,
+                        guests: guests,
+                        occasion: document.getElementById('occasion2').value,
+                        status: 'En attente'
+                    };
+
+                    let allReservations = JSON.parse(localStorage.getItem('kabouyahReservations')) || [];
+                    allReservations.push(newReservation);
+                    localStorage.setItem('kabouyahReservations', JSON.stringify(allReservations));
+
+                    alert('Votre demande de réservation a été envoyée ! Elle sera confirmée par notre équipe.');
+
                     // Retour à la liste des réservations
+                    document.getElementById('newReservationForm').reset();
+                    document.getElementById('selectedDishes2').innerHTML = '';
+                    updateSummary();
                     reservationFormContainer.style.display = 'none';
                     reservationsList.style.display = 'block';
+                    loadReservations();
                 }
             });
 
             // Date minimale = aujourd'hui
             document.getElementById('reservationDate2').min = new Date().toISOString().split('T')[0];
+
+            // Charger les réservations au démarrage
+            loadReservations();
         });
     </script>
 </body>

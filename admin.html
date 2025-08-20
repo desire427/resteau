@@ -780,41 +780,8 @@
                                     <th>Actions</th>
                                 </tr>
                             </thead>
-                            <tbody>
-                                <tr>
-                                    <td>#001</td>
-                                    <td>Mamadou Diallo</td>
-                                    <td>+224 610 31 91 91</td>
-                                    <td>20/08/2024</td>
-                                    <td>19:30</td>
-                                    <td>4</td>
-                                    <td><span class="status-badge status-confirmed">Confirmée</span></td>
-                                    <td>
-                                        <button class="btn btn-success" style="padding: 5px 10px; font-size: 12px;">
-                                            <i class="fas fa-check"></i>
-                                        </button>
-                                        <button class="btn btn-danger" style="padding: 5px 10px; font-size: 12px;">
-                                            <i class="fas fa-times"></i>
-                                        </button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>#002</td>
-                                    <td>Aissatou Bah</td>
-                                    <td>+224 622 45 67 89</td>
-                                    <td>20/08/2024</td>
-                                    <td>20:00</td>
-                                    <td>2</td>
-                                    <td><span class="status-badge status-pending">En attente</span></td>
-                                    <td>
-                                        <button class="btn btn-success" style="padding: 5px 10px; font-size: 12px;">
-                                            <i class="fas fa-check"></i>
-                                        </button>
-                                        <button class="btn btn-danger" style="padding: 5px 10px; font-size: 12px;">
-                                            <i class="fas fa-times"></i>
-                                        </button>
-                                    </td>
-                                </tr>
+                            <tbody id="allReservationsTableBody">
+                                <!-- Les réservations seront chargées ici -->
                             </tbody>
                         </table>
                     </div>
@@ -823,43 +790,59 @@
                 <!-- Menu Management Section -->
                 <div class="content-section" id="menu">
                     <div class="form-container" style="margin-bottom: 30px;">
-                        <h3 style="margin-bottom: 25px;">Ajouter un Nouveau Plat</h3>
-                        <div class="form-row">
-                            <div class="form-group">
-                                <label for="dishName">Nom du Plat</label>
-                                <input type="text" id="dishName" class="form-control" placeholder="Ex: Riz au Gras">
+                        <h3 id="menuFormTitle" style="margin-bottom: 25px;">Ajouter un Nouveau Plat</h3>
+                        <form id="menuForm">
+                            <input type="hidden" id="dishId">
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="dishName">Nom du Plat</label>
+                                    <input type="text" id="dishName" class="form-control" placeholder="Ex: Riz au Gras" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="dishPrice">Prix (FG)</label>
+                                    <input type="number" id="dishPrice" class="form-control" placeholder="Ex: 20000" required>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="dishCategory">Catégorie</label>
+                                    <select id="dishCategory" class="form-control">
+                                        <option>Entrées</option>
+                                        <option>Plats Principaux</option>
+                                        <option>Desserts</option>
+                                        <option>Boissons</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="dishStatus">Statut</label>
+                                    <select id="dishStatus" class="form-control">
+                                        <option>Disponible</option>
+                                        <option>Indisponible</option>
+                                    </select>
+                                </div>
                             </div>
                             <div class="form-group">
-                                <label for="dishPrice">Prix (FG)</label>
-                                <input type="number" id="dishPrice" class="form-control" placeholder="Ex: 20000">
+                                <label for="dishDescription">Description</label>
+                                <textarea id="dishDescription" class="form-control" rows="3" placeholder="Description du plat..."></textarea>
                             </div>
-                        </div>
-                        <div class="form-row">
-                            <div class="form-group">
-                                <label for="dishCategory">Catégorie</label>
-                                <select id="dishCategory" class="form-control">
-                                    <option>Entrées</option>
-                                    <option>Plats Principaux</option>
-                                    <option>Desserts</option>
-                                    <option>Boissons</option>
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <label for="dishStatus">Statut</label>
-                                <select id="dishStatus" class="form-control">
-                                    <option>Disponible</option>
-                                    <option>Indisponible</option>
-                                </select>
-                            </div>
-                        </div>
                         <div class="form-group">
-                            <label for="dishDescription">Description</label>
-                            <textarea id="dishDescription" class="form-control" rows="3" placeholder="Description du plat..."></textarea>
+                            <label>Image du Plat</label>
+                            <div class="image-upload-container">
+                                <div class="image-preview" id="imagePreview">
+                                    <i class="fas fa-image" style="font-size: 24px; color: #ccc;"></i>
+                                </div>
+                                <input type="file" id="dishImage" class="form-control" accept="image/*">
+                            </div>
                         </div>
-                        <button class="btn btn-primary">
-                            <i class="fas fa-plus"></i>
-                            Ajouter le Plat
-                        </button>
+                            <button type="submit" class="btn btn-primary" id="menuFormSubmitBtn">
+                                <i class="fas fa-plus"></i>
+                                Ajouter le Plat
+                            </button>
+                            <button type="button" class="btn" id="cancelEditBtn" style="display: none; background: #6c757d; color: white;">
+                                <i class="fas fa-times"></i>
+                                Annuler
+                            </button>
+                        </form>
                     </div>
                     
                     <div class="table-container">
@@ -869,60 +852,17 @@
                         <table class="data-table">
                             <thead>
                                 <tr>
+                                    <th>Image</th>
                                     <th>Plat</th>
                                     <th>Catégorie</th>
                                     <th>Prix (FG)</th>
                                     <th>Statut</th>
-                                    <th>Popularité</th>
+                                    <th>Description</th>
                                     <th>Actions</th>
                                 </tr>
                             </thead>
-                            <tbody>
-                                <tr>
-                                    <td>Riz au Gras</td>
-                                    <td>Plats Principaux</td>
-                                    <td>20,000</td>
-                                    <td><span class="status-badge status-available">Disponible</span></td>
-                                    <td>⭐⭐⭐⭐⭐</td>
-                                    <td>
-                                        <button class="btn btn-primary" style="padding: 5px 10px; font-size: 12px;">
-                                            <i class="fas fa-edit"></i>
-                                        </button>
-                                        <button class="btn btn-danger" style="padding: 5px 10px; font-size: 12px;">
-                                            <i class="fas fa-trash"></i>
-                                        </button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>Poisson Braisé</td>
-                                    <td>Plats Principaux</td>
-                                    <td>25,000</td>
-                                    <td><span class="status-badge status-available">Disponible</span></td>
-                                    <td>⭐⭐⭐⭐</td>
-                                    <td>
-                                        <button class="btn btn-primary" style="padding: 5px 10px; font-size: 12px;">
-                                            <i class="fas fa-edit"></i>
-                                        </button>
-                                        <button class="btn btn-danger" style="padding: 5px 10px; font-size: 12px;">
-                                            <i class="fas fa-trash"></i>
-                                        </button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>Jus de Bissap</td>
-                                    <td>Boissons</td>
-                                    <td>2,500</td>
-                                    <td><span class="status-badge status-unavailable">Indisponible</span></td>
-                                    <td>⭐⭐⭐⭐⭐</td>
-                                    <td>
-                                        <button class="btn btn-primary" style="padding: 5px 10px; font-size: 12px;">
-                                            <i class="fas fa-edit"></i>
-                                        </button>
-                                        <button class="btn btn-danger" style="padding: 5px 10px; font-size: 12px;">
-                                            <i class="fas fa-trash"></i>
-                                        </button>
-                                    </td>
-                                </tr>
+                            <tbody id="menuTableBody">
+                                <!-- Menu items will be loaded here by JS -->
                             </tbody>
                         </table>
                     </div>
@@ -1522,6 +1462,20 @@
             const pageTitle = document.getElementById('pageTitle');
             const mobileToggle = document.getElementById('mobileToggle');
             const sidebar = document.getElementById('sidebar');
+            const allReservationsTableBody = document.getElementById('allReservationsTableBody');
+            const menuTableBody = document.getElementById('menuTableBody');
+            const menuForm = document.getElementById('menuForm');
+            const menuFormTitle = document.getElementById('menuFormTitle');
+            const menuFormSubmitBtn = document.getElementById('menuFormSubmitBtn');
+            const cancelEditBtn = document.getElementById('cancelEditBtn');
+            const dishIdInput = document.getElementById('dishId');
+            const dishNameInput = document.getElementById('dishName');
+            const dishPriceInput = document.getElementById('dishPrice');
+            const dishCategoryInput = document.getElementById('dishCategory');
+            const dishStatusInput = document.getElementById('dishStatus');
+            const dishDescriptionInput = document.getElementById('dishDescription');
+            const dishImageInput = document.getElementById('dishImage');
+            const imagePreview = document.getElementById('imagePreview');
             
             // Gestion des titres de page
             const pageTitles = {
@@ -1554,6 +1508,12 @@
                     
                     // Mettre à jour le titre de la page
                     pageTitle.textContent = pageTitles[targetSection];
+                    if (targetSection === 'reservations') {
+                        loadAllReservations();
+                    }
+                    if (targetSection === 'menu') {
+                        loadMenu();
+                    }
                     
                     // Fermer le sidebar sur mobile
                     if (window.innerWidth <= 1024) {
@@ -1576,6 +1536,237 @@
                 }
             });
             
+            // Fonction pour charger et afficher toutes les réservations
+            function loadAllReservations() {
+                const allReservations = JSON.parse(localStorage.getItem('kabouyahReservations')) || [];
+                const allUsers = JSON.parse(localStorage.getItem('kabouyahUsers')) || [];
+                const userMap = new Map(allUsers.map(user => [user.email, user]));
+
+                allReservationsTableBody.innerHTML = '';
+
+                if (allReservations.length === 0) {
+                    allReservationsTableBody.innerHTML = '<tr><td colspan="8" style="text-align:center;">Aucune réservation pour le moment.</td></tr>';
+                    return;
+                }
+
+                allReservations.sort((a, b) => new Date(b.date) - new Date(a.date));
+
+                allReservations.forEach(res => {
+                    const user = userMap.get(res.userEmail) || { firstName: 'Utilisateur', lastName: 'Inconnu', phone: 'N/A' };
+                    const clientName = `${user.firstName} ${user.lastName}`;
+                    const phone = user.phone || 'N/A';
+                    
+                    let statusClass = 'pending';
+                    if (res.status.toLowerCase() === 'confirmée') statusClass = 'confirmed';
+                    if (res.status.toLowerCase() === 'annulée') statusClass = 'cancelled';
+
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td>#${String(res.id).slice(-5)}</td>
+                        <td>${clientName}</td>
+                        <td>${phone}</td>
+                        <td>${new Date(res.date).toLocaleDateString('fr-FR')}</td>
+                        <td>${res.time}</td>
+                        <td>${res.guests}</td>
+                        <td><span class="status-badge status-${statusClass}">${res.status}</span></td>
+                        <td>
+                            <button class="btn btn-success action-btn" data-id="${res.id}" data-action="confirm" title="Confirmer" style="padding: 5px 10px; font-size: 12px;">
+                                <i class="fas fa-check"></i>
+                            </button>
+                            <button class="btn btn-danger action-btn" data-id="${res.id}" data-action="cancel" title="Annuler" style="padding: 5px 10px; font-size: 12px;">
+                                <i class="fas fa-times"></i>
+                            </button>
+                        </td>
+                    `;
+                    allReservationsTableBody.appendChild(row);
+                });
+            }
+
+            // Gérer les actions sur les réservations
+            allReservationsTableBody.addEventListener('click', function(e) {
+                const target = e.target.closest('.action-btn');
+                if (!target) return;
+
+                const reservationId = target.dataset.id;
+                const action = target.dataset.action;
+                let allReservations = JSON.parse(localStorage.getItem('kabouyahReservations')) || [];
+                const reservationIndex = allReservations.findIndex(r => r.id == reservationId);
+
+                if (reservationIndex > -1) {
+                    if (action === 'confirm') {
+                        allReservations[reservationIndex].status = 'Confirmée';
+                    } else if (action === 'cancel') {
+                        if (confirm('Voulez-vous vraiment annuler cette réservation ?')) {
+                            allReservations[reservationIndex].status = 'Annulée';
+                        }
+                    }
+                    localStorage.setItem('kabouyahReservations', JSON.stringify(allReservations));
+                    loadAllReservations();
+                }
+            });
+
+            // --- MENU MANAGEMENT ---
+
+            // Initial Menu Data (if not in localStorage)
+            function initializeMenu() {
+                if (!localStorage.getItem('kabouyahMenu')) {
+                    const defaultMenu = [
+                        { id: 1, name: 'Riz au Gras', category: 'Plats Principaux', price: 20000, status: 'Disponible', description: 'Riz cuit dans l\'huile de palme avec viande, poisson fumé et légumes', image: 'https://images.unsplash.com/photo-1586190848861-99aa4a171e90?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80' },
+                        { id: 2, name: 'Poisson Braisé', category: 'Plats Principaux', price: 25000, status: 'Disponible', description: 'Poisson frais grillé aux épices locales, accompagné de riz blanc', image: 'https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80' },
+                        { id: 3, name: 'Jus de Bissap', category: 'Boissons', price: 2500, status: 'Indisponible', description: 'Boisson rafraîchissante à base d\'hibiscus, menthe et gingembre', image: '' }
+                    ];
+                    localStorage.setItem('kabouyahMenu', JSON.stringify(defaultMenu));
+                }
+            }
+
+            // Function to load menu into the table
+            function loadMenu() {
+                const menu = JSON.parse(localStorage.getItem('kabouyahMenu')) || [];
+                menuTableBody.innerHTML = '';
+                if (menu.length === 0) {
+                    menuTableBody.innerHTML = '<tr><td colspan="7" style="text-align:center;">Aucun plat dans le menu.</td></tr>';
+                    return;
+                }
+                menu.forEach(dish => {
+                    const statusClass = dish.status === 'Disponible' ? 'status-available' : 'status-unavailable';
+                    const dishImage = dish.image ? `<img src="${dish.image}" alt="${dish.name}" style="width: 60px; height: 50px; object-fit: cover; border-radius: 5px;">` : 'Aucune';
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td>${dishImage}</td>
+                        <td>${dish.name}</td>
+                        <td>${dish.category}</td>
+                        <td>${dish.price.toLocaleString()} FG</td>
+                        <td><span class="status-badge ${statusClass}">${dish.status}</span></td>
+                        <td>${dish.description.substring(0, 50)}${dish.description.length > 50 ? '...' : ''}</td>
+                        <td>
+                            <button class="btn btn-primary btn-edit-dish" data-id="${dish.id}" style="padding: 5px 10px; font-size: 12px;">
+                                <i class="fas fa-edit"></i>
+                            </button>
+                            <button class="btn btn-danger btn-delete-dish" data-id="${dish.id}" style="padding: 5px 10px; font-size: 12px;">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </td>
+                    `;
+                    menuTableBody.appendChild(row);
+                });
+            }
+
+            // Function to reset the menu form to "Add" mode
+            function resetMenuForm() {
+                menuForm.reset();
+                dishIdInput.value = '';
+                menuFormTitle.textContent = 'Ajouter un Nouveau Plat';
+                menuFormSubmitBtn.innerHTML = '<i class="fas fa-plus"></i> Ajouter le Plat';
+                dishImageInput.value = '';
+                imagePreview.innerHTML = '<i class="fas fa-image" style="font-size: 24px; color: #ccc;"></i>';
+                cancelEditBtn.style.display = 'none';
+            }
+
+            // Handle Menu Form Submission (Add/Edit)
+            menuForm.addEventListener('submit', async function(e) {
+                e.preventDefault();
+
+                const toBase64 = file => new Promise((resolve, reject) => {
+                    const reader = new FileReader();
+                    reader.readAsDataURL(file);
+                    reader.onload = () => resolve(reader.result);
+                    reader.onerror = error => reject(error);
+                });
+
+                let imageUrl = '';
+                if (dishImageInput.files.length > 0) {
+                    imageUrl = await toBase64(dishImageInput.files[0]);
+                } else if (dishIdInput.value) {
+                    const menu = JSON.parse(localStorage.getItem('kabouyahMenu')) || [];
+                    const existingDish = menu.find(d => d.id == dishIdInput.value);
+                    if (existingDish) {
+                        imageUrl = existingDish.image;
+                    }
+                }
+
+                const dish = {
+                    id: dishIdInput.value ? parseInt(dishIdInput.value) : Date.now(),
+                    name: dishNameInput.value,
+                    price: parseInt(dishPriceInput.value),
+                    category: dishCategoryInput.value,
+                    status: dishStatusInput.value,
+                    description: dishDescriptionInput.value,
+                    image: imageUrl
+                };
+
+                if (!dish.name || !dish.price) {
+                    alert('Veuillez remplir le nom et le prix du plat.');
+                    return;
+                }
+
+                let menu = JSON.parse(localStorage.getItem('kabouyahMenu')) || [];
+                if (dishIdInput.value) { // Editing
+                    const index = menu.findIndex(d => d.id === dish.id);
+                    if (index > -1) menu[index] = dish;
+                } else { // Adding
+                    menu.push(dish);
+                }
+                localStorage.setItem('kabouyahMenu', JSON.stringify(menu));
+                loadMenu();
+                resetMenuForm();
+            });
+
+            // Handle Edit and Delete button clicks for Menu
+            menuTableBody.addEventListener('click', function(e) {
+                const target = e.target.closest('button');
+                if (!target) return;
+
+                const id = parseInt(target.dataset.id);
+                let menu = JSON.parse(localStorage.getItem('kabouyahMenu')) || [];
+
+                if (target.classList.contains('btn-edit-dish')) {
+                    const dishToEdit = menu.find(d => d.id === id);
+                    if (dishToEdit) {
+                        dishIdInput.value = dishToEdit.id;
+                        dishNameInput.value = dishToEdit.name;
+                        dishPriceInput.value = dishToEdit.price;
+                        dishCategoryInput.value = dishToEdit.category;
+                        dishStatusInput.value = dishToEdit.status;
+                        dishDescriptionInput.value = dishToEdit.description;
+
+                        if (dishToEdit.image) {
+                            imagePreview.innerHTML = `<img src="${dishToEdit.image}" alt="Aperçu">`;
+                        } else {
+                            imagePreview.innerHTML = '<i class="fas fa-image" style="font-size: 24px; color: #ccc;"></i>';
+                        }
+
+                        menuFormTitle.textContent = 'Modifier le Plat';
+                        menuFormSubmitBtn.innerHTML = '<i class="fas fa-save"></i> Sauvegarder';
+                        cancelEditBtn.style.display = 'inline-flex';
+                        menuForm.scrollIntoView({ behavior: 'smooth' });
+                    }
+                }
+
+                if (target.classList.contains('btn-delete-dish')) {
+                    if (confirm('Êtes-vous sûr de vouloir supprimer ce plat ?')) {
+                        menu = menu.filter(d => d.id !== id);
+                        localStorage.setItem('kabouyahMenu', JSON.stringify(menu));
+                        loadMenu();
+                    }
+                }
+            });
+
+            // Handle Cancel Edit button click
+            cancelEditBtn.addEventListener('click', resetMenuForm);
+
+            // Handle image preview
+            dishImageInput.addEventListener('change', function() {
+                if (this.files && this.files[0]) {
+                    const reader = new FileReader();
+                    reader.onload = function(e) {
+                        imagePreview.innerHTML = `<img src="${e.target.result}" alt="Aperçu">`;
+                    }
+                    reader.readAsDataURL(this.files[0]);
+                }
+            });
+
+            // --- END MENU MANAGEMENT ---
+
             // Simulation de données en temps réel
             function updateRealTimeData() {
                 // Mise à jour aléatoire des statistiques
@@ -1592,27 +1783,6 @@
             
             // Mettre à jour les données toutes les 30 secondes
             setInterval(updateRealTimeData, 30000);
-            
-            // Fonction pour simuler l'ajout d'un nouveau plat au menu
-            window.addNewDish = function() {
-                const dishName = document.getElementById('dishName').value;
-                const dishPrice = document.getElementById('dishPrice').value;
-                const dishCategory = document.getElementById('dishCategory').value;
-                const dishStatus = document.getElementById('dishStatus').value;
-                const dishDescription = document.getElementById('dishDescription').value;
-                
-                if (dishName && dishPrice) {
-                    // Simulation d'ajout (dans un vrai système, ceci enverrait les données au serveur)
-                    alert('Plat ajouté avec succès au menu !');
-                    
-                    // Réinitialiser le formulaire
-                    document.getElementById('dishName').value = '';
-                    document.getElementById('dishPrice').value = '';
-                    document.getElementById('dishDescription').value = '';
-                } else {
-                    alert('Veuillez remplir tous les champs obligatoires.');
-                }
-            };
             
             // Fonction pour simuler l'ajout d'un employé
             window.addNewEmployee = function() {
@@ -1645,26 +1815,6 @@
             
             // Gestion des boutons d'action dans les tableaux
             document.addEventListener('click', function(e) {
-                if (e.target.closest('.btn-success')) {
-                    const action = e.target.closest('.btn-success');
-                    if (action.querySelector('.fa-check')) {
-                        alert('Réservation confirmée !');
-                    }
-                }
-                
-                if (e.target.closest('.btn-danger')) {
-                    const action = e.target.closest('.btn-danger');
-                    if (action.querySelector('.fa-times')) {
-                        if (confirm('Êtes-vous sûr de vouloir annuler cette réservation ?')) {
-                            alert('Réservation annulée.');
-                        }
-                    } else if (action.querySelector('.fa-trash')) {
-                        if (confirm('Êtes-vous sûr de vouloir supprimer cet élément ?')) {
-                            alert('Élément supprimé.');
-                        }
-                    }
-                }
-                
                 if (e.target.closest('.btn-warning')) {
                     const action = e.target.closest('.btn-warning');
                     if (action.querySelector('.fa-shopping-cart')) {
@@ -1676,9 +1826,7 @@
                 
                 if (e.target.closest('.btn-primary')) {
                     const action = e.target.closest('.btn-primary');
-                    if (action.querySelector('.fa-edit')) {
-                        alert('Mode édition activé.');
-                    } else if (action.querySelector('.fa-receipt')) {
+                    if (action.querySelector('.fa-receipt')) {
                         alert('Facture générée.');
                     } else if (action.querySelector('.fa-download')) {
                         alert('Export en cours...');
@@ -1690,11 +1838,6 @@
             });
             
             // Ajouter des écouteurs d'événements aux boutons de formulaire
-            const addDishBtn = document.querySelector('#menu .btn-primary');
-            if (addDishBtn && addDishBtn.textContent.includes('Ajouter le Plat')) {
-                addDishBtn.addEventListener('click', addNewDish);
-            }
-            
             const addEmployeeBtn = document.querySelector('#staff .btn-primary');
             if (addEmployeeBtn && addEmployeeBtn.textContent.includes('Ajouter l\'Employé')) {
                 addEmployeeBtn.addEventListener('click', addNewEmployee);

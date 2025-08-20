@@ -305,6 +305,7 @@
             const email = document.getElementById('email').value;
             const password = document.getElementById('password').value;
             const confirmPassword = document.getElementById('confirmPassword').value;
+            const phone = document.getElementById('phone').value;
 
             if (!firstName || !lastName || !username || !email || !password || !confirmPassword) {
                 alert('Veuillez remplir tous les champs obligatoires.');
@@ -333,7 +334,8 @@
                 lastName,
                 username,
                 email,
-                password
+                password,
+                phone
             };
             users.push(newUser);
 
