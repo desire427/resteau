@@ -43,13 +43,12 @@
             max-width: 900px;
             width: 100%;
             display: flex;
-            min-height: 600px;
         }
 
         .login-banner {
             background: linear-gradient(180deg, var(--kabouyah-dark), #0a4552);
             color: white;
-            padding: 60px 40px;
+            padding: 25px;
             flex: 1;
             display: flex;
             flex-direction: column;
@@ -59,40 +58,47 @@
         }
 
         .login-banner .logo-icon {
-            width: 80px;
-            height: 80px;
+            width: 60px;
+            height: 60px;
             background: var(--kabouyah-gold);
             border-radius: 15px;
             display: flex;
             align-items: center;
             justify-content: center;
-            margin-bottom: 30px;
-            font-size: 40px;
+            margin-bottom: 15px;
+            font-size: 30px;
         }
 
         .login-banner h1 {
             font-family: 'Montserrat', sans-serif;
-            font-size: 28px;
+            font-size: 24px;
             font-weight: 800;
-            margin-bottom: 20px;
+            margin-bottom: 10px;
             line-height: 1.2;
         }
 
         .login-banner p {
-            font-size: 16px;
+            font-size: 14px;
             opacity: 0.9;
-            margin-bottom: 40px;
+            margin-bottom: 20px;
         }
 
         .login-banner .slogan {
             font-style: italic;
-            font-size: 18px;
+            font-size: 16px;
             color: var(--kabouyah-gold);
+        }
+        .banner-link {
+            text-decoration: none;
+            color: inherit;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
 
         .login-form-section {
             flex: 1;
-            padding: 60px 50px;
+            padding: 20px 35px;
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -100,22 +106,22 @@
 
         .login-form-section h2 {
             font-family: 'Montserrat', sans-serif;
-            font-size: 24px;
+            font-size: 22px;
             font-weight: 700;
             color: var(--kabouyah-dark);
-            margin-bottom: 10px;
+            margin-bottom: 8px;
             text-align: center;
         }
 
         .login-form-section .welcome-text {
             color: #666;
             text-align: center;
-            margin-bottom: 40px;
-            font-size: 15px;
+            margin-bottom: 15px;
+            font-size: 14px;
         }
 
         .form-group {
-            margin-bottom: 25px;
+            margin-bottom: 10px;
         }
 
         .form-group label {
@@ -123,12 +129,12 @@
             margin-bottom: 8px;
             font-weight: 600;
             color: var(--kabouyah-dark);
-            font-size: 14px;
+            font-size: 13px;
         }
 
         .form-control {
             width: 100%;
-            padding: 15px 18px;
+            padding: 10px 15px;
             border: 2px solid #e3e7ed;
             border-radius: 12px;
             font-size: 14px;
@@ -157,14 +163,14 @@
         }
 
         .btn {
-            padding: 14px 25px;
+            padding: 10px 25px;
             border: none;
             border-radius: 12px;
             font-weight: 600;
             cursor: pointer;
             transition: all 0.3s ease;
             font-size: 15px;
-            margin-top: 10px;
+            margin-top: 8px;
         }
 
         .btn-primary {
@@ -181,8 +187,8 @@
 
         .forgot-password {
             text-align: right;
-            margin-top: -15px;
-            margin-bottom: 20px;
+            margin-top: -5px;
+            margin-bottom: 10px;
         }
 
         .forgot-password a {
@@ -198,7 +204,7 @@
 
         .divider {
             text-align: center;
-            margin: 25px 0;
+            margin: 20px 0;
             color: #999;
             font-size: 14px;
             position: relative;
@@ -226,7 +232,7 @@
             display: flex;
             justify-content: center;
             gap: 15px;
-            margin-bottom: 30px;
+            margin-bottom: 20px;
         }
 
         .social-btn {
@@ -257,7 +263,7 @@
 
         .signup-link {
             text-align: center;
-            margin-top: 20px;
+            margin-top: 15px;
             color: #666;
             font-size: 14px;
         }
@@ -280,11 +286,11 @@
             }
 
             .login-banner {
-                padding: 40px 30px;
+                padding: 30px 20px;
             }
 
             .login-form-section {
-                padding: 40px 30px;
+                padding: 30px 25px;
             }
         }
     </style>
@@ -293,10 +299,12 @@
     <div class="login-container">
         <!-- Banner Section -->
         <div class="login-banner">
-            <div class="logo-icon">
-                <i class="fas fa-utensils"></i>
-            </div>
-            <h1>RESTAURANT<br><span style="color: var(--kabouyah-gold);">KABOUYAH</span></h1>
+            <a href="index.html" class="banner-link">
+                <div class="logo-icon">
+                    <i class="fas fa-utensils"></i>
+                </div>
+                <h1>RESTAURANT<br><span style="color: var(--kabouyah-gold);">KABOUYAH</span></h1>
+            </a>
             <p>Découvrez une expérience culinaire unique, où tradition et modernité se rencontrent.</p>
             <div class="slogan">"Le goût de l'hospitalité guinéenne"</div>
         </div>
@@ -343,7 +351,7 @@
             </div>
 
             <div class="signup-link">
-                Vous n'avez pas de compte ? <a href="#">Inscription</a>
+                Vous n'avez pas de compte ? <a href="signin.html">Inscription</a>
             </div>
         </div>
     </div>
@@ -372,12 +380,26 @@
                 return;
             }
 
-            // Simulate login (replace with real authentication logic)
-            if (email === 'client@kabouyah.com' && password === 'password') {
+            // Get users from localStorage
+            let users = JSON.parse(localStorage.getItem('kabouyahUsers')) || [];
+
+            // For demonstration, ensure the default user exists
+            const defaultUserExists = users.some(user => user.email === 'client@kabouyah.com');
+            if (!defaultUserExists) {
+                users.push({ email: 'client@kabouyah.com', password: 'password', username: 'client', firstName: 'Client', lastName: 'Kabouyah' });
+                localStorage.setItem('kabouyahUsers', JSON.stringify(users));
+            }
+
+            // Find the user
+            const foundUser = users.find(user => user.email === email && user.password === password);
+
+            if (foundUser) {
+                // Store logged-in user's info to use on the client page
+                localStorage.setItem('loggedInUser', JSON.stringify(foundUser));
                 alert('Connexion réussie ! Redirection vers votre espace client...');
-                window.location.href = 'espace-client.html'; // Remplacez par le lien vers la page d'espace client
+                window.location.href = 'client.html';
             } else {
-                alert('Email ou mot de passe incorrect.');
+                alert('Email ou mot de passe incorrect. Veuillez vérifier vos informations ou vous inscrire.');
             }
         });
 

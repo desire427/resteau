@@ -40,12 +40,11 @@
             max-width: 900px;
             width: 100%;
             display: flex;
-            min-height: 700px;
         }
         .signup-banner {
             background: linear-gradient(180deg, var(--kabouyah-dark), #0a4552);
             color: white;
-            padding: 60px 40px;
+            padding: 25px;
             flex: 1;
             display: flex;
             flex-direction: column;
@@ -54,63 +53,70 @@
             text-align: center;
         }
         .signup-banner .logo-icon {
-            width: 80px;
-            height: 80px;
+            width: 60px;
+            height: 60px;
             background: var(--kabouyah-gold);
             border-radius: 15px;
             display: flex;
             align-items: center;
             justify-content: center;
-            margin-bottom: 30px;
-            font-size: 40px;
+            margin-bottom: 15px;
+            font-size: 30px;
         }
         .signup-banner h1 {
             font-family: 'Montserrat', sans-serif;
-            font-size: 28px;
+            font-size: 24px;
             font-weight: 800;
-            margin-bottom: 20px;
+            margin-bottom: 10px;
             line-height: 1.2;
         }
         .signup-banner p {
-            font-size: 16px;
+            font-size: 14px;
             opacity: 0.9;
-            margin-bottom: 40px;
+            margin-bottom: 20px;
         }
         .signup-banner .slogan {
             font-style: italic;
-            font-size: 18px;
+            font-size: 16px;
             color: var(--kabouyah-gold);
+        }
+        .banner-link {
+            text-decoration: none;
+            color: inherit;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
         .signup-form-section {
             flex: 1;
-            padding: 40px 50px;
+            padding: 20px 35px;
             display: flex;
             flex-direction: column;
             justify-content: center;
         }
         .signup-form-section h2 {
             font-family: 'Montserrat', sans-serif;
-            font-size: 24px;
+            font-size: 22px;
             font-weight: 700;
             color: var(--kabouyah-dark);
-            margin-bottom: 10px;
+            margin-bottom: 8px;
             text-align: center;
         }
         .signup-form-section .welcome-text {
             color: #666;
             text-align: center;
-            margin-bottom: 30px;
-            font-size: 15px;
+            margin-bottom: 15px;
+            font-size: 14px;
         }
         .form-group {
-            margin-bottom: 20px;
+            margin-bottom: 10px;
         }
         .form-group label {
             display: block;
-            margin-bottom: 8px;
+            margin-bottom: 5px;
             font-weight: 600;
             color: var(--kabouyah-dark);
-            font-size: 14px;
+            font-size: 13px;
         }
         .form-row {
             display: flex;
@@ -121,7 +127,7 @@
         }
         .form-control {
             width: 100%;
-            padding: 15px 18px;
+            padding: 10px 15px;
             border: 2px solid #e3e7ed;
             border-radius: 12px;
             font-size: 14px;
@@ -146,14 +152,14 @@
             color: #999;
         }
         .btn {
-            padding: 14px 25px;
+            padding: 10px 25px;
             border: none;
             border-radius: 12px;
             font-weight: 600;
             cursor: pointer;
             transition: all 0.3s ease;
             font-size: 15px;
-            margin-top: 20px;
+            margin-top: 8px;
         }
         .btn-primary {
             background: linear-gradient(135deg, var(--kabouyah-gold), var(--kabouyah-dark-gold));
@@ -167,7 +173,7 @@
         }
         .login-link {
             text-align: center;
-            margin-top: 20px;
+            margin-top: 10px;
             color: #666;
             font-size: 14px;
         }
@@ -200,10 +206,12 @@
 <body>
     <div class="signup-container">
         <div class="signup-banner">
-            <div class="logo-icon">
-                <i class="fas fa-utensils"></i>
-            </div>
-            <h1>RESTAURANT<br><span style="color: var(--kabouyah-gold);">KABOUYAH</span></h1>
+            <a href="index.html" class="banner-link">
+                <div class="logo-icon">
+                    <i class="fas fa-utensils"></i>
+                </div>
+                <h1>RESTAURANT<br><span style="color: var(--kabouyah-gold);">KABOUYAH</span></h1>
+            </a>
             <p>Rejoignez-nous pour une expérience culinaire inoubliable.</p>
             <div class="slogan">"Le goût de l'hospitalité guinéenne"</div>
         </div>
@@ -308,9 +316,32 @@
                 return;
             }
 
-            // Simulate signup (replace with real registration logic)
-            alert(`Compte créé avec succès pour ${username} ! Vous pouvez maintenant vous connecter.`);
-            window.location.href = 'login.html';
+            // Get existing users from localStorage or initialize an empty array
+            let users = JSON.parse(localStorage.getItem('kabouyahUsers')) || [];
+
+            // Check if user already exists
+            const userExists = users.some(user => user.email === email || user.username === username);
+
+            if (userExists) {
+                alert('Un utilisateur avec cet email ou nom d\'utilisateur existe déjà.');
+                return;
+            }
+
+            // Add new user
+            const newUser = {
+                firstName,
+                lastName,
+                username,
+                email,
+                password
+            };
+            users.push(newUser);
+
+            // Save updated users array to localStorage
+            localStorage.setItem('kabouyahUsers', JSON.stringify(users));
+
+            alert(`Compte créé avec succès pour ${username} ! Vous allez être redirigé vers la page de connexion.`);
+            window.location.href = 'login.html'; // Redirect to login page
         });
     </script>
 </body>

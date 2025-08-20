@@ -17,13 +17,11 @@
             --kabouyah-cream: #FFF8DC;
             --sidebar-width: 280px;
         }
-
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
-
         body {
             font-family: 'Open Sans', sans-serif;
             background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
@@ -31,17 +29,14 @@
             line-height: 1.6;
             min-height: 100vh;
         }
-
         h1, h2, h3, h4, h5 {
             font-family: 'Montserrat', sans-serif;
             font-weight: 700;
         }
-
         .client-container {
             display: flex;
             min-height: 100vh;
         }
-
         /* Sidebar */
         .sidebar {
             width: var(--sidebar-width);
@@ -53,19 +48,18 @@
             transition: all 0.3s ease;
             z-index: 1000;
         }
-
         .sidebar-header {
             padding: 25px 20px;
             border-bottom: 1px solid rgba(255,255,255,0.1);
             background: rgba(0,0,0,0.1);
         }
-
         .client-logo {
+            text-decoration: none;
+            color: inherit;
             display: flex;
             align-items: center;
             gap: 12px;
         }
-
         .client-logo .logo-icon {
             width: 45px;
             height: 45px;
@@ -75,17 +69,14 @@
             align-items: center;
             justify-content: center;
         }
-
         .client-logo .logo-text {
             font-size: 16px;
             font-weight: 800;
             line-height: 1.2;
         }
-
         .client-logo .logo-text span {
             color: var(--kabouyah-gold);
         }
-
         .client-info {
             padding: 20px;
             background: rgba(212,175,55,0.1);
@@ -93,7 +84,6 @@
             border-radius: 15px;
             text-align: center;
         }
-
         .client-avatar {
             width: 80px;
             height: 80px;
@@ -106,27 +96,22 @@
             font-size: 32px;
             margin: 0 auto 15px;
         }
-
         .client-name {
             font-size: 18px;
             font-weight: 700;
             margin-bottom: 5px;
         }
-
         .client-status {
             font-size: 14px;
             color: var(--kabouyah-gold);
             font-weight: 600;
         }
-
         .nav-menu {
             padding: 20px 0;
         }
-
         .nav-item {
             margin-bottom: 8px;
         }
-
         .nav-link {
             display: flex;
             align-items: center;
@@ -137,20 +122,17 @@
             font-weight: 500;
             border-left: 4px solid transparent;
         }
-
         .nav-link:hover,
         .nav-link.active {
             color: white;
             background: rgba(212,175,55,0.15);
             border-left-color: var(--kabouyah-gold);
         }
-
         .nav-link i {
             width: 20px;
             margin-right: 15px;
             font-size: 16px;
         }
-
         /* Main Content */
         .main-content {
             margin-left: var(--sidebar-width);
@@ -158,7 +140,6 @@
             padding: 0;
             background: transparent;
         }
-
         /* Header */
         .client-header {
             background: white;
@@ -172,14 +153,12 @@
             justify-content: space-between;
             align-items: center;
         }
-
         .header-content {
             display: flex;
             justify-content: space-between;
             align-items: center;
             width: 100%;
         }
-
         .page-title {
             font-size: 24px;
             color: var(--kabouyah-dark);
@@ -188,13 +167,11 @@
             align-items: center;
             gap: 15px;
         }
-
         .header-actions {
             display: flex;
             align-items: center;
             gap: 15px;
         }
-
         .loyalty-points {
             background: linear-gradient(135deg, var(--kabouyah-gold), var(--kabouyah-dark-gold));
             color: white;
@@ -203,7 +180,6 @@
             font-weight: 700;
             font-size: 14px;
         }
-
         .logout-btn {
             background: #dc3545;
             color: white;
@@ -213,11 +189,9 @@
             cursor: pointer;
             transition: all 0.3s ease;
         }
-
         .logout-btn:hover {
             background: #c82333;
         }
-
         /* Mobile Toggle */
         .mobile-toggle {
             display: none;
@@ -229,21 +203,17 @@
             padding: 10px;
             margin-right: 15px;
         }
-
         /* Content Area */
         .content-area {
             padding: 30px;
         }
-
         .content-section {
             display: none;
         }
-
         .content-section.active {
             display: block;
             animation: fadeInUp 0.5s ease;
         }
-
         /* Profile Cards */
         .profile-grid {
             display: grid;
@@ -251,7 +221,6 @@
             gap: 25px;
             margin-bottom: 40px;
         }
-
         .profile-card {
             background: white;
             border-radius: 20px;
@@ -261,7 +230,6 @@
             position: relative;
             overflow: hidden;
         }
-
         .profile-card::before {
             content: '';
             position: absolute;
@@ -271,18 +239,15 @@
             height: 5px;
             background: linear-gradient(90deg, var(--kabouyah-gold), var(--kabouyah-green));
         }
-
         .profile-card:hover {
             transform: translateY(-5px);
             box-shadow: 0 20px 40px rgba(0,0,0,0.15);
         }
-
         .profile-card h3 {
             color: var(--kabouyah-dark);
             margin-bottom: 20px;
             font-size: 18px;
         }
-
         /* Stats Cards */
         .stats-grid {
             display: grid;
@@ -290,7 +255,6 @@
             gap: 25px;
             margin-bottom: 40px;
         }
-
         .stat-card {
             background: white;
             border-radius: 20px;
@@ -300,7 +264,6 @@
             position: relative;
             overflow: hidden;
         }
-
         .stat-card::before {
             content: '';
             position: absolute;
@@ -310,31 +273,26 @@
             height: 4px;
             background: linear-gradient(90deg, var(--kabouyah-gold), var(--kabouyah-green));
         }
-
         .stat-card:hover {
             transform: translateY(-8px) scale(1.02);
             box-shadow: 0 25px 50px rgba(0,0,0,0.15);
         }
-
         .stat-header {
             display: flex;
             justify-content: space-between;
             align-items: flex-start;
             margin-bottom: 15px;
         }
-
         .stat-info h3 {
             font-size: 2rem;
             color: var(--kabouyah-dark);
             margin-bottom: 5px;
         }
-
         .stat-info p {
             color: #666;
             font-size: 14px;
             font-weight: 500;
         }
-
         .stat-icon {
             width: 50px;
             height: 50px;
@@ -346,7 +304,6 @@
             color: white;
             font-size: 20px;
         }
-
         /* Tables */
         .table-container {
             background: white;
@@ -355,7 +312,6 @@
             box-shadow: 0 10px 30px rgba(0,0,0,0.1);
             margin-bottom: 30px;
         }
-
         .table-header {
             padding: 25px 30px;
             background: linear-gradient(135deg, var(--kabouyah-dark), #0a4552);
@@ -364,12 +320,10 @@
             justify-content: space-between;
             align-items: center;
         }
-
         .table-header h3 {
             margin: 0;
             font-size: 18px;
         }
-
         .btn {
             padding: 10px 20px;
             border: none;
@@ -383,60 +337,49 @@
             gap: 8px;
             font-size: 14px;
         }
-
         .btn-primary {
             background: linear-gradient(135deg, var(--kabouyah-gold), var(--kabouyah-dark-gold));
             color: white;
         }
-
         .btn-primary:hover {
             transform: translateY(-2px);
             box-shadow: 0 5px 15px rgba(212,175,55,0.4);
         }
-
         .btn-success {
             background: linear-gradient(135deg, var(--kabouyah-green), #1e7e1e);
             color: white;
         }
-
         .btn-outline {
             background: transparent;
             color: var(--kabouyah-gold);
             border: 2px solid var(--kabouyah-gold);
         }
-
         .btn-outline:hover {
             background: var(--kabouyah-gold);
             color: white;
         }
-
         .data-table {
             width: 100%;
             border-collapse: collapse;
         }
-
         .data-table th,
         .data-table td {
             padding: 18px 20px;
             text-align: left;
             border-bottom: 1px solid #f0f0f0;
         }
-
         .data-table th {
             background: #f8f9fa;
             font-weight: 600;
             color: var(--kabouyah-dark);
             font-size: 14px;
         }
-
         .data-table tbody tr {
             transition: all 0.2s ease;
         }
-
         .data-table tbody tr:hover {
             background: linear-gradient(90deg, rgba(212,175,55,0.05), rgba(255,255,255,1));
         }
-
         /* Status Badges */
         .status-badge {
             padding: 6px 12px;
@@ -445,27 +388,22 @@
             font-weight: 600;
             text-transform: uppercase;
         }
-
         .status-confirmed {
             background: linear-gradient(135deg, #d4edda, #c3e6cb);
             color: #155724;
         }
-
         .status-pending {
             background: linear-gradient(135deg, #fff3cd, #ffeeba);
             color: #856404;
         }
-
         .status-cancelled {
             background: linear-gradient(135deg, #f8d7da, #f5c6cb);
             color: #721c24;
         }
-
         .status-delivered {
             background: linear-gradient(135deg, #d1ecf1, #bee5eb);
             color: #0c5460;
         }
-
         /* Forms */
         .form-container {
             background: white;
@@ -475,7 +413,6 @@
             position: relative;
             overflow: hidden;
         }
-
         .form-container::before {
             content: '';
             position: absolute;
@@ -485,18 +422,15 @@
             height: 5px;
             background: linear-gradient(90deg, var(--kabouyah-gold), var(--kabouyah-green));
         }
-
         .form-group {
             margin-bottom: 25px;
         }
-
         .form-group label {
             display: block;
             margin-bottom: 8px;
             font-weight: 600;
             color: var(--kabouyah-dark);
         }
-
         .form-control {
             width: 100%;
             padding: 15px 18px;
@@ -505,19 +439,16 @@
             font-size: 14px;
             transition: all 0.3s ease;
         }
-
         .form-control:focus {
             outline: none;
             border-color: var(--kabouyah-gold);
             box-shadow: 0 0 0 3px rgba(212,175,55,0.1);
         }
-
         .form-row {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
             gap: 20px;
         }
-
         /* Favorites Grid */
         .favorites-grid {
             display: grid;
@@ -525,7 +456,6 @@
             gap: 25px;
             margin-bottom: 30px;
         }
-
         .favorite-dish {
             background: white;
             border-radius: 20px;
@@ -535,7 +465,6 @@
             position: relative;
             overflow: hidden;
         }
-
         .favorite-dish::before {
             content: '';
             position: absolute;
@@ -545,36 +474,30 @@
             height: 4px;
             background: linear-gradient(90deg, var(--kabouyah-gold), var(--kabouyah-green));
         }
-
         .favorite-dish:hover {
             transform: translateY(-5px);
             box-shadow: 0 20px 40px rgba(0,0,0,0.15);
         }
-
         .dish-name {
             font-size: 16px;
             font-weight: 700;
             color: var(--kabouyah-dark);
             margin-bottom: 10px;
         }
-
         .dish-price {
             color: var(--kabouyah-gold);
             font-weight: 600;
             margin-bottom: 10px;
         }
-
         .dish-orders {
             color: #666;
             font-size: 14px;
         }
-
         /* Rating Stars */
         .rating {
             color: var(--kabouyah-gold);
             font-size: 16px;
         }
-
         /* Notification Dot */
         .notification-dot {
             position: absolute;
@@ -586,7 +509,6 @@
             border-radius: 50%;
             border: 2px solid white;
         }
-
         /* Reservation Section */
         .reservation-form {
             background: white;
@@ -595,14 +517,12 @@
             box-shadow: 0 10px 30px rgba(0,0,0,0.1);
             margin-bottom: 30px;
         }
-
         .form-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 25px;
             margin-bottom: 25px;
         }
-
         .menu-section {
             background: white;
             border-radius: 20px;
@@ -610,7 +530,6 @@
             box-shadow: 0 10px 30px rgba(0,0,0,0.1);
             margin-bottom: 30px;
         }
-
         .menu-section h3 {
             margin-bottom: 20px;
             font-size: 18px;
@@ -618,14 +537,12 @@
             align-items: center;
             gap: 10px;
         }
-
         .menu-categories {
             display: flex;
             gap: 15px;
             margin-bottom: 25px;
             flex-wrap: wrap;
         }
-
         .menu-category-btn {
             padding: 10px 20px;
             border: 2px solid var(--kabouyah-gold);
@@ -636,18 +553,15 @@
             cursor: pointer;
             transition: all 0.3s ease;
         }
-
         .menu-category-btn.active {
             background: var(--kabouyah-gold);
             color: white;
         }
-
         .menu-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
             gap: 20px;
         }
-
         .menu-item {
             background: #f8f9fa;
             border-radius: 15px;
@@ -658,21 +572,17 @@
             cursor: pointer;
             transition: all 0.3s ease;
         }
-
         .menu-item:hover {
             background: linear-gradient(90deg, rgba(212,175,55,0.1), rgba(255,255,255,1));
         }
-
         .menu-item-info h4 {
             font-size: 16px;
             margin-bottom: 5px;
         }
-
         .menu-item-price {
             color: var(--kabouyah-gold);
             font-weight: 700;
         }
-
         .selected-dishes {
             background: white;
             border-radius: 20px;
@@ -680,17 +590,14 @@
             box-shadow: 0 10px 30px rgba(0,0,0,0.1);
             margin-bottom: 30px;
         }
-
         .selected-dishes h3 {
             margin-bottom: 20px;
             font-size: 18px;
         }
-
         .dish-list {
             display: grid;
             gap: 15px;
         }
-
         .dish-list-item {
             display: flex;
             justify-content: space-between;
@@ -699,13 +606,11 @@
             background: #f8f9fa;
             border-radius: 10px;
         }
-
         .dish-quantity {
             display: flex;
             align-items: center;
             gap: 10px;
         }
-
         .quantity-btn {
             width: 30px;
             height: 30px;
@@ -717,28 +622,24 @@
             align-items: center;
             justify-content: center;
         }
-
         .reservation-summary {
             background: white;
             border-radius: 20px;
             padding: 30px;
             box-shadow: 0 10px 30px rgba(0,0,0,0.1);
         }
-
         .summary-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 25px;
             margin-bottom: 25px;
         }
-
         .summary-item {
             display: flex;
             justify-content: space-between;
             padding: 10px 0;
             border-bottom: 1px solid #f0f0f0;
         }
-
         .summary-total {
             font-size: 1.5rem;
             font-weight: 700;
@@ -746,69 +647,54 @@
             text-align: right;
             margin-top: 15px;
         }
-
         /* Mobile Responsiveness */
         @media (max-width: 1024px) {
             .sidebar {
                 transform: translateX(-100%);
             }
-
             .sidebar.active {
                 transform: translateX(0);
             }
-
             .main-content {
                 margin-left: 0;
             }
-
             .mobile-toggle {
                 display: block !important;
             }
         }
-
         @media (max-width: 768px) {
             .content-area {
                 padding: 20px;
             }
-
             .profile-grid {
                 grid-template-columns: 1fr;
             }
-
             .stats-grid {
                 grid-template-columns: 1fr;
             }
-
             .favorites-grid {
                 grid-template-columns: 1fr;
             }
-
             .client-header {
                 padding: 15px 20px;
             }
-
             .form-row {
                 grid-template-columns: 1fr;
             }
-
             .header-actions {
                 flex-direction: column;
                 gap: 10px;
             }
-
             .form-grid {
                 grid-template-columns: 1fr;
             }
-
             .menu-grid {
                 grid-template-columns: 1fr;
             }
-
             .summary-grid {
                 grid-template-columns: 1fr;
             }
         }
-
         /* Animations */
         @keyframes fadeInUp {
             from {
@@ -820,7 +706,6 @@
                 transform: translateY(0);
             }
         }
-
         .content-section.active {
             animation: fadeInUp 0.5s ease;
         }
@@ -831,27 +716,25 @@
         <!-- Sidebar -->
         <nav class="sidebar" id="sidebar">
             <div class="sidebar-header">
-                <div class="client-logo">
+                <a href="index.html" class="client-logo">
                     <div class="logo-icon">
                         <i class="fas fa-utensils"></i>
                     </div>
                     <div class="logo-text">
                         RESTAURANT<br><span>KABOUYAH</span>
                     </div>
-                </div>
+                </a>
             </div>
-
             <div class="client-info">
                 <div class="client-avatar">
                     <i class="fas fa-user"></i>
                 </div>
-                <div class="client-name">Mamadou Diallo</div>
+                <div class="client-name">Chargement...</div>
                 <div class="client-status">Client Fidèle ⭐</div>
             </div>
-
             <div class="nav-menu">
                 <div class="nav-item">
-                    <a href="#" class="nav-link" data-section="dashboard">
+                    <a href="#" class="nav-link active" data-section="dashboard">
                         <i class="fas fa-tachometer-alt"></i>
                         Mon Tableau de Bord
                     </a>
@@ -863,7 +746,7 @@
                     </a>
                 </div>
                 <div class="nav-item">
-                    <a href="#" class="nav-link active" data-section="reservations">
+                    <a href="#" class="nav-link" data-section="reservations">
                         <i class="fas fa-calendar-check"></i>
                         Mes Réservations
                         <span class="notification-dot"></span>
@@ -901,7 +784,6 @@
                 </div>
             </div>
         </nav>
-
         <!-- Main Content -->
         <main class="main-content">
             <!-- Header -->
@@ -916,23 +798,21 @@
                             Mes Réservations
                         </h1>
                     </div>
-
                     <div class="header-actions">
                         <div class="loyalty-points">
                             <i class="fas fa-star"></i>
                             1,247 Points Fidélité
                         </div>
-                        <button class="logout-btn">
+                        <button class="logout-btn" id="logoutBtn">
                             <i class="fas fa-sign-out-alt"></i>
                         </button>
                     </div>
                 </div>
             </header>
-
             <!-- Content Area -->
             <div class="content-area">
                 <!-- Dashboard Section -->
-                <div class="content-section" id="dashboard">
+                <div class="content-section active" id="dashboard">
                     <div class="stats-grid">
                         <div class="stat-card">
                             <div class="stat-header">
@@ -945,7 +825,6 @@
                                 </div>
                             </div>
                         </div>
-
                         <div class="stat-card">
                             <div class="stat-header">
                                 <div class="stat-info">
@@ -957,7 +836,6 @@
                                 </div>
                             </div>
                         </div>
-
                         <div class="stat-card">
                             <div class="stat-header">
                                 <div class="stat-info">
@@ -969,7 +847,6 @@
                                 </div>
                             </div>
                         </div>
-
                         <div class="stat-card">
                             <div class="stat-header">
                                 <div class="stat-info">
@@ -982,7 +859,6 @@
                             </div>
                         </div>
                     </div>
-
                     <div class="table-container">
                         <div class="table-header">
                             <h3>Mes Dernières Activités</h3>
@@ -1027,7 +903,6 @@
                         </table>
                     </div>
                 </div>
-
                 <!-- Profile Section -->
                 <div class="content-section" id="profile">
                     <div class="profile-grid">
@@ -1060,7 +935,6 @@
                                 Sauvegarder
                             </button>
                         </div>
-
                         <div class="profile-card">
                             <h3>Préférences Alimentaires</h3>
                             <div class="form-group">
@@ -1098,9 +972,8 @@
                         </div>
                     </div>
                 </div>
-
                 <!-- Reservations Section -->
-                <div class="content-section active" id="reservations">
+                <div class="content-section" id="reservations">
                     <div class="table-container" id="reservationsList">
                         <div class="table-header">
                             <h3>Mes Réservations</h3>
@@ -1482,7 +1355,6 @@
                         </table>
                     </div>
                 </div>
-
                 <!-- Favorites Section -->
                 <div class="content-section" id="favorites">
                     <div class="favorites-grid">
@@ -1498,7 +1370,6 @@
                                 Commander
                             </button>
                         </div>
-
                         <div class="favorite-dish">
                             <div class="dish-name">Poisson Braisé</div>
                             <div class="dish-price">25,000 FG</div>
@@ -1511,7 +1382,6 @@
                                 Commander
                             </button>
                         </div>
-
                         <div class="favorite-dish">
                             <div class="dish-name">Poulet Yassa</div>
                             <div class="dish-price">21,000 FG</div>
@@ -1524,7 +1394,6 @@
                                 Commander
                             </button>
                         </div>
-
                         <div class="favorite-dish">
                             <div class="dish-name">Jus de Bissap</div>
                             <div class="dish-price">2,500 FG</div>
@@ -1537,7 +1406,6 @@
                                 Commander
                             </button>
                         </div>
-
                         <div class="favorite-dish">
                             <div class="dish-name">Fonio aux Légumes</div>
                             <div class="dish-price">18,000 FG</div>
@@ -1550,7 +1418,6 @@
                                 Commander
                             </button>
                         </div>
-
                         <div class="favorite-dish">
                             <div class="dish-name">Jus de Baobab</div>
                             <div class="dish-price">3,000 FG</div>
@@ -1565,7 +1432,6 @@
                         </div>
                     </div>
                 </div>
-
                 <!-- Loyalty Section -->
                 <div class="content-section" id="loyalty">
                     <div class="profile-grid">
@@ -1593,7 +1459,6 @@
                                 Voir mes Récompenses
                             </button>
                         </div>
-
                         <div class="profile-card">
                             <h3>Historique des Points</h3>
                             <div style="margin: 20px 0;">
@@ -1636,7 +1501,6 @@
                             </div>
                         </div>
                     </div>
-
                     <div class="table-container">
                         <div class="table-header">
                             <h3>Récompenses Disponibles</h3>
@@ -1700,7 +1564,6 @@
                         </table>
                     </div>
                 </div>
-
                 <!-- Reviews Section -->
                 <div class="content-section" id="reviews">
                     <div class="table-container">
@@ -1783,7 +1646,6 @@
                         </table>
                     </div>
                 </div>
-
                 <!-- Settings Section -->
                 <div class="content-section" id="settings">
                     <div class="profile-grid">
@@ -1824,7 +1686,6 @@
                                 Sauvegarder Notifications
                             </button>
                         </div>
-
                         <div class="form-container">
                             <h3>Sécurité du Compte</h3>
                             <div class="form-group">
@@ -1843,9 +1704,7 @@
                                 <i class="fas fa-lock"></i>
                                 Changer le Mot de Passe
                             </button>
-
                             <hr style="margin: 30px 0;">
-
                             <div style="text-align: center;">
                                 <h4 style="color: #dc3545; margin-bottom: 15px;">Zone Dangereuse</h4>
                                 <p style="color: #666; font-size: 14px; margin-bottom: 20px;">
@@ -1862,7 +1721,6 @@
             </div>
         </main>
     </div>
-
     <script>
         // Navigation entre sections
         document.addEventListener('DOMContentLoaded', function() {
@@ -1872,14 +1730,35 @@
             const mobileToggle = document.getElementById('mobileToggle');
             const sidebar = document.getElementById('sidebar');
             const newReservationBtn = document.getElementById('newReservationBtn');
-            const backToReservations = document.getElementById('backToReservations');
+            const openReservationForm = document.getElementById('openReservationForm');
+            const closeReservationForm = document.getElementById('closeReservationForm');
+            const reservationFormContainer = document.getElementById('reservationFormContainer');
+            const reservationsList = document.getElementById('reservationsList');
+
+            // Personalize the page with logged-in user data
+            const loggedInUser = JSON.parse(localStorage.getItem('loggedInUser'));
+            if (loggedInUser) {
+                document.querySelector('.client-name').textContent = `${loggedInUser.firstName} ${loggedInUser.lastName}`;
+                // You can also update email, phone, etc. in the profile section
+                const profileFirstName = document.getElementById('firstName');
+                const profileLastName = document.getElementById('lastName');
+                const profileEmail = document.getElementById('email');
+                if (profileFirstName) profileFirstName.value = loggedInUser.firstName;
+                if (profileLastName) profileLastName.value = loggedInUser.lastName;
+                if (profileEmail) profileEmail.value = loggedInUser.email;
+            } else {
+                // If no user is logged in, redirect to login page
+                alert("Vous n'êtes pas connecté. Redirection vers la page de connexion.");
+                window.location.href = 'login.html';
+                return; // Stop script execution
+            }
+
 
             // Gestion des titres de page avec icônes
             const pageTitles = {
                 'dashboard': { title: 'Mon Tableau de Bord', icon: 'fas fa-tachometer-alt' },
                 'profile': { title: 'Mes Informations', icon: 'fas fa-user-circle' },
                 'reservations': { title: 'Mes Réservations', icon: 'fas fa-calendar-check' },
-                'new-reservation': { title: 'Nouvelle Réservation', icon: 'fas fa-calendar-plus' },
                 'orders': { title: 'Mes Commandes', icon: 'fas fa-shopping-cart' },
                 'favorites': { title: 'Mes Plats Favoris', icon: 'fas fa-heart' },
                 'loyalty': { title: 'Programme Fidélité', icon: 'fas fa-star' },
@@ -1904,20 +1783,8 @@
                 });
             });
 
-            // Bouton "Nouvelle Réservation"
+            // Bouton "Nouvelle Réservation" dans le tableau de bord
             newReservationBtn.addEventListener('click', function() {
-                navLinks.forEach(l => l.classList.remove('active'));
-                document.querySelector('.nav-link[data-section="reservations"]').classList.add('active');
-                contentSections.forEach(section => section.classList.remove('active'));
-                document.getElementById('new-reservation').classList.add('active');
-                pageTitle.innerHTML = `<i class="fas fa-calendar-plus"></i> Nouvelle Réservation`;
-                if (window.innerWidth <= 1024) {
-                    sidebar.classList.remove('active');
-                }
-            });
-
-            // Bouton "Retour aux réservations"
-            backToReservations.addEventListener('click', function() {
                 navLinks.forEach(l => l.classList.remove('active'));
                 document.querySelector('.nav-link[data-section="reservations"]').classList.add('active');
                 contentSections.forEach(section => section.classList.remove('active'));
@@ -1926,6 +1793,21 @@
                 if (window.innerWidth <= 1024) {
                     sidebar.classList.remove('active');
                 }
+                // Ouvrir le formulaire de réservation
+                reservationFormContainer.style.display = 'block';
+                reservationsList.style.display = 'none';
+            });
+
+            // Bouton "Nouvelle Réservation" dans la section réservations
+            openReservationForm.addEventListener('click', function() {
+                reservationFormContainer.style.display = 'block';
+                reservationsList.style.display = 'none';
+            });
+
+            // Bouton "Retour aux réservations"
+            closeReservationForm.addEventListener('click', function() {
+                reservationFormContainer.style.display = 'none';
+                reservationsList.style.display = 'block';
             });
 
             // Toggle mobile sidebar
@@ -1943,10 +1825,12 @@
             });
 
             // Gestion du bouton de déconnexion
-            const logoutBtn = document.querySelector('.logout-btn');
+            const logoutBtn = document.getElementById('logoutBtn');
             logoutBtn.addEventListener('click', function() {
                 if (confirm('Êtes-vous sûr de vouloir vous déconnecter ?')) {
+                    localStorage.removeItem('loggedInUser');
                     alert('Vous avez été déconnecté.');
+                    window.location.href = 'login.html';
                 }
             });
 
@@ -2001,7 +1885,6 @@
                     alert('Modifier la réservation...');
                 });
             });
-
             const cancelButtons = document.querySelectorAll('#reservations .btn[style*="background: #dc3545"]');
             cancelButtons.forEach(btn => {
                 btn.addEventListener('click', function() {
@@ -2066,168 +1949,8 @@
 
             // Ajouter un plat à la sélection
             function addDishToSelection(name, price) {
-                const dishList = document.getElementById('selectedDishes');
-                const existingItem = Array.from(dishList.children).find(item => item.dataset.name === name);
-
-                if (existingItem) {
-                    const quantityElement = existingItem.querySelector('.quantity');
-                    let quantity = parseInt(quantityElement.textContent);
-                    quantity++;
-                    quantityElement.textContent = quantity;
-                    updateDishTotal(existingItem, price, quantity);
-                } else {
-                    const newItem = document.createElement('div');
-                    newItem.className = 'dish-list-item';
-                    newItem.dataset.name = name;
-                    newItem.dataset.price = price;
-                    newItem.innerHTML = `
-                        <div>
-                            <h4>${name}</h4>
-                            <p>${price.toLocaleString()} FG</p>
-                        </div>
-                        <div class="dish-quantity">
-                            <button class="quantity-btn decrease" data-name="${name}">-</button>
-                            <span class="quantity">1</span>
-                            <button class="quantity-btn increase" data-name="${name}">+</button>
-                            <span class="dish-total">${price.toLocaleString()} FG</span>
-                            <button class="remove-dish" data-name="${name}"><i class="fas fa-times"></i></button>
-                        </div>
-                    `;
-                    dishList.appendChild(newItem);
-
-                    // Gestion des boutons +/-
-                    newItem.querySelector('.increase').addEventListener('click', function() {
-                        const quantityElement = this.parentElement.querySelector('.quantity');
-                        let quantity = parseInt(quantityElement.textContent);
-                        quantity++;
-                        quantityElement.textContent = quantity;
-                        updateDishTotal(this.closest('.dish-list-item'), price, quantity);
-                    });
-
-                    newItem.querySelector('.decrease').addEventListener('click', function() {
-                        const quantityElement = this.parentElement.querySelector('.quantity');
-                        let quantity = parseInt(quantityElement.textContent);
-                        if (quantity > 1) {
-                            quantity--;
-                            quantityElement.textContent = quantity;
-                            updateDishTotal(this.closest('.dish-list-item'), price, quantity);
-                        }
-                    });
-
-                    // Suppression du plat
-                    newItem.querySelector('.remove-dish').addEventListener('click', function() {
-                        this.closest('.dish-list-item').remove();
-                        updateSummary();
-                    });
-                }
-
-                updateSummary();
-            }
-
-            // Mettre à jour le total d'un plat
-            function updateDishTotal(item, unitPrice, quantity) {
-                const totalElement = item.querySelector('.dish-total');
-                const total = unitPrice * quantity;
-                totalElement.textContent = `${total.toLocaleString()} FG`;
-                updateSummary();
-            }
-
-            // Mettre à jour le récapitulatif
-            function updateSummary() {
-                const dishes = document.querySelectorAll('.dish-list-item');
-                let subtotal = 0;
-
-                dishes.forEach(dish => {
-                    const quantity = parseInt(dish.querySelector('.quantity').textContent);
-                    const price = parseInt(dish.dataset.price);
-                    subtotal += price * quantity;
-                });
-
-                const service = Math.round(subtotal * 0.1);
-                const total = subtotal + service;
-
-                document.getElementById('summarySubtotal').textContent = `${subtotal.toLocaleString()} FG`;
-                document.getElementById('summaryService').textContent = `${service.toLocaleString()} FG`;
-                document.getElementById('summaryTotal').textContent = `${total.toLocaleString()} FG`;
-            }
-
-            // Mettre à jour le récapitulatif en temps réel
-            document.getElementById('reservationDate').addEventListener('change', function() {
-                document.getElementById('summaryDateTime').textContent = `${this.value} à ${document.getElementById('reservationTime').value}`;
-            });
-
-            document.getElementById('reservationTime').addEventListener('change', function() {
-                document.getElementById('summaryDateTime').textContent = `${document.getElementById('reservationDate').value} à ${this.value}`;
-            });
-
-            document.getElementById('guests').addEventListener('change', function() {
-                document.getElementById('summaryGuests').textContent = this.value;
-            });
-
-            document.getElementById('occasion').addEventListener('change', function() {
-                document.getElementById('summaryOccasion').textContent = this.value || 'Aucune';
-            });
-
-            // Confirmation de la réservation
-            document.getElementById('confirmReservation').addEventListener('click', function() {
-                const date = document.getElementById('reservationDate').value;
-                const time = document.getElementById('reservationTime').value;
-                const guests = document.getElementById('guests').value;
-
-                if (!date || !time || !guests) {
-                    alert('Veuillez remplir tous les champs obligatoires.');
-                    return;
-                }
-
-                if (confirm('Voulez-vous confirmer cette réservation ?')) {
-                    alert('Réservation confirmée avec succès ! Vous recevrez un email de confirmation.');
-                    // Retour à la liste des réservations
-                    document.querySelector('.nav-link[data-section="reservations"]').click();
-                }
-            });
-
-            // Date minimale = aujourd'hui
-            document.getElementById('reservationDate').min = new Date().toISOString().split('T')[0];
-
-            // Gestion du formulaire de réservation avancé
-            const openReservationForm = document.getElementById('openReservationForm');
-            const closeReservationForm = document.getElementById('closeReservationForm');
-            const reservationFormContainer = document.getElementById('reservationFormContainer');
-
-            openReservationForm.addEventListener('click', function() {
-                reservationFormContainer.style.display = 'block';
-                document.getElementById('reservationsList').style.display = 'none';
-            });
-
-            closeReservationForm.addEventListener('click', function() {
-                reservationFormContainer.style.display = 'none';
-                document.getElementById('reservationsList').style.display = 'block';
-            });
-
-            // Gestion des catégories de menu dans le formulaire de réservation
-            document.querySelectorAll('.menu-category-btn').forEach(btn => {
-                btn.addEventListener('click', function() {
-                    document.querySelectorAll('.menu-category-btn').forEach(b => b.classList.remove('active'));
-                    this.classList.add('active');
-                    document.querySelectorAll('.menu-grid').forEach(grid => grid.style.display = 'none');
-                    document.getElementById(this.dataset.category).style.display = 'grid';
-                });
-            });
-
-            // Sélection des plats dans le formulaire de réservation
-            document.querySelectorAll('.menu-item').forEach(item => {
-                item.addEventListener('click', function() {
-                    const name = this.dataset.name;
-                    const price = parseInt(this.dataset.price);
-                    addDishToSelection(name, price);
-                });
-            });
-
-            // Ajouter un plat à la sélection dans le formulaire de réservation
-            function addDishToSelection(name, price) {
                 const dishList = document.getElementById('selectedDishes2');
                 const existingItem = Array.from(dishList.children).find(item => item.dataset.name === name);
-
                 if (existingItem) {
                     const quantityElement = existingItem.querySelector('.quantity');
                     let quantity = parseInt(quantityElement.textContent);
@@ -2253,7 +1976,6 @@
                         </div>
                     `;
                     dishList.appendChild(newItem);
-
                     // Gestion des boutons +/-
                     newItem.querySelector('.increase').addEventListener('click', function() {
                         const quantityElement = this.parentElement.querySelector('.quantity');
@@ -2262,7 +1984,6 @@
                         quantityElement.textContent = quantity;
                         updateDishTotal(this.closest('.dish-list-item'), price, quantity);
                     });
-
                     newItem.querySelector('.decrease').addEventListener('click', function() {
                         const quantityElement = this.parentElement.querySelector('.quantity');
                         let quantity = parseInt(quantityElement.textContent);
@@ -2272,14 +1993,12 @@
                             updateDishTotal(this.closest('.dish-list-item'), price, quantity);
                         }
                     });
-
                     // Suppression du plat
                     newItem.querySelector('.remove-dish').addEventListener('click', function() {
                         this.closest('.dish-list-item').remove();
                         updateSummary();
                     });
                 }
-
                 updateSummary();
             }
 
@@ -2295,16 +2014,13 @@
             function updateSummary() {
                 const dishes = document.querySelectorAll('.dish-list-item');
                 let subtotal = 0;
-
                 dishes.forEach(dish => {
                     const quantity = parseInt(dish.querySelector('.quantity').textContent);
                     const price = parseInt(dish.dataset.price);
                     subtotal += price * quantity;
                 });
-
                 const service = Math.round(subtotal * 0.1);
                 const total = subtotal + service;
-
                 document.getElementById('summarySubtotal2').textContent = `${subtotal.toLocaleString()} FG`;
                 document.getElementById('summaryService2').textContent = `${service.toLocaleString()} FG`;
                 document.getElementById('summaryTotal2').textContent = `${total.toLocaleString()} FG`;
@@ -2314,38 +2030,34 @@
             document.getElementById('reservationDate2').addEventListener('change', function() {
                 document.getElementById('summaryDateTime2').textContent = `${this.value} à ${document.getElementById('reservationTime2').value}`;
             });
-
             document.getElementById('reservationTime2').addEventListener('change', function() {
                 document.getElementById('summaryDateTime2').textContent = `${document.getElementById('reservationDate2').value} à ${this.value}`;
             });
-
             document.getElementById('guests2').addEventListener('change', function() {
                 document.getElementById('summaryGuests2').textContent = this.value;
             });
-
             document.getElementById('occasion2').addEventListener('change', function() {
                 document.getElementById('summaryOccasion2').textContent = this.value || 'Aucune';
             });
 
-            // Confirmation de la réservation dans le formulaire avancé
+            // Confirmation de la réservation
             document.getElementById('confirmReservation2').addEventListener('click', function() {
                 const date = document.getElementById('reservationDate2').value;
                 const time = document.getElementById('reservationTime2').value;
                 const guests = document.getElementById('guests2').value;
-
                 if (!date || !time || !guests) {
                     alert('Veuillez remplir tous les champs obligatoires.');
                     return;
                 }
-
                 if (confirm('Voulez-vous confirmer cette réservation ?')) {
                     alert('Réservation confirmée avec succès ! Vous recevrez un email de confirmation.');
                     // Retour à la liste des réservations
-                    document.querySelector('.nav-link[data-section="reservations"]').click();
+                    reservationFormContainer.style.display = 'none';
+                    reservationsList.style.display = 'block';
                 }
             });
 
-            // Date minimale = aujourd'hui pour le formulaire avancé
+            // Date minimale = aujourd'hui
             document.getElementById('reservationDate2').min = new Date().toISOString().split('T')[0];
         });
     </script>

@@ -145,6 +145,10 @@
             background: var(--kabouyah-dark-gold);
             transform: translateY(-3px);
         }
+        .cta-button a {
+            text-decoration: none;
+            color: white;
+        }
         
         .mobile-menu-btn {
             display: none;
@@ -857,8 +861,8 @@
                     <li><a href="#menu">Menu</a></li>
                     <li><a href="#contact">Contact</a></li>
                 </ul>
-                
-                <button class="cta-button">Réservation</button>
+                <!-- enlever le style au a qui se trouve dans la classe cta-button -->
+                <button class="cta-button"><a href="login.html">Réservation</a></button>
                 
                 <button class="mobile-menu-btn" id="mobileMenuBtn">
                     <i class="fas fa-bars"></i>
